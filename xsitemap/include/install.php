@@ -36,18 +36,16 @@ $blankFile = XOOPS_ROOT_PATH."/modules/xsitemap/images/icons/blank.gif";
 //Creation du dossier "uploads" pour le module à la racine du site
 $module_uploads = XOOPS_ROOT_PATH."/uploads/xsitemap";
 if(!is_dir($module_uploads))
-	mkdir($module_uploads, 0777);
-	chmod($module_uploads, 0777);
+    mkdir($module_uploads, 0777);
+    chmod($module_uploads, 0777);
 copy($indexFile, XOOPS_ROOT_PATH."/uploads/xsitemap/index.html");
 
 //Creation du fichier plugin dans uploads
 $module_uploads = XOOPS_ROOT_PATH."/uploads/xsitemap/plugin";
 if(!is_dir($module_uploads))
-	mkdir($module_uploads, 0777);
-	chmod($module_uploads, 0777);
+    mkdir($module_uploads, 0777);
+    chmod($module_uploads, 0777);
 copy($indexFile, XOOPS_ROOT_PATH."/uploads/xsitemap/plugin/index.html");
 
 //Creazione del file xsitemap.xml nella root del sito
-xsitemap_install();		
-				
-?>
+xsitemap_install();

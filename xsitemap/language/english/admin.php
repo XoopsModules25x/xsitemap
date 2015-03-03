@@ -21,7 +21,7 @@
  * Version : 1.00:
  * ****************************************************************************
  */
- 	
+    
 //Menu
 define("_AM_XSITEMAP_MANAGER_INDEX","Index");
 
@@ -35,7 +35,6 @@ define("_AM_XSITEMAP_MANAGER_PERMISSIONS","Permissions");
 
 //Index
 define("_AM_XSITEMAP_MANAGER_PLUGIN","Plugin");
-
 
 //General
 define("_AM_XSITEMAP_FORMOK","Successfully registered");
@@ -71,7 +70,6 @@ define("_AM_XSITEMAP_PLUGIN_CAT_NAME_SHORT","Category name");
 define("_AM_XSITEMAP_PLUGIN_WEIGHT_SHORT","Sorted");
 define("_AM_XSITEMAP_PLUGIN_CALL_SHORT","Call");
 
-
 //Permissions
 define("_AM_XSITEMAP_PERMISSIONS_ACCESS","Allowed to see");
 define("_AM_XSITEMAP_PERMISSIONS_SUBMIT","Permission to send");
@@ -102,7 +100,7 @@ define("_AM_XSITEMAP_ABOUT_BY","Powered by <a href ='http://www.takeaweb.it'> TA
 
 //add by urbanspaceman 22/08/2009
 define("_AM_XSITEMAP_ABOUT_TRANSLATION","Translation");
-define("_AM_XSITEMAP_ABOUT_TRANSLATION_TEXT","<ul><li>Italiano : Urbanspaceman</li><li>PortgueseBr : Artsgeral</li><li>English : dbman</li></ul>");	
+define("_AM_XSITEMAP_ABOUT_TRANSLATION_TEXT","<ul><li>Italiano : Urbanspaceman</li><li>PortgueseBr : Artsgeral</li><li>English : dbman</li></ul>");
 
 //add by urbanspaceman 26/08/2009
 //xml.php

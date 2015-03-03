@@ -30,7 +30,7 @@ $pathIcon32 = $module->getInfo('icons32');
 
 xoops_loadLanguage('admin', $dirname);
  
-$adminmenu = array(); 
+$adminmenu = array();
 $i = 1;
 $adminmenu[$i]["title"] = _MI_XSITEMAP_MANAGER_INDEX;
 $adminmenu[$i]["link"] = "admin/index.php";
@@ -50,5 +50,3 @@ $i++;
 $adminmenu[$i]["title"] = _MI_XSITEMAP_MANAGER_ABOUT;
 $adminmenu[$i]["link"] = "admin/about.php";
 $adminmenu[$i]["icon"] = $pathIcon32 . '/about.png';
-
-?>

@@ -34,13 +34,12 @@ include_once XOOPS_ROOT_PATH . "/modules/xsitemap/include/functions.php";
 include_once(XOOPS_ROOT_PATH . "/modules/xsitemap/class/xsitemap_class.php");
 
 $xsitemap_configs = $xoopsModuleConfig ;
-		
-			$xsitemap_show = xsitemap_show_sitemap();
-			
-			$xoopsTpl->assign('xsitemap', $xsitemap_show);
-			$xoopsTpl->assign( 'num_col' , $xsitemap_configs['columns_number'] ) ;
-			$xoopsTpl->assign( 'show_sublink' , $xsitemap_configs['show_sublink'] ) ;
-			$xoopsTpl->assign( 'show_subcategories' , $xsitemap_configs['show_subcategories'] ) ;
-		
-include_once XOOPS_ROOT_PATH."/footer.php";	
-?>
+        
+            $xsitemap_show = xsitemap_show_sitemap();
+            
+            $xoopsTpl->assign('xsitemap', $xsitemap_show);
+            $xoopsTpl->assign( 'num_col' , $xsitemap_configs['columns_number'] ) ;
+            $xoopsTpl->assign( 'show_sublink' , $xsitemap_configs['show_sublink'] ) ;
+            $xoopsTpl->assign( 'show_subcategories' , $xsitemap_configs['show_subcategories'] ) ;
+        
+include_once XOOPS_ROOT_PATH."/footer.php";

@@ -34,5 +34,3 @@ define("_MA_XSITEMAP_LAST_MOD","Last update of file xsitemap.xml");
 define("_MA_XSITEMAP_XML_UPDATE","XML file update with success");
 define("_MA_XSITEMAP_XML_VIEW_XML","View XML file");
 define("_MA_XSITEMAP_XML_ERROR_UPDATE","Error during the update of XML file");
-
-?>
