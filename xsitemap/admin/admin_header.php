@@ -18,8 +18,6 @@
  * @version::    $Id $
 **/
 
-
-
 $path = dirname(dirname(dirname(dirname(__FILE__))));
 include_once $path . '/mainfile.php';
 include_once $path . '/include/cp_functions.php';
@@ -48,12 +46,11 @@ if ( file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))){
         redirect_header("../../../admin.php", 5, _AM_XSITEMAP_MODULEADMIN_MISSING, false);
     }
 
-
 function xsitemap_adminmenu ($currentoption = 0, $breadcrumb = "")
 {
-	global $xoopsModule, $xoopsConfig;
+    global $xoopsModule, $xoopsConfig;
 
-	echo "
+    echo "
     	<style type=\"text/css\">
     	#buttontop { float:left; width:100%; background: #e7e7e7; font-size:93%; line-height:normal; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; margin: 0; }
     	#buttonbar { float:left; width:100%; background: #e7e7e7 url(".XOOPS_URL."/modules/xsitemap/images/menu/bg.png) repeat-x left bottom; font-size:93%; line-height:normal; border-left: 1px solid black; border-right: 1px solid black; margin-bottom: 12px; }
@@ -70,16 +67,16 @@ function xsitemap_adminmenu ($currentoption = 0, $breadcrumb = "")
 		</style>
     ";
 
-	$tblColors = Array();
-	$tblColors[0] = $tblColors[1] = $tblColors[2] = $tblColors[3] = $tblColors[4] = $tblColors[5] = $tblColors[6] = $tblColors[7] = $tblColors[8] = "";
-	$tblColors[$currentoption] = "current";
-	if (file_exists("".XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig["language"]."/modinfo.php")) {
-		include_once("".XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig["language"]."/modinfo.php");
-	} else {
-		include_once("".XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/english/modinfo.php");
-	}
+    $tblColors = Array();
+    $tblColors[0] = $tblColors[1] = $tblColors[2] = $tblColors[3] = $tblColors[4] = $tblColors[5] = $tblColors[6] = $tblColors[7] = $tblColors[8] = "";
+    $tblColors[$currentoption] = "current";
+    if (file_exists("".XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig["language"]."/modinfo.php")) {
+        include_once("".XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig["language"]."/modinfo.php");
+    } else {
+        include_once("".XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/english/modinfo.php");
+    }
 
-	echo "<div id=\"buttontop\">
+    echo "<div id=\"buttontop\">
 			<table style=\"width: 100%; padding: 0;\" cellspacing=\"0\">
 				<tr>
 					<td style=\"font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;\">
@@ -102,4 +99,3 @@ function xsitemap_adminmenu ($currentoption = 0, $breadcrumb = "")
 }
 
 $pluginHandler =& xoops_getModuleHandler("xsitemap_plugin", "xsitemap");
-?>

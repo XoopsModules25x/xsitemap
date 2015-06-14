@@ -21,7 +21,7 @@
  * Version : 1.00:
  * ****************************************************************************
  */
- 	
+    
 define("_MB_XSITEMAP_PLUGIN_ID","Id");
 define("_MB_XSITEMAP_PLUGIN_NAME","Name");
 define("_MB_XSITEMAP_PLUGIN_MOD_VERSION","Mod_version");
@@ -34,7 +34,3 @@ define("_MB_XSITEMAP_PLUGIN_CALL","Call");
 define("_MB_XSITEMAP_PLUGIN_SUBMITTER","Submitter");
 define("_MB_XSITEMAP_PLUGIN_DATE_CREATED","Date_created");
 define("_MB_XSITEMAP_PLUGIN_ONLINE","Online");
-
-
-
-?>

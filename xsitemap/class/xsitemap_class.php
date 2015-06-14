@@ -21,7 +21,7 @@
  * Version : 1.00:
  * ****************************************************************************
  */
- 	
+    
 class XoopsDummyObject extends XoopsObject
 {
     /**
@@ -35,4 +35,3 @@ class XoopsDummyObject extends XoopsObject
         $this->initVar($title_name, XOBJ_DTYPE_TXTBOX, $row[$title_name]);
     }
 }
-?>

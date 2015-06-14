@@ -21,11 +21,10 @@
  * Version : 1.00:
  * ****************************************************************************
  */
-include '../../../include/cp_header.php'; 
+include '../../../include/cp_header.php';
 include_once("./admin_header.php");
 //$moduleInfo =& $module_handler->get( $xoopsModule->getVar("mid") );
 xoops_cp_header();
-
 
 $index_admin = new ModuleAdmin();
 
@@ -39,53 +38,51 @@ global $xoopsModule;
 // loadModuleAdminMenu (0, _AM_XSITEMAP_MANAGER_INDEX);
 // }
 
-	//compte "total"
-	$count_plugin = $pluginHandler->getCount();
-	//compte "attente"
-	$criteria = new CriteriaCompo();
-	$criteria->add(new Criteria("plugin_online", 1));
-	$plugin_online = $pluginHandler->getCount($criteria);
-	
+    //compte "total"
+    $count_plugin = $pluginHandler->getCount();
+    //compte "attente"
+    $criteria = new CriteriaCompo();
+    $criteria->add(new Criteria("plugin_online", 1));
+    $plugin_online = $pluginHandler->getCount($criteria);
+    
     echo $index_admin->addNavigation('index.php');
-	echo $index_admin->renderIndex();
+    echo $index_admin->renderIndex();
 
-	
+    
 // include_once XOOPS_ROOT_PATH."/modules/xsitemap/class/menu.php";
 
-	// $menu = new xsitemapMenu();
-	// $menu->addItem("plugin", "plugin.php", "../images/deco/contact.png", _AM_XSITEMAP_MANAGER_PLUGIN);
-	// $menu->addItem("xml", "xml.php", "../images/deco/xml.png",  _AM_XSITEMAP_XML);	
-	// $menu->addItem("about", "about.php", "../images/deco/about.png", _AM_XSITEMAP_MANAGER_ABOUT);
-	// $menu->addItem("preference", "../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=".$xoopsModule->getVar("mid").
-												// "&amp;&confcat_id=1", "../images/deco/pref.png", _AM_XSITEMAP_MANAGER_PREFERENCES);
-	// $menu->addItem("update", "../../system/admin.php?fct=modulesadmin&op=update&module=xsitemap", "../images/deco/update.png",  _AM_XSITEMAP_MANAGER_UPDATE);	
-	
+    // $menu = new xsitemapMenu();
+    // $menu->addItem("plugin", "plugin.php", "../images/deco/contact.png", _AM_XSITEMAP_MANAGER_PLUGIN);
+    // $menu->addItem("xml", "xml.php", "../images/deco/xml.png",  _AM_XSITEMAP_XML);
+    // $menu->addItem("about", "about.php", "../images/deco/about.png", _AM_XSITEMAP_MANAGER_ABOUT);
+    // $menu->addItem("preference", "../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=".$xoopsModule->getVar("mid").
+                                                // "&amp;&confcat_id=1", "../images/deco/pref.png", _AM_XSITEMAP_MANAGER_PREFERENCES);
+    // $menu->addItem("update", "../../system/admin.php?fct=modulesadmin&op=update&module=xsitemap", "../images/deco/update.png",  _AM_XSITEMAP_MANAGER_UPDATE);
+    
 
 
-	
+    
 //	echo $menu->getCSS();
-	
+    
 
 // echo "<div class=\"CPbigTitle\" style=\"background-image: url(../images/deco/index.png); background-repeat: no-repeat; background-position: left; padding-left: 50px;\"><strong>"._AM_XSITEMAP_MANAGER_INDEX."</strong></div><br />
-		// <table width=\"100%\" border=\"0\" cellspacing=\"10\" cellpadding=\"4\">
-			// <tr>
-				// <td valign=\"top\">".$menu->render()."</td>
-				// <td valign=\"top\" width=\"60%\">";
-				
-					// echo "<fieldset>
-						// <legend class=\"CPmediumTitle\">"._AM_XSITEMAP_MANAGER_PLUGIN."</legend>
-						// <br />";
-						// printf(_AM_XSITEMAP_THEREARE_PLUGIN, $count_plugin);
-						// echo "<br /><br />";
-						// printf(_AM_XSITEMAP_THEREARE_PLUGIN_ONLINE, $plugin_online);
-						// echo "<br />
-					// </fieldset><br /><br />";
-					
-				// echo "</td>
-			// </tr>
-		// </table>
+        // <table width=\"100%\" border=\"0\" cellspacing=\"10\" cellpadding=\"4\">
+            // <tr>
+                // <td valign=\"top\">".$menu->render()."</td>
+                // <td valign=\"top\" width=\"60%\">";
+                
+                    // echo "<fieldset>
+                        // <legend class=\"CPmediumTitle\">"._AM_XSITEMAP_MANAGER_PLUGIN."</legend>
+                        // <br />";
+                        // printf(_AM_XSITEMAP_THEREARE_PLUGIN, $count_plugin);
+                        // echo "<br /><br />";
+                        // printf(_AM_XSITEMAP_THEREARE_PLUGIN_ONLINE, $plugin_online);
+                        // echo "<br />
+                    // </fieldset><br /><br />";
+                    
+                // echo "</td>
+            // </tr>
+        // </table>
 // <br /><br />
 // <div align=\"center\">"._AM_XSITEMAP_ABOUT_BY."</div>";
 include 'admin_footer.php';
-
-?>

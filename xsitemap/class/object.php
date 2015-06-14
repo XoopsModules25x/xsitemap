@@ -14,7 +14,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @license     TDM GPL license
- * @author		TDM TEAM DEV MODULE 
+ * @author		TDM TEAM DEV MODULE
  *
  * ****************************************************************************
  */
@@ -63,6 +63,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if ($isNew === true) {
       $obj->setNew();
     }
+
     return $obj;
   }
 
@@ -86,8 +87,10 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     $obj_array = $this->getObjects($criteria, false, $as_object);
     if (count($obj_array) != 1) {
       $obj = $this->create();
+
       return $obj;
     }
+
     return $obj_array[0];
   }
 
@@ -116,6 +119,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if (!$result) {
       return $ret;
     }
+
     return $this->convertResultSet($result, $id_as_key, $as_object);
   }
 
@@ -158,6 +162,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
       }
       unset($obj);
     }
+
     return $ret;
   }
 
@@ -182,7 +187,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
 
     $sql = 'SELECT '.$this->keyName;
     if(!empty($this->identifierName)){
-	    $sql .= ', '.$this->identifierName;
+        $sql .= ', '.$this->identifierName;
     }
     $sql .= ' FROM '.$this->table;
     if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
@@ -202,6 +207,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
       //identifiers should be textboxes, so sanitize them like that
       $ret[$myrow[$this->keyName]] = empty($this->identifierName)?1:$myts->htmlSpecialChars($myrow[$this->identifierName]);
     }
+
     return $ret;
   }
 
@@ -233,12 +239,14 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     }
     if ($groupby == false) {
       list($count) = $this->db->fetchRow($result);
+
       return $count;
     } else {
       $ret = array();
       while (list($id, $count) = $this->db->fetchRow($result)) {
         $ret[$id] = $count;
       }
+
       return $ret;
     }
   }
@@ -254,7 +262,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if (is_array($this->keyName)) {
       $clause = array();
       for ($i = 0; $i < count($this->keyName); $i++) {
-	      $clause[] = $this->keyName[$i]." = ".$obj->getVar($this->keyName[$i]);
+          $clause[] = $this->keyName[$i]." = ".$obj->getVar($this->keyName[$i]);
       }
       $whereclause = implode(" AND ", $clause);
     } else {
@@ -269,6 +277,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if (!$result) {
       return false;
     }
+
     return true;
   }
 
@@ -285,6 +294,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if ($checkObject != false) {
       if (!is_object($obj)) {
         var_dump($obj);
+
         return false;
       }
       /**
@@ -292,6 +302,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
         */
       if (!is_a($obj, $this->className)) {
         $obj->setErrors(get_class($obj)." Differs from ".$this->className);
+
         return false;
       }
       if (!$obj->isDirty()) {
@@ -307,7 +318,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
       if ($obj->vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
         $cleanvars[$k] = intval($v);
       } elseif ( is_array( $v ) ) {
-      	$cleanvars[ $k ] = $this->db->quoteString( implode( ',', $v ) );
+          $cleanvars[ $k ] = $this->db->quoteString( implode( ',', $v ) );
       } else {
         $cleanvars[$k] = $this->db->quoteString($v);
       }
@@ -355,6 +366,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if ($obj->isNew() && !is_array($this->keyName)) {
       $obj->assignVar($this->keyName, $this->db->getInsertId());
     }
+
     return true;
   }
 
@@ -369,11 +381,11 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
   function updateAll($fieldname, $fieldvalue, $criteria = null, $force = false){
     $set_clause = $fieldname . ' = ';
     if ( is_numeric( $fieldvalue ) ) {
-    	$set_clause .=  $fieldvalue;
+        $set_clause .=  $fieldvalue;
     } elseif ( is_array( $fieldvalue ) ) {
-    	$set_clause .= $this->db->quoteString( implode( ',', $fieldvalue ) );
+        $set_clause .= $this->db->quoteString( implode( ',', $fieldvalue ) );
     } else {
-    	$set_clause .= $this->db->quoteString( $fieldvalue );
+        $set_clause .= $this->db->quoteString( $fieldvalue );
     }
     $sql = 'UPDATE '.$this->table.' SET '.$set_clause;
     if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
@@ -387,6 +399,7 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
     if (!$result) {
       return false;
     }
+
     return true;
   }
 
@@ -404,9 +417,10 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler{
         return false;
       }
       $rows = $this->db->getAffectedRows();
+
       return $rows > 0 ? $rows : true;
     }
+
     return false;
   }
 }
-?>
