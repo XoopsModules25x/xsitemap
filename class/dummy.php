@@ -28,7 +28,7 @@ class XsitemapDummyObject extends XoopsObject
     /**
      * constructor
      */
-    function __construct(&$row, $id_name = 'cid', $pid_name = 'pid', $title_name = 'title')
+    public function __construct(&$row, $id_name = 'cid', $pid_name = 'pid', $title_name = 'title')
     {
         parent::__construct();
         $this->initVar($id_name, XOBJ_DTYPE_INT, $row[$id_name]);

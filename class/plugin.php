@@ -31,7 +31,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 class XsitemapPlugin extends XoopsObject
 {
         //Constructor
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->initVar('plugin_id', XOBJ_DTYPE_INT, null, false, 8);
@@ -52,11 +52,11 @@ class XsitemapPlugin extends XoopsObject
 
         }
 
-        function __toString() {
+        public function __toString() {
             return $this->getVar('plugin_name', 's');
         }
 
-        function getForm($action = false)
+        public function getForm($action = false)
         {
             global $xoopsDB, $xoopsModuleConfig;
 
@@ -107,7 +107,7 @@ class XsitemapPlugin extends XoopsObject
     class XsitemapPluginHandler extends XoopsPersistableObjectHandler
     {
 
-        function __construct(&$db)
+        public function __construct(&$db)
         {
             parent::__construct($db, "xsitemap_plugin", "XsitemapPlugin", "plugin_id", "plugin_name");
         }

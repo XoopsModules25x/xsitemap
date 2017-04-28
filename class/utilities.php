@@ -193,7 +193,7 @@ class XsitemapUtilities
      *
      * @return bool true on success
      */
-    function rmove($src, $dest)
+    public static function rmove($src, $dest)
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -236,7 +236,7 @@ class XsitemapUtilities
      *
      * @return bool true on success
      */
-    function rcopy($src, $dest)
+    public static function rcopy($src, $dest)
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
