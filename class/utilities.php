@@ -188,8 +188,8 @@ class XsitemapUtilities
     /**
      * Recursively move files from one directory to another
      *
-     * @param String $src - Source of files being moved
-     * @param String $dest - Destination of files being moved
+     * @param string $src - Source of files being moved
+     * @param string $dest - Destination of files being moved
      *
      * @return bool true on success
      */
