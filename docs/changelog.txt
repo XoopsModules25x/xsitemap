@@ -19,7 +19,7 @@ Version 1.54 Beta 1 [2017-04-27] - NOT RELEASED
 - changed class names to be more XOOPS compatible for loading
 - changed phpDoc comments (copyright, XOOPS Url, etc)
 - changed to create initial xsitemap.xml using preload
-- changed to remove {XOOPS_PATH}/xsitemap.xml on uninstall
+- changed to remove {XOOPS_ROOT_PATH}/xsitemap.xml on uninstall
 - fixed display of action/sub links on index.php to honor Preferences setting
 - removed function checkModuleAdmin() - deprecated
 - removed creation of uploads folders on install - they were not being used
