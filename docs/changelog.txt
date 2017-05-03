@@ -1,45 +1,85 @@
-1.53 Beta 1 2013-05-08
+Version 1.54 Beta 1 [2017-04-27] - NOT RELEASED
+============================
+- added XsitemapUtilities class
+- added Addresses, AdsLight, AmReviews, AMS, eGuide, FmContent, Lexikon,
+  MxDirectory, MyDownloads, MyWords, MyTube, PDLinks, Portfolio, Qpages,
+  Recette, SmartFaq, SongList, TDMDownloads, TDMPictures, WfDownloads, WfLinks,
+  XoopsFaq, xQuiz, & Xyp4all plugin support on install (zyspec)
+- changed Publisher plugin to sort by weight instead of title
+- changed PAYPAL to reference xoopsfoundation@gmail.com
+- changed to require XOOPS 2.5.8+
+- changed to use XoopsRequest to filter input vars
+- changed release notes to English
+- changed rendering of XML file to include entity escaping strings (per sitemaps.org)
+- changed rendering of XML to use DOCElement instead of hand coded strings
+- changed XML generation to allow for modules that don't support subcategories
+- changed to use \Xmf\Module\Helper & \Xmf\Admin
+- changed assigned by reference for methods/functions
+- changed most global references to use $[GLOBALS]
+- changed class names to be more XOOPS compatible for loading
+- changed phpDoc comments (copyright, XOOPS Url, etc)
+- changed to create initial xsitemap.xml using preload
+- changed to remove {XOOPS_ROOT_PATH}/xsitemap.xml on uninstall
+- fixed display of action/sub links on index.php to honor Preferences setting
+- removed function checkModuleAdmin() - deprecated
+- removed creation of uploads folders on install - they were not being used
+- removed '/' from HTML void tags (&lt;br&gt;, &lt;img&gt;, etc)
+- removed local copy of XoopsPersistableObjectHandler class
+- removed upload folders on upgrade or uninstall if they exist
+- removed deprecated xsitemapmenu class
+
+1.53 Final [2014-04-23]
+============================
+- Final Release
+
+1.53 Beta 2 [2014-04-23]
+============================
+- moved all images, CSS, and JS files to /assets (mamba)
+- renamed .html Smarty templates to .tpl (mamba)
+
+Version 1.53 Beta 1 [2013-05-08]
 ============================
 - fix: Warning: array_keys() expects parameter 1 to be array, null given (mamba)
 - fix: Jobs and Classifieds info (jlm69)
 - fix: deprecated notices (jlm69)
 
-1.52 Final 2012-12-22
+Version 1.52 Final [2012-12-22]
 ============================
-- changed GUI to standard XOOPS Module GUI 
+- changed GUI to standard XOOPS Module GUI
 - included ModuleAdmin class from Mage
 
-28/08/2009
+[2009-08-28]
 ============================
-- Modificata la fase di creazione del file XML. Ora il file viene creato durante l'installazione del modulo nella ROOT del sito come richiesto 
-  dallo standard XML per le sitemap. Quando viene creato il file XML in fase di installazione del modulo, esso non è completo poichè 
-  Xsitemap non è ancora in grado di leggere i plugin installati. 
-  Bisogna quindi rigenerare il file xml con l'apposito pulsante dal pannello di controllo oppure visitando la pagina xsitemap/xml_google.php.
- 
- 
-26/08/2009
+- Modified the step of creating the XML file. Now the file is created during
+  the installation of the module in the root of the site as required by the
+  XML standard for the sitemap. When you create the XML file in the
+  installation phase of the module, it is not complete since Xsitemap is not
+  yet able to read the plugin installed. We must then rebuild the XML file
+  with the appropriate button from the control panel or by visiting the page
+  xsitemap/xml_google.php.
+
+[2009-08-26]
 ============================
-- Aggiunta la gestione della sitemap XML ora viene generato dal sistema un file xsitemap.xml da inviare ai motori di ricerca
-- Aggiunto file di lingua main.php
-- Aggiunte nuove definizioni per la lingua nei file admin.php, modinfo.php
-- Aggiornata la lingua inglese
+- Added sitemap XML now generated the system file xsitemap.xml to send to
+  the search engines
+- Added language file main.php
+- Added new definitions for the language file in admin.php , modinfo.php
+- updated the english language translation
 
-
-22/08/2009
+[2009-08-22]
 ============================
-- Sistemato un piccolo bug nel file include/install.php grazie a DUGRIS per la segnalazione
-- Aggiunto il Portoghesebr tra le lingue del modulo by Artsgeral
-- Aggiunto l'inglese tra le lingue del modulo by dbman
-- Modificato file di traduzione admin.php 
+- Fixed a small bug in the file includes/install.php thanks to DUGRIS
+- Added Portoghesebr language translation - by Artsgeral
+- Added English language translation - by dbman
+- Amended language file admin.php
 
-
-21/08/2009
+[2009-08-21]
 ============================
 RELEASE:
-- Rilasciata la prima versione BETA del modulo XSITEMAP.
+- Released the first BETA version of the module XSITEMAP
 
-21/08/2009
+[2009-08-21]
 ============================
-DA FINIRE:
-- Verificare la funzionalità XML e verificare la compatibilità con Google Sitemap.
-- Con alcuni moduli non si vedono i sublinks.
+TO FINISH:
+- Check the XML functionality and check the compatibility with Google Sitemap.
+- With some of the modules you do not see the sublinks.
