@@ -11,24 +11,27 @@
  */
 /**
  * @package    module\xsitemap\admin
- * @copyright  http://www.takeaweb.it Urbanspaceman
- * @copyright  http://xoops.org 2001-2017 XOOPS Project
+ * @author     Urbanspaceman (http://www.takeaweb.it)
+ * @copyright  Urbanspaceman (http://www.takeaweb.it)
+ * @author     XOOPS Module Dev Team
+ * @copyright  XOOPS Project (http://xoops.org)
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @author::   XOOPS Module Dev Team
  * @link       http://xoops.org XOOPS
- * @since::    1.00
-**/
+ * @since      1.00
+ **/
 use \Xmf\Request;
 use \Xmf\Module\Helper;
 
-require_once $path = dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName  = basename(dirname(__DIR__));
 $xsitemapHelper = \Xmf\Module\Helper::getHelper($moduleDirName);
 
+$adminObject = \Xmf\Module\Admin::getInstance();
+
 //if functions.php file exist
-require_once dirname(__DIR__) . '/include/functions.php';
-include_once dirname(__DIR__) . '/class/plugin.php';
+require_once __DIR__ . '/../include/functions.php';
+require_once __DIR__ . '/../class/plugin.php';
 
 // Load language files
 $xsitemapHelper->loadLanguage('admin');

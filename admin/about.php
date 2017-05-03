@@ -11,23 +11,18 @@
  */
 /**
  * @package    module\xsitemap\admin
- * @copyright  http://www.takeaweb.it Urbanspaceman
- * @copyright  http://xoops.org 2001-2017 XOOPS Project
- * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @author     http://www.takeaweb.it  Urbanspaceman
  * @author     Mage, Mamba
+ * @copyright  XOOPS Project (http://xoops.org)
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @link       http://xoops.org XOOPS
- * @since::    1.00
- **/
+ * @since      1.00
+ */
 
-include_once __DIR__ . '/admin_header.php';
-
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$moduleAdmin = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->setPaypal('xoopsfoundation@gmail.com');
+$adminObject->displayAbout(false);
 
-$moduleAdmin->displayNavigation(basename(__FILE__));
-$moduleAdmin->setPaypal('xoopsfoundation@gmail.com');
-$moduleAdmin->displayAbout(false);
-
-include __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';
