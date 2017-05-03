@@ -33,7 +33,7 @@ include_once $GLOBALS['xoops']->path('modules/xsitemap/class/dummy.php');
 
 $xmlfile = $GLOBALS['xoops']->path('xsitemap.xml');
 
-$xsitemap_show = xsitemap_generate_sitemap();
+$xsitemap_show = xsitemapGenerateSitemap();
 if (!empty($xsitemap_show)) {
     $retVal = xsitemap_save($xsitemap_show);
     if (false !== $retVal) {

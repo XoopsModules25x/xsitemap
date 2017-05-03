@@ -66,7 +66,7 @@ class XsitemapPlugin extends XoopsObject
 
     /**
      * @param  bool $action
-     * @return XoopsThemeForm
+     * @return string
      */
     public function getForm($action = false)
     {

@@ -35,7 +35,7 @@ include_once $GLOBALS['xoops']->path('modules/xsitemap/class/dummy.php');
 
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 
-$xsitemap_show = xsitemap_generate_sitemap();
+$xsitemap_show = xsitemapGenerateSitemap();
 
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("browse.php?modules/{$moduleDirName}/assets/css/style.css"));
 $GLOBALS['xoopsTpl']->assign(array(

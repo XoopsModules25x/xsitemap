@@ -46,7 +46,7 @@ if (isset($_POST['update'])) {
 
     echo "<div class='pad7 width80'>\n";
 
-    $xsitemap_show = xsitemap_generate_sitemap();
+    $xsitemap_show = xsitemapGenerateSitemap();
     if (!empty($xsitemap_show)) {
         $retVal = xsitemap_save($xsitemap_show);
         if (false !== $retVal) {

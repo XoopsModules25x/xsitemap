@@ -33,7 +33,7 @@ class XsitemapCorePreload extends XoopsPreloadItem
      * @param $args
      * @return void|bool
      */
-    public function eventCoreIndexStart($args)
+    public static function eventCoreIndexStart($args)
     {
         // check once per user session if xsitemap exists
         $sessionVar = 'xsitemapChecked';
@@ -42,7 +42,7 @@ class XsitemapCorePreload extends XoopsPreloadItem
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
                 require_once dirname(__DIR__) . '/include/functions.php';
                 //Create the xsitemap.xml file in the site root
-                $xsitemap_show = xsitemap_generate_sitemap();
+                $xsitemap_show = xsitemapGenerateSitemap();
                 $retVal        = xsitemap_save($xsitemap_show) ? true : false;
             }
             $_SESSION[$sessionVar] = 1;

@@ -31,6 +31,8 @@
 - added missing $moduleDirName to installation (mamba)
 - Unnecessary double quotes (mamba)
 - added extra Help files (mamba)
+- made preload function eventCoreIndexStart static (mamba)
+- RGB to #HEX representation (mamba)
 
 1.53 Final [2014-04-23]
 ============================

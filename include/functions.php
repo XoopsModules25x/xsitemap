@@ -39,7 +39,7 @@ if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {
  *
  * @return array
  */
-function xsitemap_generate_sitemap()
+function xsitemapGenerateSitemap()
 {
     $block         = array();
     $moduleDirName = basename(dirname(__DIR__));

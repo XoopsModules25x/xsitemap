@@ -123,8 +123,8 @@ ol, ul, li {
     border: 2px solid #b5d9ea;
     -moz-border-radius: 10px 0 10px 0;
     -webkit-border-radius: 10px 0 10px 0;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px; /* FF 3.5+ */
+    -webkit-box-shadow: #000000 2px 2px 2px;
+    -moz-box-shadow: #000000 2px 2px 2px; /* FF 3.5+ */
 }
 
 #primaryNav li a:hover {
@@ -288,8 +288,8 @@ ol, ul, li {
     background: #fff7aa url('assets/images/white-highlight.png') top left repeat-x;
     -moz-border-radius: 10px 0 10px 0;
     -webkit-border-radius: 10px 0 10px 0;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px; /* FF 3.5+ */
+    -webkit-box-shadow: #000000 2px 2px 2px;
+    -moz-box-shadow: #000000 2px 2px 2px; /* FF 3.5+ */
 }
 
 #utilityNav li a:hover {
