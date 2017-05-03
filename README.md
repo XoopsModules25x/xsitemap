@@ -7,7 +7,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f5f73614cc9c4ae9975b88cd82f30584)](https://www.codacy.com/app/mambax7/xsitemap_2)
 [![Code Climate](https://img.shields.io/codeclimate/github/XoopsModules25x/xsitemap.svg?style=flat)](https://codeclimate.com/github/XoopsModules25x/xsitemap)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c4687fc1-f0bf-4c93-8fe1-e4f3b33a4392/mini.png)](https://insight.sensiolabs.com/projects/c4687fc1-f0bf-4c93-8fe1-e4f3b33a4392)
-[![Latest Pre-Release](https://img.shields.io/github/xsitemap/XoopsModules25x/xsitemap.svg?style=flat)](https://github.com/XoopsModules25x/xsitemap/tags/)
+[![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/xsitemap.svg?style=flat)](https://github.com/XoopsModules25x/xsitemap/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/xsitemap.svg?style=flat)](https://github.com/XoopsModules25x/xsitemap/releases/)
 
 xSiteMap module for [XOOPS CMS](http://xoops.org) automatically creates sitemap for website submittal to web crawlers and a visual sitemap for site visitors. Creates a XML file in the XOOPS directory suitable for submission to sites such as Google, Yahoo, etc. Extensible for other XOOPS modules by including database parameters in the module Administration section.
