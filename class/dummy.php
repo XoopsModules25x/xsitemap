@@ -13,20 +13,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: xsitemap
  *
  * @package    module\xsitemap\class
- * @author     http://www.takeaweb.it Urbanspaceman
- * @copyright  http://www.takeaweb.it Urbanspaceman
+ * @author     Urbanspaceman (http://www.takeaweb.it)
+ * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @since      1.00
  */
-
 class XsitemapDummyObject extends XoopsObject
 {
     /**
      * constructor
+     * @param        $row
+     * @param string $id_name
+     * @param string $pid_name
+     * @param string $title_name
      */
     public function __construct(&$row, $id_name = 'cid', $pid_name = 'pid', $title_name = 'title')
     {

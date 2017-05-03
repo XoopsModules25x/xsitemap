@@ -1,6 +1,6 @@
 <?php
 /*
- Xsitemap Utilities Class Definition
+ Xsitemap Utility Class Definition
 
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -14,31 +14,31 @@
 /**
  * Module:  xSitemap
  *
- * @package::    \module\xsitemap\class
+ * @package      \module\xsitemap\class
  * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
  * @copyright    http://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       ZySpec <owners@zyspec.com>
  * @author       Mamba <mambax7@gmail.com>
- * @since::      File available since version 1.54
+ * @since        File available since version 1.54
  */
 
- /**
-  * XsitemapUtilities
-  *
-  * Static utilities class to provide common functionality
-  *
-  */
-class XsitemapUtilities
+/**
+ * XsitemapUtility
+ *
+ * Static utility class to provide common functionality
+ *
+ */
+class XsitemapUtility extends XoopsObject
 {
     /**
      *
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
-     * @param XoopsModule
+     * @param XoopsModule $module
      *
      * @return bool true if meets requirements, false if not
      */
-    public static function checkXoopsVer($module)
+    public static function checkVerXoops(XoopsModule $module)
     {
         xoops_loadLanguage('admin', $module->dirname());
         //check for minimum XOOPS version
@@ -71,29 +71,32 @@ class XsitemapUtilities
 
         return $success;
     }
+
     /**
      *
      * Verifies PHP version meets minimum requirements for this module
      * @static
-     * @param XoopsModule
+     * @param XoopsModule $module
      *
      * @return bool true if meets requirements, false if not
      */
-    public static function checkPHPVer($module)
+    public static function checkVerPhp(XoopsModule $module)
     {
         xoops_loadLanguage('admin', $module->dirname());
         // check for minimum PHP version
         $success = true;
-        $verNum  = phpversion();
-        $reqVer  = $module->getInfo('min_php');
+        $verNum  = PHP_VERSION;
+        $reqVer  =& $module->getInfo('min_php');
         if ((false !== $reqVer) && ('' !== $reqVer)) {
             if (version_compare($verNum, (string)$reqVer, '<')) {
                 $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_PHP, $reqVer, $verNum));
                 $success = false;
             }
         }
+
         return $success;
     }
+
     /**
      *
      * Remove files and (sub)directories
@@ -169,10 +172,10 @@ class XsitemapUtilities
 
         // Open the source directory to read in files
         $iterator = new DirectoryIterator($src);
-       foreach ($iterator as $fObj) {
+        foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 $filename = $fObj->getPathname();
-                $fObj = null; // clear this iterator object to close the file
+                $fObj     = null; // clear this iterator object to close the file
                 if (!unlink($filename)) {
                     return false; // couldn't delete the file
                 }
@@ -188,7 +191,7 @@ class XsitemapUtilities
     /**
      * Recursively move files from one directory to another
      *
-     * @param string $src - Source of files being moved
+     * @param string $src  - Source of files being moved
      * @param string $dest - Destination of files being moved
      *
      * @return bool true on success
@@ -218,7 +221,7 @@ class XsitemapUtilities
             } elseif (!$fObj->isDot() && $fObj->isDir()) {
                 // Try recursively on directory
                 self::rmove($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
-//                rmdir($fObj->getPath()); // now delete the directory
+                //                rmdir($fObj->getPath()); // now delete the directory
             }
         }
         $iterator = null;   // clear iterator Obj to close file/directory
@@ -255,11 +258,11 @@ class XsitemapUtilities
 
         // Open the source directory to read in files
         $iterator = new DirectoryIterator($src);
-        foreach($iterator as $fObj) {
-            if($fObj->isFile()) {
+        foreach ($iterator as $fObj) {
+            if ($fObj->isFile()) {
                 copy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
-            } else if(!$fObj->isDot() && $fObj->isDir()) {
-                self::rcopy($fObj->getPathname(), "{$dest}/" . $fObj-getFilename());
+            } else if (!$fObj->isDot() && $fObj->isDir()) {
+                self::rcopy($fObj->getPathname(), "{$dest}/" . $fObj - getFilename());
             }
         }
         return true;

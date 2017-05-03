@@ -1,6 +1,6 @@
-Version 1.54 Beta 1 [2017-05-02] - NOT RELEASED
+1.54 Beta 1 [2017-05-02] - NOT RELEASED
 ============================
-- added XsitemapUtilities class (zyspec)
+- added XsitemapUtility class (zyspec)
 - added Addresses, AdsLight, AmReviews, AMS, eGuide, FmContent, Lexikon,
   MxDirectory, MyDownloads, MyWords, MyTube, PDLinks, Portfolio, Qpages,
   Recette, SmartFaq, SongList, TDMDownloads, TDMPictures, WfDownloads, WfLinks,
@@ -29,6 +29,10 @@ Version 1.54 Beta 1 [2017-05-02] - NOT RELEASED
 - removed deprecated xsitemapmenu class (zyspec)
 - added zyspec as author to his changes (mamba)
 - added missing $moduleDirName to installation (mamba)
+- Unnecessary double quotes (mamba)
+- added extra Help files (mamba)
+- made preload function eventCoreIndexStart static (mamba)
+- RGB to #HEX representation (mamba)
 
 1.53 Final [2014-04-23]
 ============================
@@ -39,13 +43,13 @@ Version 1.54 Beta 1 [2017-05-02] - NOT RELEASED
 - moved all images, CSS, and JS files to /assets (mamba)
 - renamed .html Smarty templates to .tpl (mamba)
 
-Version 1.53 Beta 1 [2013-05-08]
+1.53 Beta 1 [2013-05-08]
 ============================
 - fix: Warning: array_keys() expects parameter 1 to be array, null given (mamba)
 - fix: Jobs and Classifieds info (jlm69)
 - fix: deprecated notices (jlm69)
 
-Version 1.52 Final [2012-12-22]
+1.52 Final [2012-12-22]
 ============================
 - changed GUI to standard XOOPS Module GUI
 - included ModuleAdmin class from Mage
