@@ -1,32 +1,38 @@
-Version 1.54 Beta 1 [2017-04-27] - NOT RELEASED
+1.54 Beta 1 [2017-05-02] - NOT RELEASED
 ============================
-- added XsitemapUtilities class
+- added XsitemapUtility class (zyspec)
 - added Addresses, AdsLight, AmReviews, AMS, eGuide, FmContent, Lexikon,
   MxDirectory, MyDownloads, MyWords, MyTube, PDLinks, Portfolio, Qpages,
   Recette, SmartFaq, SongList, TDMDownloads, TDMPictures, WfDownloads, WfLinks,
   XoopsFaq, xQuiz, & Xyp4all plugin support on install (zyspec)
-- changed Publisher plugin to sort by weight instead of title
-- changed PAYPAL to reference xoopsfoundation@gmail.com
-- changed to require XOOPS 2.5.8+
-- changed to use XoopsRequest to filter input vars
-- changed release notes to English
-- changed rendering of XML file to include entity escaping strings (per sitemaps.org)
-- changed rendering of XML to use DOCElement instead of hand coded strings
-- changed XML generation to allow for modules that don't support subcategories
-- changed to use \Xmf\Module\Helper & \Xmf\Admin
-- changed assigned by reference for methods/functions
-- changed most global references to use $[GLOBALS]
-- changed class names to be more XOOPS compatible for loading
-- changed phpDoc comments (copyright, XOOPS Url, etc)
-- changed to create initial xsitemap.xml using preload
-- changed to remove {XOOPS_ROOT_PATH}/xsitemap.xml on uninstall
-- fixed display of action/sub links on index.php to honor Preferences setting
-- removed function checkModuleAdmin() - deprecated
-- removed creation of uploads folders on install - they were not being used
-- removed '/' from HTML void tags (&lt;br&gt;, &lt;img&gt;, etc)
-- removed local copy of XoopsPersistableObjectHandler class
-- removed upload folders on upgrade or uninstall if they exist
-- removed deprecated xsitemapmenu class
+- changed Publisher plugin to sort by weight instead of title (zyspec)
+- changed PAYPAL to reference xoopsfoundation@gmail.com (zyspec)
+- changed to require XOOPS 2.5.8+ (zyspec)
+- changed to use XoopsRequest to filter input vars (zyspec)
+- changed release notes to English (zyspec)
+- changed rendering of XML file to include entity escaping strings (per sitemaps.org) (zyspec)
+- changed rendering of XML to use DOCElement instead of hand coded strings (zyspec)
+- changed XML generation to allow for modules that don't support subcategories (zyspec)
+- changed to use \Xmf\Module\Helper & \Xmf\Admin (zyspec)
+- changed assigned by reference for methods/functions (zyspec)
+- changed most global references to use $[GLOBALS] (zyspec)
+- changed class names to be more XOOPS compatible for loading (zyspec)
+- changed phpDoc comments (copyright, XOOPS Url, etc) (zyspec)
+- changed to create initial xsitemap.xml using preload (zyspec)
+- changed to remove {XOOPS_ROOT_PATH}/xsitemap.xml on uninstall (zyspec)
+- fixed display of action/sub links on index.php to honor Preferences setting (zyspec)
+- removed function checkModuleAdmin() - deprecated (zyspec)
+- removed creation of uploads folders on install - they were not being used (zyspec)
+- removed '/' from HTML void tags (&lt;br&gt;, &lt;img&gt;, etc) (zyspec)
+- removed local copy of XoopsPersistableObjectHandler class (zyspec)
+- removed upload folders on upgrade or uninstall if they exist (zyspec)
+- removed deprecated xsitemapmenu class (zyspec)
+- added zyspec as author to his changes (mamba)
+- added missing $moduleDirName to installation (mamba)
+- Unnecessary double quotes (mamba)
+- added extra Help files (mamba)
+- made preload function eventCoreIndexStart static (mamba)
+- RGB to #HEX representation (mamba)
 
 1.53 Final [2014-04-23]
 ============================
@@ -37,13 +43,13 @@ Version 1.54 Beta 1 [2017-04-27] - NOT RELEASED
 - moved all images, CSS, and JS files to /assets (mamba)
 - renamed .html Smarty templates to .tpl (mamba)
 
-Version 1.53 Beta 1 [2013-05-08]
+1.53 Beta 1 [2013-05-08]
 ============================
 - fix: Warning: array_keys() expects parameter 1 to be array, null given (mamba)
 - fix: Jobs and Classifieds info (jlm69)
 - fix: deprecated notices (jlm69)
 
-Version 1.52 Final [2012-12-22]
+1.52 Final [2012-12-22]
 ============================
 - changed GUI to standard XOOPS Module GUI
 - included ModuleAdmin class from Mage

@@ -25,10 +25,10 @@
  */
 
 if ((!defined('XOOPS_ROOT_PATH'))
-   || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-   || !($GLOBALS['xoopsUser']->isAdmin()))
-{
-     exit("Restricted access" . PHP_EOL);
+    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !$GLOBALS['xoopsUser']->isAdmin()
+) {
+    exit('Restricted access' . PHP_EOL);
 }
 
 /**
@@ -41,13 +41,14 @@ if ((!defined('XOOPS_ROOT_PATH'))
  */
 function xoops_module_pre_install_xsitemap(XoopsModule $module)
 {
-    $utilsClass = ucfirst($moduleDirName) . 'Utilities';
+    $moduleDirName = basename(dirname(__DIR__));
+    $utilsClass    = ucfirst($moduleDirName) . 'Utility';
     if (!class_exists($utilsClass)) {
-        xoops_load('utilities', $moduleDirName);
+        xoops_load('utility', $moduleDirName);
     }
 
-    $xoopsSuccess = $utilsClass::checkXoopsVer($module);
-    $phpSuccess   = $utilsClass::checkPHPVer($module);
+    $xoopsSuccess = $utilsClass::checkVerXoops($module);
+    $phpSuccess   = $utilsClass::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
@@ -59,7 +60,8 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xsitemap(&$module) {
+function xoops_module_install_xsitemap(XoopsModule $module)
+{
     return true; //
     /** @internal following code removed, it will fail because module not fully loaded/available until
      * after install, module now uses XOOPS preload instead */
@@ -71,7 +73,7 @@ function xoops_module_install_xsitemap(&$module) {
     include_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/dummy.php");
 
     //Create the xsitemap.xml file in the site root
-    $xsitemap_show = xsitemap_generate_sitemap();
+    $xsitemap_show = xsitemapGenerateSitemap();
     return xsitemap_save($xsitemap_show) ? true : false;
     */
 }
@@ -84,15 +86,16 @@ function xoops_module_install_xsitemap(&$module) {
  *
  * @return bool true if successfully ready to update module, false if not
  */
-function xoops_module_pre_update_xsitemap($module)
+function xoops_module_pre_update_xsitemap(XoopsModule $module)
 {
-    $utilsClass = ucfirst($moduleDirName) . 'Utilities';
+    $moduleDirName = basename(dirname(__DIR__));
+    $utilsClass    = ucfirst($moduleDirName) . 'Utility';
     if (!class_exists($utilsClass)) {
-        xoops_load('utilities', $moduleDirName);
+        xoops_load('utility', $moduleDirName);
     }
 
-    $xoopsSuccess = $utilsClass::checkXoopsVer($module);
-    $phpSuccess   = $utilsClass::checkPHPVer($module);
+    $xoopsSuccess = $utilsClass::checkVerXoops($module);
+    $phpSuccess   = $utilsClass::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
@@ -101,37 +104,37 @@ function xoops_module_pre_update_xsitemap($module)
  * Functions to upgrade from previous version of the module
  *
  * @param XoopsModule $module
- * @param int $curr_version version number of module currently installed
+ * @param int         $curr_version version number of module currently installed
  *
  * @return bool true if successfully updated module, false if not
  */
-function xoops_module_update_xsitemap($module, $curr_version = null)
+function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = null)
 {
-/*======================================================================
-    //----------------------------------------------------------------
-    // Remove xSitemap uploads folder (and all subfolders) if they exist
-    //----------------------------------------------------------------*
-    $utilsClass = ucfirst($moduleDirName) . 'Utilities';
-    if (!class_exists($utilsClass)) {
-        xoops_load('utilities', $moduleDirName);
-    }
+    /*======================================================================
+        //----------------------------------------------------------------
+        // Remove xSitemap uploads folder (and all subfolders) if they exist
+        //----------------------------------------------------------------*
+        $utilsClass = ucfirst($moduleDirName) . 'Utility';
+        if (!class_exists($utilsClass)) {
+            xoops_load('utility', $moduleDirName);
+        }
 
-    // Recursively delete directories
-    $xsUploadDir = realpath(XOOPS_UPLOAD_PATH . "/" . $module->dirname());
-    $success = $utilsClass::rrmdir($xsUploadDir);
-    if (true !== $success) {
-        \Xmf\Language::load('admin', $module->dirname());
-        $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_DEL_PATH, $xsUploadDir));
-    }
-    return $success;
-======================================================================*/
+        // Recursively delete directories
+        $xsUploadDir = realpath(XOOPS_UPLOAD_PATH . "/" . $module->dirname());
+        $success = $utilsClass::rrmdir($xsUploadDir);
+        if (true !== $success) {
+            \Xmf\Language::load('admin', $module->dirname());
+            $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_DEL_PATH, $xsUploadDir));
+        }
+        return $success;
+    ======================================================================*/
 
     $moduleDirName = $module->getVar('dirname');
-    $xsHelper = \Xmf\Module\Helper::getHelper($moduleDirName);
+    $xsitemapHelper      = \Xmf\Module\Helper::getHelper($moduleDirName);
 
-    $utilsClass = ucfirst($moduleDirName) . 'Utilities';
+    $utilsClass = ucfirst($moduleDirName) . 'Utility';
     if (!class_exists($utilsClass)) {
-        xoops_load('utilities', $moduleDirName);
+        xoops_load('utility', $moduleDirName);
     }
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
@@ -139,25 +142,26 @@ function xoops_module_update_xsitemap($module, $curr_version = null)
 
     $success = true;
 
-    $xsHelper->loadLanguage('modinfo');
-    $xsHelper->loadLanguage('admin');
+    $xsitemapHelper->loadLanguage('modinfo');
+    $xsitemapHelper->loadLanguage('admin');
 
-    if ($prev_version < 154) {
+    if ($previousVersion < 154) {
         //----------------------------------------------------------------
         // Remove previous css & images directories since they've been relocated to ./assets
         // Also remove uploads directories since they're no longer used
         //----------------------------------------------------------------
-        $old_directories = array($xsHelper->path('css/'),
-            $xsHelper->path('js/'),
-            $xsHelper->path('images/'),
-            XOOPS_UPLOAD_PATH . "/" . $module->dirname()
+        $old_directories = array(
+            $xsitemapHelper->path('css/'),
+            $xsitemapHelper->path('js/'),
+            $xsitemapHelper->path('images/'),
+            XOOPS_UPLOAD_PATH . '/' . $module->dirname()
         );
         foreach ($old_directories as $old_dir) {
             $dirInfo = new SplFileInfo($old_dir);
             if ($dirInfo->isDir()) {
                 // The directory exists so delete it
                 if (false === $utilsClass::rrmdir($old_dir)) {
-                    $xoopsModule->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_DEL_PATH, $old_dir));
+                    $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_DEL_PATH, $old_dir));
                     return false;
                 }
             }
@@ -169,13 +173,13 @@ function xoops_module_update_xsitemap($module, $curr_version = null)
         // been replaced by *.tpl files
         // Note: this will also remove /template/xsitemap_style.html since it's no longer used
         //-----------------------------------------------------------------------
-        $path       = $xsHelper->path('templates/');
+        $path       = $xsitemapHelper->path('templates/');
         $unfiltered = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
         $iterator   = new RegexIterator($unfiltered, "/.*\.html/");
         foreach ($iterator as $name => $fObj) {
-            if (($fObj->isFile()) && ('index.html' !== $fObj->getFilename())) {
+            if ($fObj->isFile() && ('index.html' !== $fObj->getFilename())) {
                 if (false === ($success = unlink($fObj->getPathname()))) {
-                    $xoopsModule->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_REMOVE, $fObj->getPathname()));
+                    $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_REMOVE, $fObj->getPathname()));
                     return false;
                 }
             }
@@ -184,11 +188,12 @@ function xoops_module_update_xsitemap($module, $curr_version = null)
         //-----------------------------------------------------------------------
         // Now remove a some misc files that were renamed or deprecated
         //-----------------------------------------------------------------------
-        $oldFiles = array($xsHelper->path('include/install.php'),
-                          $xsHelper->path('class/module.php'),
-                          $xsHelper->path('class/menu.php')
+        $oldFiles = array(
+            $xsitemapHelper->path('include/install.php'),
+            $xsitemapHelper->path('class/module.php'),
+            $xsitemapHelper->path('class/menu.php')
         );
-        foreach($oldFiles as $file) {
+        foreach ($oldFiles as $file) {
             if (is_file($file)) {
                 if (false === ($delOk = unlink($file))) {
                     $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_REMOVE, $file));
@@ -208,7 +213,7 @@ function xoops_module_update_xsitemap($module, $curr_version = null)
  *
  * @return bool true if successfully executed, false if not
  */
-function xoops_module_pre_uninstall_xsitemap($module)
+function xoops_module_pre_uninstall_xsitemap(XoopsModule $module)
 {
     return true;
 }
@@ -221,18 +226,18 @@ function xoops_module_pre_uninstall_xsitemap($module)
  *
  * @return bool true if successfully executed uninstall of module, false if not
  */
-function xoops_module_uninstall_xsitemap($module)
+function xoops_module_uninstall_xsitemap(XoopsModule $module)
 {
-//    return true;
+    //    return true;
     $moduleDirName = $module->getVar('dirname');
-    $xsHelper = \Xmf\Module\Helper::getHelper($moduleDirName);
-    $utilsClass = ucfirst($moduleDirName) . 'Utilities';
+    $xsitemapHelper      = \Xmf\Module\Helper::getHelper($moduleDirName);
+    $utilsClass    = ucfirst($moduleDirName) . 'Utility';
     if (!class_exists($utilsClass)) {
-        xoops_load('utilities', $moduleDirName);
+        xoops_load('utility', $moduleDirName);
     }
 
     $success = true;
-    $xsHelper->loadLanguage('admin');
+    $xsitemapHelper->loadLanguage('admin');
 
     //------------------------------------------------------------------
     // Remove xSitemap uploads folder (and all subfolders) if they exist

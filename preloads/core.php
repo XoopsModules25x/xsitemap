@@ -15,34 +15,35 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @author     ZySpec <owners@zyspec.com>
  * @link       http://xoops.org XOOPS
- * @since::    1.54
+ * @since      1.54
  **/
 
- /**
-  * Xoopspoll Core Preload Class
-  *
-  * class used to check status of mailing polls that have ended.
-  *
-  * @package xoopspoll
-  * @subpackage class
-  */
+/**
+ * Xoopspoll Core Preload Class
+ *
+ * class used to check status of mailing polls that have ended.
+ *
+ * @package    xoopspoll
+ * @subpackage class
+ */
 class XsitemapCorePreload extends XoopsPreloadItem
 {
     /**
      * plugin class for Xoops preload for index page start
-     * @return void
+     * @param $args
+     * @return void|bool
      */
-    public function eventCoreIndexStart($args)
+    public static function eventCoreIndexStart($args)
     {
         // check once per user session if xsitemap exists
         $sessionVar = 'xsitemapChecked';
-        $retVal = true;
+        $retVal     = true;
         if (empty($_SESSION[$sessionVar])) {
-            if (!file_exists(dirname(__DIR__) . "/xsitemap.xml")) {
-                require_once dirname(__DIR__) . "/include/functions.php";
+            if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
+                require_once dirname(__DIR__) . '/include/functions.php';
                 //Create the xsitemap.xml file in the site root
-                $xsitemap_show = xsitemap_generate_sitemap();
-                $retVal = xsitemap_save($xsitemap_show) ? true : false;
+                $xsitemap_show = xsitemapGenerateSitemap();
+                $retVal        = xsitemap_save($xsitemap_show) ? true : false;
             }
             $_SESSION[$sessionVar] = 1;
         }
