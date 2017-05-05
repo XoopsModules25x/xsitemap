@@ -24,8 +24,10 @@
 **/
 $moduleDirname = basename(__DIR__);
 
-$modversion["name"]                = "xSitemap";
 $modversion["version"]             = 1.54;
+$modversion['release_date']        = "2017/05/05";
+$modversion["module_status"]       = "BETA 1";
+$modversion["name"]                = "xSitemap";
 $modversion['description']           = _MI_XSITEMAP_DESC;
 $modversion["author"]              = "Urbanspaceman";
 $modversion["author_website_url"]  = "http://www.takeaweb.it";
@@ -59,8 +61,6 @@ $modversion["demo_site_url"]       = "http://www.takeaweb.it";
 $modversion["module_website_name"] = "XOOPS";
 $modversion["module_website_url"]  = "www.xoops.org";
 $modversion['release_file']        = $GLOBALS['xoops']->url("www/modules/{$moduleDirname}/docs/changelog.txt");
-$modversion['release_date']        = "2017/04/27";
-$modversion["module_status"]       = "BETA 1";
 
 // Admin things
 $modversion["hasAdmin"]            = 1;
