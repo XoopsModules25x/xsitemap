@@ -203,16 +203,16 @@ function xsitemap_save(array $xsitemap_show)
             if ($mod['directory']) {
                 $xml_url = $xml->createElement('url');
                 $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))));
-                //                $xml_url->appendChild($xml->createTextNode("<!-- ". htmlentities(ucwords($mod['name'])) . " -->"));
-                $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
+                $loc     = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
                 $xml_url->appendChild($loc);
+                $xml_set->appendChild($xml_url);
             }
             if (isset($mod['parent']) ? $mod['parent'] : null) {
                 foreach ($mod['parent'] as $parent) {
                     $xml_parent = $xml->createElement('url');
                     $loc        = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
                     $xml_parent->appendChild($loc);
-                    $xml_url->appendChild($xml_parent);
+                    $xml_set->appendChild($xml_parent);
                 }
                 $z = 0;
                 //if ($mod["parent"][$z]["child"]) {
@@ -221,12 +221,11 @@ function xsitemap_save(array $xsitemap_show)
                         $xml_child = $xml->createElement('url');
                         $loc       = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
                         $xml_child->appendChild($loc);
-                        $xml_url->appendChild($xml_child);
+                        $xml_set->appendChild($xml_child);
                     }
                     ++$z;
                 }
             }
-            $xml_set->appendChild($xml_url);
         }
     }
     $xml->appendChild($xml_set);

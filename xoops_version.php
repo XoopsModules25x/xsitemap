@@ -22,15 +22,17 @@
  */
 $moduleDirName = basename(__DIR__);
 
-$modversion['version']             = 1.54;
-$modversion['module_status']       = 'Beta 1';
-$modversion['release_date']        = '2017/05/02';
-$modversion['name']                = _MI_XSITEMAP_NAME;
+
+$modversion["version"]             = 1.54;
+$modversion["module_status"]       = "BETA 1";
+$modversion['release_date']        = "2017/05/05";
+$modversion["name"]                = _MI_XSITEMAP_NAME;
 $modversion['description']         = _MI_XSITEMAP_DESC;
-$modversion['author']              = 'Urbanspaceman';
-$modversion['author_website_url']  = 'http://www.takeaweb.it';
-$modversion['author_website_name'] = 'TAKEAWEB';
-$modversion['credits']             = 'astueo.com (CSS Stylesheet), Mage, Mamba';
+$modversion["author"]              = "Urbanspaceman";
+$modversion["author_website_url"]  = "http://www.takeaweb.it";
+$modversion["author_website_name"] = "TAKEAWEB";
+$modversion["credits"]             = "astueo.com (CSS Stylesheet), Mage, Mamba";
+
 $modversion['license']             = 'GNU GPL 2.0';
 $modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html';
 $modversion['help']                = 'page=help';
@@ -48,9 +50,11 @@ $modversion['min_admin']           = '1.2';
 $modversion['min_db']              = array('mysql' => '5.5');
 
 // About
-$modversion['module_website_name'] = 'XOOPS';
-$modversion['module_website_url']  = 'www.xoops.org';
-$modversion['release_file']        = $GLOBALS['xoops']->url("www/modules/{$moduleDirName}/docs/changelog.txt");
+$modversion["demo_site_name"]      = "Takeaweb ";
+$modversion["demo_site_url"]       = "http://www.takeaweb.it";
+$modversion["module_website_name"] = "XOOPS";
+$modversion["module_website_url"]  = "www.xoops.org";
+$modversion['release_file']        = $GLOBALS['xoops']->url("www/modules/{$moduleDirname}/docs/changelog.txt");
 
 // Admin things
 $modversion['hasAdmin']   = 1;
