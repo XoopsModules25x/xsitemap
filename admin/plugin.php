@@ -166,7 +166,7 @@ switch ($op) {
                              ) . "'></a></td>\n";
                     } else {
                         echo "    <td class='txtcenter width5'><a href='./plugin.php?op=update_online_plugin&plugin_id=" . $plugin_arr[$i]->getVar('plugin_id') . "&plugin_online=1'><img src='"
-                             . \Xmf\Module\Admin::iconUrl('off.png', '32') . "' border='0' alt='" . _AM_XSITEMAP_OFF . "' title='" . _AM_XSITEMAP_OFF . ', ' . sprintf(
+                             . \Xmf\Module\Admin::iconUrl('off.png', '16') . "' border='0' alt='" . _AM_XSITEMAP_OFF . "' title='" . _AM_XSITEMAP_OFF . ', ' . sprintf(
                                  _AM_XSITEMAP_CLICK_TO,
                                                                                                                                                                        _AM_XSITEMAP_ON
                              )
