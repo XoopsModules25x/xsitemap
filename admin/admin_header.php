@@ -26,23 +26,24 @@ require_once __DIR__ . '/../../../include/cp_header.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+/** @var XsitemapHelper $xsitemapHelper */
+if (false !== ($xsitemapHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
 } else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+    $xsitemapHelper = Xmf\Module\Helper::getHelper();
 }
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+$pathModIcon32 = $xsitemapHelper->getModule()->getInfo('modicons32');
 
 //if functions.php file exist
 require_once __DIR__ . '/../include/functions.php';
 require_once __DIR__ . '/../class/plugin.php';
 // Load language files
-$moduleHelper->loadLanguage('admin');
-$moduleHelper->loadLanguage('modinfo');
-$moduleHelper->loadLanguage('main');
+$xsitemapHelper->loadLanguage('admin');
+$xsitemapHelper->loadLanguage('modinfo');
+$xsitemapHelper->loadLanguage('main');
 
 $myts = MyTextSanitizer::getInstance();
 
@@ -51,4 +52,5 @@ if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl))
     $xoopsTpl = new XoopsTpl();
 }
 
-$pluginHandler = $moduleHelper->getHandler('plugin');
+/** @var XsitemapPluginHandler $pluginHandler */
+$pluginHandler = $xsitemapHelper->getHandler('plugin');

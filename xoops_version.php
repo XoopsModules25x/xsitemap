@@ -20,94 +20,86 @@
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @link       https://xoops.org XOOPS
  */
+
 $moduleDirName = basename(__DIR__);
-
-$modversion['version']             = 1.54;
-$modversion['module_status']       = 'RC-1';
-$modversion['release_date']        = '2017/07/04';
-$modversion['name']                = _MI_XSITEMAP_NAME;
-$modversion['description']         = _MI_XSITEMAP_DESC;
-$modversion['author']              = 'Urbanspaceman';
-$modversion['author_website_url']  = 'http://www.takeaweb.it';
-$modversion['author_website_name'] = 'TAKEAWEB';
-$modversion['credits']             = 'astueo.com (CSS Stylesheet), Mage, Mamba, Zyspec';
-$modversion['license']             = 'GNU GPL 2.0';
-$modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html';
-$modversion['help']                = 'page=help';
-$modversion['release_info']        = 'This is a SITEMAP module written for XOOPS 2.5.8+';
-$modversion['release_file']        = '';
-$modversion['manual']              = '';
-$modversion['manual_file']         = '';
-$modversion['image']               = 'assets/images/logoModule.png';
-$modversion['dirname']             = $moduleDirName;
-$modversion['modicons16']          = 'assets/images/icons/16';
-$modversion['modicons32']          = 'assets/images/icons/32';
-$modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.8';
-$modversion['min_admin']           = '1.2';
-$modversion['min_db']              = ['mysql' => '5.5'];
-
-// About
-$modversion['module_website_name'] = 'XOOPS';
-$modversion['module_website_url']  = 'www.xoops.org';
-$modversion['release_file']        = $GLOBALS['xoops']->url("www/modules/{$moduleDirName}/docs/changelog.txt");
-
-// Admin things
-$modversion['hasAdmin']   = 1;
-$modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
-
-// Mysql file
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-
-// Tables
-$modversion['tables'] = [
-    $moduleDirName . '_' . 'plugin'
+$modversion    = [
+            'version'             => 1.54,
+            'module_status'       => 'RC-1',
+            'release_date'        => '2017/10/04',
+            'name'                => _MI_XSITEMAP_NAME,
+            'description'         => _MI_XSITEMAP_DESC,
+            'author'              => 'Urbanspaceman',
+            'author_website_url'  => 'http://www.takeaweb.it',
+            'author_website_name' => 'TAKEAWEB',
+            'credits'             => 'astueo.com (CSS Stylesheet), Mage, Mamba, Zyspec, Aerograf',
+            'license'             => 'GNU GPL 2.0',
+            'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html',
+            'help'                => 'page=help',
+            'release_info'        => 'This is a SITEMAP module written for XOOPS 2.5.9',
+            'manual'              => '',
+            'manual_file'         => '',
+            'image'               => 'assets/images/logoModule.png',
+            'dirname'             => $moduleDirName,
+            'modicons16'          => 'assets/images/icons/16',
+            'modicons32'          => 'assets/images/icons/32',
+            'min_php'             => '5.5',
+            'min_xoops'           => '2.5.9',
+            'min_admin'           => '1.2',
+            'min_db'              => ['mysql' => '5.5'],
+            // About
+            'module_website_name' => 'XOOPS',
+            'module_website_url'  => 'www.xoops.org',
+            'release_file'        => $GLOBALS['xoops']->url("www/modules/{$moduleDirName}/docs/changelog.txt"),
+            // Admin things
+            'hasAdmin'            => 1,
+            'adminindex'          => 'admin/index.php',
+            'adminmenu'           => 'admin/menu.php',
+            // Mysql file
+            'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
+            // Tables
+            'tables'              =>  [
+                  $moduleDirName . '_' . 'plugin'
+            ],
+            // Scripts to run upon installation or update
+            'onInstall'           => 'include/install.php',
+            'onUpdate'            => 'include/update.php',
+            'onUninstall'         => 'include/uninstall.php',
+            // Menu
+            'hasMain'             => 1,
+            'system_menu'         => 1,
+            // ------------------- Help files ------------------- //
+            'helpsection'         => [
+                ['name' => _MI_XSITEMAP_OVERVIEW, 'link'   => 'page=help'],
+                ['name' => _MI_XSITEMAP_DISCLAIMER, 'link' => 'page=disclaimer'],
+                ['name' => _MI_XSITEMAP_LICENSE, 'link'    => 'page=license'],
+                ['name' => _MI_XSITEMAP_SUPPORT, 'link'    => 'page=support']
+            ],
+            //Templates
+            'templates'           => [
+            [
+                'file'        => 'xsitemap_index.tpl',
+                'description' => ''
+            ],
+            [
+                'file'        => 'xsitemap_slickmap.tpl',
+                'description' => ''
+            ],
+            /*
+            [
+                file' => 'xsitemap_style.tpl',
+                description' => ''
+            ],
+            */
+            [
+                'file'        => 'xsitemap_xml.tpl',
+                'description' => ''
+            ],
+            [
+                'file'        => 'admin/xsitemap_index.tpl',
+                'description' => ''
+            ]
+        ],
 ];
-
-// Scripts to run upon installation or update
-$modversion['onInstall']   = 'include/install.php';
-$modversion['onUpdate']    = 'include/update.php';
-$modversion['onUninstall'] = 'include/uninstall.php';
-
-// Menu
-$modversion['hasMain']     = 1;
-$modversion['system_menu'] = 1;
-
-// ------------------- Help files ------------------- //
-$modversion['helpsection'] = [
-    ['name' => _MI_XSITEMAP_OVERVIEW, 'link' => 'page=help'],
-    ['name' => _MI_XSITEMAP_DISCLAIMER, 'link' => 'page=disclaimer'],
-    ['name' => _MI_XSITEMAP_LICENSE, 'link' => 'page=license'],
-    ['name' => _MI_XSITEMAP_SUPPORT, 'link' => 'page=support']
-];
-
-//Templates
-$modversion['templates'] = [
-    [
-        'file'        => 'xsitemap_index.tpl',
-        'description' => ''
-    ],
-
-    [
-        'file'        => 'xsitemap_slickmap.tpl',
-        'description' => ''
-    ],
-    /*
-                                      array(file' => 'xsitemap_style.tpl',
-                                     description' => ''),
-    */
-    [
-        'file'        => 'xsitemap_xml.tpl',
-        'description' => ''
-    ],
-
-    [
-        'file'        => 'admin/xsitemap_index.tpl',
-        'description' => ''
-    ]
-];
-
 // Preferences
 $modversion['config'] = [
     [
@@ -118,7 +110,6 @@ $modversion['config'] = [
         'valuetype'   => 'int',
         'default'     => 1
     ],
-
     [
         'name'        => 'show_sublink',
         'title'       => '_MI_XSITEMAP_SHOW_ACTION',
@@ -127,7 +118,6 @@ $modversion['config'] = [
         'valuetype'   => 'int',
         'default'     => 1
     ],
-
     [
         'name'        => 'invisible_dirnames',
         'title'       => '_MI_XSITEMAP_DIRNAMES',
@@ -136,7 +126,6 @@ $modversion['config'] = [
         'valuetype'   => 'text',
         'default'     => ''
     ],
-
     [
         'name'        => 'columns_number',
         'title'       => '_MI_XSITEMAP_COLS',

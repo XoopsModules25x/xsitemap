@@ -58,7 +58,7 @@ switch ($op) {
         }
         $timestamp_created = strtotime(Request::getString('plugin_date_created', 0, 'POST'));
 
-        $verif_plugin_online = (1 == Request::getInt('plugin_online', 0, 'POST')) ? 1 : 0;                    //Form plugin_online
+        $verif_plugin_online = (1 === Request::getInt('plugin_online', 0, 'POST')) ? 1 : 0;                    //Form plugin_online
         $obj->setVars(
             [
                           'plugin_name'         => Request::getString('plugin_name', '', 'POST'),                   //Form plugin_name

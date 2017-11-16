@@ -56,7 +56,7 @@ class XsitemapPlugin extends XoopsObject
     }
 
     /**
-     * @return mixed
+     * @return mixed|string
      */
     public function __toString()
     {

@@ -29,15 +29,15 @@ $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 
 include_once $GLOBALS['xoops']->path('header.php');
 include_once $GLOBALS['xoops']->path('class/tree.php');
-include_once $GLOBALS['xoops']->path('modules/xsitemap/class/plugin.php');
-include_once $GLOBALS['xoops']->path('modules/xsitemap/include/functions.php');
-include_once $GLOBALS['xoops']->path('modules/xsitemap/class/dummy.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/include/functions.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
 
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 
 $xsitemap_show = xsitemapGenerateSitemap();
 
-$GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("browse.php?modules/{$moduleDirName}/assets/css/style.css"));
+$GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url('browse.php?modules/' . $moduleDirName . '/assets/css/style.css'));
 $GLOBALS['xoopsTpl']->assign([
                                  'xsitemap'           => $xsitemap_show,
                                  'num_col'            => $xsitemap_configs['columns_number'],

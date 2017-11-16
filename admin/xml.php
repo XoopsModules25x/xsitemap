@@ -26,12 +26,15 @@
  */
 
 include __DIR__ . '/admin_header.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+
 xoops_cp_header();
 
 require_once $GLOBALS['xoops']->path('class/tree.php');
-require_once $GLOBALS['xoops']->path('modules/xsitemap/class/plugin.php');
-require_once $GLOBALS['xoops']->path('modules/xsitemap/include/functions.php');
-require_once $GLOBALS['xoops']->path('modules/xsitemap/class/dummy.php');
+require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
+require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/include/functions.php');
+require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
@@ -47,15 +50,12 @@ if (isset($_POST['update'])) {
     echo "<div class='pad7 width80'>\n";
 
     $xsitemap_show = xsitemapGenerateSitemap();
+    $update = _AM_XSITEMAP_XML_ERROR_UPDATE;
     if (!empty($xsitemap_show)) {
         $retVal = xsitemap_save($xsitemap_show);
         if (false !== $retVal) {
             $update = sprintf(_AM_XSITEMAP_BYTES_WRITTEN, $retVal) . "\n";
-        } else {
-            $update = _AM_XSITEMAP_XML_ERROR_UPDATE;
         }
-    } else {
-        $update = _AM_XSITEMAP_XML_ERROR_UPDATE;
     }
     echo "<p style='margin-bottom: 2em;'>{$update}</p>\n" . "</div>\n" . "<div class='clear'></div>\n";
 }

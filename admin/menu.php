@@ -25,18 +25,18 @@
  * @since           1.00
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+//defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 $moduleDirName = basename(dirname(__DIR__));
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+if (false !== ($xsitemapHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
 } else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+    $xsitemapHelper = Xmf\Module\Helper::getHelper('system');
 }
 $pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+$pathModIcon32 = $xsitemapHelper->getModule()->getInfo('modicons32');
 
-//$moduleHelper->loadLanguage('modinfo');
+//$xsitemapHelper->loadLanguage('modinfo');
 
 $adminmenu = [
     [

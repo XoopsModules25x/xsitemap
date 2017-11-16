@@ -1,25 +1,42 @@
 <?php
 
+/**
+ * Class XsitemapHelper
+ */
 class XsitemapHelper extends Xmf\Module\Helper
 {
+    public $debug;
+
     /**
-     * Init the module
-     *
-     * @return null|void
+     * @internal param $debug
+     * @param bool $debug
      */
-    public function init()
+    protected function __construct($debug = false)
     {
-        $this->setDirname(basename(dirname(__DIR__)));
-        $this->loadLanguage('preferences');
+        $this->debug   = $debug;
+        $this->dirname = basename(dirname(__DIR__));
     }
 
     /**
-     * @return mixed
+     * @param bool $debug
+     *
+     * @return \Xmf\Module\Helper
      */
-    public function loadConfig()
+    public static function getInstance($debug = false)
     {
-        XoopsLoad::load('xoopreferences', $this->dirname);
+        static $instance;
+        if (null === $instance) {
+            $instance = new static($debug);
+        }
 
-        return XooSitemapPreferences::getInstance()->getConfig();
+        return $instance;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDirname()
+    {
+        return $this->dirname;
     }
 }

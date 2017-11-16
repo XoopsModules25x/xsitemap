@@ -36,6 +36,7 @@ xoops_cp_header();
 // Get online plugin info
 //$countPlugins       = $pluginHandler->getCount();
 $criteria           = new Criteria('plugin_online', 1);
+/** @var XsitemapPluginHandler $onlinePluginObjs */
 $onlinePluginObjs   = $pluginHandler->getAll($criteria);
 $countPluginsOnline = (!empty($onlinePluginObjs)) ? count($onlinePluginObjs) : 0;
 $onlinePluginArray  = [];
@@ -50,6 +51,7 @@ $criteria            = new Criteria('plugin_online', 0);
 $offlinePluginObjs   = $pluginHandler->getAll($criteria);
 $countPluginsOffline = (!empty($offlinePluginObjs)) ? count($offlinePluginObjs) : 0;
 $offlinePluginArray  = [];
+/** @var XsitemapPlugin $offlineObj */
 foreach ($offlinePluginObjs as $offlineObj) {
     $offlinePluginArray[] = $offlineObj->getVar('plugin_name');
 }

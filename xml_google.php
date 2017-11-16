@@ -21,15 +21,16 @@
  * @since      ::    1.00
  **/
 
+$moduleDirName = basename(__DIR__);
 require_once __DIR__ . '/../../mainfile.php';
 //template assign
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_xml.tpl';
 
 include_once $GLOBALS['xoops']->path('header.php');
 include_once $GLOBALS['xoops']->path('class/tree.php');
-include_once $GLOBALS['xoops']->path('modules/xsitemap/class/plugin.php');
-include_once $GLOBALS['xoops']->path('modules/xsitemap/include/functions.php');
-include_once $GLOBALS['xoops']->path('modules/xsitemap/class/dummy.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/include/functions.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
 
 $xmlfile = $GLOBALS['xoops']->path('xsitemap.xml');
 
