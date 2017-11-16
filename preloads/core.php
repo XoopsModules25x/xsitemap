@@ -11,10 +11,10 @@
  */
 /**
  * @package    module\xsitemap\admin
- * @copyright  http://xoops.org 2001-2017 XOOPS Project
+ * @copyright  https://xoops.org 2001-2017 XOOPS Project
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @author     ZySpec <owners@zyspec.com>
- * @link       http://xoops.org XOOPS
+ * @link       https://xoops.org XOOPS
  * @since      1.54
  **/
 
@@ -26,27 +26,40 @@
  * @package    xoopspoll
  * @subpackage class
  */
+use Xoopsmodules\xsitemap;
+
 class XsitemapCorePreload extends XoopsPreloadItem
 {
     /**
      * plugin class for Xoops preload for index page start
      * @param $args
-     * @return void|bool
+     * @return bool
      */
     public static function eventCoreIndexStart($args)
     {
+        include __DIR__ . '/autoloader.php';
         // check once per user session if xsitemap exists
         $sessionVar = 'xsitemapChecked';
         $retVal     = true;
         if (empty($_SESSION[$sessionVar])) {
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
-                require_once dirname(__DIR__) . '/include/functions.php';
+//                require_once dirname(__DIR__) . '/include/common.php';
                 //Create the xsitemap.xml file in the site root
-                $xsitemap_show = xsitemapGenerateSitemap();
-                $retVal        = xsitemap_save($xsitemap_show) ? true : false;
+                $utility = new xsitemap\Utility();
+                $xsitemap_show = $utility::generateSitemap();
+                $retVal        = $utility::saveSitemap($xsitemap_show) ? true : false;
             }
             $_SESSION[$sessionVar] = 1;
         }
         return $retVal;
+    }
+
+    /**
+     * run autoloader
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonEnd($args)
+    {
+        include __DIR__ . '/autoloader.php';
     }
 }

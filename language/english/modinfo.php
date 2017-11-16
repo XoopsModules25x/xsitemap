@@ -17,7 +17,7 @@
  * @package    module\xsitemap\language
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
- * @copyright  XOOPS Project (http://xoops.org)
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @since      1.00
  */
@@ -60,7 +60,7 @@ define('_MI_XSITEMAP_DESC', 'Module to visualize Sitemap in a XOOPS website');
 //1.54
 //Help
 define('_MI_XSITEMAP_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_XSITEMAP_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('_MI_XSITEMAP_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
 define('_MI_XSITEMAP_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_XSITEMAP_OVERVIEW', 'Overview');
 
@@ -68,3 +68,4 @@ define('_MI_XSITEMAP_OVERVIEW', 'Overview');
 define('_MI_XSITEMAP_DISCLAIMER', 'Disclaimer');
 define('_MI_XSITEMAP_LICENSE', 'License');
 define('_MI_XSITEMAP_SUPPORT', 'Support');
+

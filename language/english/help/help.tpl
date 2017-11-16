@@ -46,7 +46,7 @@
             Repository on GitHub</a>.</p>
 
     <h4 class="odd">Support</h4>
-    <p class="even">If you have questions about this module and need help, you can visit our <a href="http://xoops.org/modules/newbb/viewforum.php?forum=28/" target="_blank">Support Forums on XOOPS
+    <p class="even">If you have questions about this module and need help, you can visit our <a href="https://xoops.org/modules/newbb/viewforum.php?forum=28/" target="_blank">Support Forums on XOOPS
             Website</a></p>
 
     <h4 class="odd">Development</h4>

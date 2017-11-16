@@ -9,33 +9,44 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * @package    module\xsitemap\admin
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @author     XOOPS Module Dev Team
- * @copyright  XOOPS Project (http://xoops.org)
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @link       http://xoops.org XOOPS
+ * @link       https://xoops.org XOOPS
  * @since      1.00
  **/
-use \Xmf\Request;
-use \Xmf\Module\Helper;
+use \Xoopsmodules\xsitemap;
 
+$moduleDirName = basename(dirname(__DIR__));
 require_once __DIR__ . '/../../../include/cp_header.php';
-
-$moduleDirName  = basename(dirname(__DIR__));
-$xsitemapHelper = \Xmf\Module\Helper::getHelper($moduleDirName);
+require_once __DIR__ . '/../include/common.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 
+//$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+//$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+//$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
 //if functions.php file exist
-require_once __DIR__ . '/../include/functions.php';
+//require_once __DIR__ . '/../include/functions.php';
+
 require_once __DIR__ . '/../class/plugin.php';
-
 // Load language files
-$xsitemapHelper->loadLanguage('admin');
-$xsitemapHelper->loadLanguage('modinfo');
-$xsitemapHelper->loadLanguage('main');
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('main');
 
-$pluginHandler = $xsitemapHelper->getHandler('plugin');
+//$myts = MyTextSanitizer::getInstance();
+//
+//if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+//    require_once $GLOBALS['xoops']->path('class/template.php');
+//    $xoopsTpl = new XoopsTpl();
+//}
+//
+///** @var XsitemapPluginHandler $pluginHandler */
+//$pluginHandler = $helper->getHandler('plugin');

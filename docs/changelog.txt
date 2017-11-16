@@ -1,5 +1,14 @@
-1.54 Beta 1 [2017-05-02] - NOT RELEASED
-============================
+<h5>1.54 RC-1 [2017-11-15]</h5>
+<hr>
+- added SCANDIR_SORT_NONE to scandir() (mamba)
+- fixed folder links to images in style.css (mamba)
+- added individual files for install/uninstall (mamba)
+- added namespaces (mamba)
+- moved functions to Utility class (mamba)
+- added traits for Utility class (mamba)
+
+<h5>1.54 Beta 1 [2017-05-02] - NOT RELEASED</h5>
+<hr>
 - added XsitemapUtility class (zyspec)
 - added Addresses, AdsLight, AmReviews, AMS, eGuide, FmContent, Lexikon,
   MxDirectory, MyDownloads, MyWords, MyTube, PDLinks, Portfolio, Qpages,
@@ -34,28 +43,29 @@
 - made preload function eventCoreIndexStart static (mamba)
 - RGB to #HEX representation (mamba)
 
-1.53 Final [2014-04-23]
-============================
+
+<h5>1.53 Final [2014-04-23]</h5>
+<hr>
 - Final Release
 
-1.53 Beta 2 [2014-04-23]
-============================
+<h5>1.53 Beta 2 [2014-04-23]</h5>
+<hr>
 - moved all images, CSS, and JS files to /assets (mamba)
 - renamed .html Smarty templates to .tpl (mamba)
 
-1.53 Beta 1 [2013-05-08]
-============================
+<h5>1.53 Beta 1 [2013-05-08]</h5>
+<hr>
 - fix: Warning: array_keys() expects parameter 1 to be array, null given (mamba)
 - fix: Jobs and Classifieds info (jlm69)
 - fix: deprecated notices (jlm69)
 
-1.52 Final [2012-12-22]
-============================
+<h5>1.52 Final [2012-12-22]</h5>
+<hr>
 - changed GUI to standard XOOPS Module GUI
 - included ModuleAdmin class from Mage
 
-[2009-08-28]
-============================
+<h5>[2009-08-28]</h5>
+<hr>
 - Modified the step of creating the XML file. Now the file is created during
   the installation of the module in the root of the site as required by the
   XML standard for the sitemap. When you create the XML file in the
@@ -64,28 +74,28 @@
   with the appropriate button from the control panel or by visiting the page
   xsitemap/xml_google.php.
 
-[2009-08-26]
-============================
+<h5>[2009-08-26]</h5>
+<hr>
 - Added sitemap XML now generated the system file xsitemap.xml to send to
   the search engines
 - Added language file main.php
 - Added new definitions for the language file in admin.php , modinfo.php
 - updated the english language translation
 
-[2009-08-22]
-============================
+<h5>[2009-08-22]</h5>
+<hr>
 - Fixed a small bug in the file includes/install.php thanks to DUGRIS
 - Added Portoghesebr language translation - by Artsgeral
 - Added English language translation - by dbman
 - Amended language file admin.php
 
-[2009-08-21]
-============================
+<h5>[2009-08-21]</h5>
+<hr>
 RELEASE:
 - Released the first BETA version of the module XSITEMAP
 
-[2009-08-21]
-============================
+<h5>[2009-08-21]</h5>
+<hr>
 TO FINISH:
 - Check the XML functionality and check the compatibility with Google Sitemap.
 - With some of the modules you do not see the sublinks.

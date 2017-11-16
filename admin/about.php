@@ -12,9 +12,9 @@
 /**
  * @package    module\xsitemap\admin
  * @author     Mage, Mamba
- * @copyright  XOOPS Project (http://xoops.org)
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @link       http://xoops.org XOOPS
+ * @link       https://xoops.org XOOPS
  * @since      1.00
  */
 
@@ -22,7 +22,7 @@ require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $adminObject->displayNavigation(basename(__FILE__));
-$adminObject->setPaypal('xoopsfoundation@gmail.com');
+$adminObject::setPaypal('xoopsfoundation@gmail.com');
 $adminObject->displayAbout(false);
 
 require_once __DIR__ . '/admin_footer.php';

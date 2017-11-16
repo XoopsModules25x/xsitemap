@@ -18,7 +18,7 @@
  * @package    module\xsitemap\language
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
- * @copyright  XOOPS Project (http://xoops.org)
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @since      1.00
  */
@@ -86,10 +86,9 @@ define('_AM_XSITEMAP_PERMISSIONS_SUBMIT', 'Permission to send');
 define('_AM_XSITEMAP_ABOUT_RELEASEDATE', 'Release Date');
 define('_AM_XSITEMAP_ABOUT_AUTHOR', 'Author');
 define('_AM_XSITEMAP_ABOUT_CREDITS', 'Credits');
-define('_AM_XSITEMAP_ABOUT_CREDITS_TEXT', "The graphics Xsitemap is based on the stylesheet and the images created by <a href='http://www.astuteo.com'> ASTUTEO </ a>");
+define('_AM_XSITEMAP_ABOUT_CREDITS_TEXT', "The graphics Xsitemap is based on the stylesheet and the images created by <a href='http://www.astuteo.com'> ASTUTEO </a>");
 define('_AM_XSITEMAP_ABOUT_TNX', 'Acknowledgments');
-define('_AM_XSITEMAP_ABOUT_TNX_TEXT',
-       'I would to thank <b>chanoir</ b> and <b>GIJoe</ b> for having developed the original modules SITEMAP that inspired this new <b>XSITEMAP</ b>. I would also give thanks to <b>trabis</ b> and < b>Alessandro</b> for the help given during the development stages, I also thank the <b>Team Development Module</ b> for creating the <b>TDMCreate</b> module that has been of fundamental importance for the realization of <b>XSITEMAP</ b>');
+define('_AM_XSITEMAP_ABOUT_TNX_TEXT','I would to thank <b>chanoir</b> and <b>GIJoe</b> for having developed the original modules SITEMAP that inspired this new <b>XSITEMAP</b>. I would also give thanks to <b>trabis</b> and < b>Alessandro</b> for the help given during the development stages, I also thank the <b>Team Development Module</b> for creating the <b>TDMCreate</b> module that has been of fundamental importance for the realization of <b>XSITEMAP</b>');
 define('_AM_XSITEMAP_ABOUT_README', 'Information');
 define('_AM_XSITEMAP_ABOUT_MANUAL', 'Help');
 define('_AM_XSITEMAP_ABOUT_LICENSE', 'License');
@@ -105,7 +104,7 @@ define('_AM_XSITEMAP_ABOUT_MODULE_INFO', 'About the module');
 define('_AM_XSITEMAP_ABOUT_AUTHOR_INFO', 'About the author');
 define('_AM_XSITEMAP_ABOUT_DISCLAIMER', 'Disclaimer');
 define('_AM_XSITEMAP_ABOUT_DISCLAIMER_TEXT', 'GPL - No warranty');
-define('_AM_XSITEMAP_ABOUT_BY', "Powered by <a href ='http://www.takeaweb.it'> TAKEAWEB </ a>");
+define('_AM_XSITEMAP_ABOUT_BY', "Powered by <a href ='http://www.takeaweb.it'> TAKEAWEB </a>");
 
 //add by urbanspaceman 22/08/2009
 define('_AM_XSITEMAP_ABOUT_TRANSLATION', 'Translation');
@@ -138,8 +137,7 @@ define('_AM_XSITEMAP_ABOUT_DESCRIPTION', 'Description: ');
 define('_AM_XSITEMAP_ADMIN_ABOUT', 'About');
 
 // Text for Admin footer
-define('_AM_XSITEMAP_FOOTER',
-       "<div class='center smallsmall italic pad5'>xsitemap is maintained by the <a class='tooltip' rel='external' href='http://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+define('_AM_XSITEMAP_FOOTER', "<div class='center smallsmall italic pad5'>xsitemap is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
 
 define('_AM_XSITEMAP_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
 define('_AM_XSITEMAP_UPGRADEFAILED1', "Update failed - couldn't add new fields");

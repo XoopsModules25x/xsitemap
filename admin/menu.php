@@ -11,40 +11,51 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: xsitemap
  *
- * @package    module\xsitemap\admin
- * @author     XOOPS Module Development Team
- * @author     Urbanspaceman (http://www.takeaweb.it)
- * @copyright  Urbanspaceman (http://www.takeaweb.it)
- * @copyright  XOOPS Project (http://xoops.org)
- * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
- * @link       http://xoops.org XOOPS
- * @since      1.00
+ * @package         module\xsitemap\admin
+ * @author          XOOPS Module Development Team
+ * @author          Urbanspaceman (http://www.takeaweb.it)
+ * @copyright       Urbanspaceman (http://www.takeaweb.it)
+ * @copyright       XOOPS Project (https://xoops.org)
+ * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @link            https://xoops.org XOOPS
+ * @since           1.00
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+use \Xoopsmodules\xsitemap;
 
-$adminmenu = array(
-    array(
+//defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+require_once __DIR__ . '/../include/common.php';
+
+$helper = xsitemap\Helper::getInstance();
+
+$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
+//$helper->loadLanguage('modinfo');
+
+$adminmenu = [
+    [
         'title' => _MI_XSITEMAP_MANAGER_INDEX,
         'link'  => 'admin/index.php',
-        'icon'  => \Xmf\Module\Admin::menuIconPath('home.png', '32')
-    ),
-    array(
+        'icon'  => $pathIcon32 . '/home.png'
+    ],
+    [
         'title' => _MI_XSITEMAP_MANAGER_PLUGIN,
         'link'  => 'admin/plugin.php',
         'icon'  => 'assets/images/admin/plugin.png'
-    ),
-    array(
+    ],
+    [
         'title' => _MI_XSITEMAP_MANAGER_XML,
         'link'  => 'admin/xml.php',
         'icon'  => 'assets/images/admin/xml.png'
-    ),
-    array(
+    ],
+    [
         'title' => _MI_XSITEMAP_MANAGER_ABOUT,
         'link'  => 'admin/about.php',
-        'icon'  => \Xmf\Module\Admin::menuIconPath('about.png', '32')
-    ),
-);
+        'icon'  => $pathIcon32 . '/about.png'
+    ],
+];

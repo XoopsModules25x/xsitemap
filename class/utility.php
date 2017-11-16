@@ -1,6 +1,6 @@
-<?php
+<?php namespace Xoopsmodules\xsitemap;
 /*
- Xsitemap Utility Class Definition
+ Utility Class Definition
 
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -16,255 +16,243 @@
  *
  * @package      \module\xsitemap\class
  * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
- * @copyright    http://xoops.org 2001-2017 &copy; XOOPS Project
+ * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       ZySpec <owners@zyspec.com>
  * @author       Mamba <mambax7@gmail.com>
  * @since        File available since version 1.54
  */
 
+use Xmf\Request;
+use Xoopsmodules\xsitemap\common;
+
+require_once __DIR__ . '/common/VersionChecks.php';
+require_once __DIR__ . '/common/ServerStats.php';
+require_once __DIR__ . '/common/FilesManagement.php';
+
+//require_once __DIR__ . '/../include/common.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+xoops_loadLanguage('admin', $moduleDirName);
+if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {
+    xoops_load('dummy', $moduleDirName);
+}
+
 /**
- * XsitemapUtility
- *
- * Static utility class to provide common functionality
- *
+ * Class Utility
  */
-class XsitemapUtility extends XoopsObject
+class Utility
 {
-    /**
-     *
-     * Verifies XOOPS version meets minimum requirements for this module
-     * @static
-     * @param XoopsModule $module
-     *
-     * @return bool true if meets requirements, false if not
+    use common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+
+    use common\ServerStats; // getServerStats Trait
+
+    use common\FilesManagement; // Files Management Trait
+
+    //--------------- Custom module methods -----------------------------
+
+/**
+ *
+ * Show Site map
+ *
+ * @return array
+ */
+public static function generateSitemap()
+{
+    $block         = [];
+    $moduleDirName = basename(dirname(__DIR__));
+    /** @internal can't use Helper since function called during install
+     * $helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+     * $pluginHandler  = $helper->getHandler('plugin', $moduleDirName);
      */
-    public static function checkVerXoops(XoopsModule $module)
-    {
-        xoops_loadLanguage('admin', $module->dirname());
-        //check for minimum XOOPS version
-        $currentVer  = substr(XOOPS_VERSION, 6); // get the numeric part of string
-        $currArray   = explode('.', $currentVer);
-        $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
-        $reqArray    = explode('.', $requiredVer);
-        $success     = true;
-        foreach ($reqArray as $k => $v) {
-            if (isset($currArray[$k])) {
-                if ($currArray[$k] > $v) {
-                    break;
-                } elseif ($currArray[$k] == $v) {
-                    continue;
-                } else {
-                    $success = false;
-                    break;
-                }
-            } else {
-                if ((int)$v > 0) { // handles versions like x.x.x.0_RC2
-                    $success = false;
-                    break;
-                }
+    xoops_load('plugin', $moduleDirName);
+
+    // Get list of modules admin wants to hide from xsitemap
+    $invisibleDirnames = empty($GLOBALS['xoopsModuleConfig']['invisible_dirnames']) ? ['xsitemap'] : explode(',', $GLOBALS['xoopsModuleConfig']['invisible_dirnames'] . ',xsitemap');
+    $invisibleDirnames = array_map('trim', $invisibleDirnames);
+    $invisibleDirnames = array_map('mb_strtolower', $invisibleDirnames);
+
+    // Get the mid for any of these modules if they're active and hasmain (visible frontside)
+    /** @var \XoopsModuleHandler $moduleHandler */
+    $moduleHandler     = xoops_getHandler('module');
+    $invisibleMidArray = [];
+    foreach ($invisibleDirnames as $hiddenDir) {
+        $criteria = new \CriteriaCompo(new \Criteria('hasmain', 1));
+        $criteria->add(new \Criteria('isactive', 1));
+        $criteria->add(new \Criteria('name', $hiddenDir));
+        $modObj = $moduleHandler->getByDirname($hiddenDir);
+        if (false !== $modObj && $modObj instanceof \XoopsModule) {
+            $invisibleMidArray[] = $modObj->mid();
+        }
+    }
+
+    // Where user has permissions
+    /** @var \XoopsGroupPermHandler $modulepermHandler */
+    $modulepermHandler = xoops_getHandler('groupperm');
+    $groups            = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $readAllowed       = $modulepermHandler->getItemIds('module_read', $groups);
+    $filteredMids      = array_diff($readAllowed, $invisibleMidArray);
+    /** @var \XsitemapPluginHandler $pluginHandler */
+    $pluginHandler = xoops_getModuleHandler('plugin', $moduleDirName);
+    $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
+    $criteria->add(new \Criteria('isactive', 1));
+    if (count($filteredMids) > 0) {
+        $criteria->add(new \Criteria('mid', '(' . implode(',', $filteredMids) . ')', 'IN'));
+    }
+
+    /** @var array $modules */
+    $modules = $moduleHandler->getObjects($criteria, true);
+
+    $criteria = new \CriteriaCompo();
+    $criteria->setSort('plugin_id');
+    $criteria->order = 'ASC';
+    $pluginObjArray  = $pluginHandler->getAll($criteria);
+
+    /** @var array $sublinks */
+    foreach ($modules as $mid => $modObj) {
+        $sublinks               = $modObj->subLink();
+        $modDirName             = $modObj->getVar('dirname', 'n');
+        $block['modules'][$mid] = [
+            'id'        => $mid,
+            'name'      => $modObj->getVar('name'),
+            'directory' => $modDirName,
+            'sublinks'  => []
+            // init the sublinks array
+        ];
+        // Now 'patch' the sublink to include module path
+        if (count($sublinks) > 0) {
+            foreach ($sublinks as $sublink) {
+                $block['modules'][$mid]['sublinks'][] = [
+                    'name' => $sublink['name'],
+                    'url'  => $GLOBALS['xoops']->url("www/modules/{$modDirName}/{$sublink['url']}")
+                ];
             }
         }
 
-        if (false === $success) {
-            $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
-        }
-
-        return $success;
-    }
-
-    /**
-     *
-     * Verifies PHP version meets minimum requirements for this module
-     * @static
-     * @param XoopsModule $module
-     *
-     * @return bool true if meets requirements, false if not
-     */
-    public static function checkVerPhp(XoopsModule $module)
-    {
-        xoops_loadLanguage('admin', $module->dirname());
-        // check for minimum PHP version
-        $success = true;
-        $verNum  = PHP_VERSION;
-        $reqVer  =& $module->getInfo('min_php');
-        if ((false !== $reqVer) && ('' !== $reqVer)) {
-            if (version_compare($verNum, (string)$reqVer, '<')) {
-                $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_PHP, $reqVer, $verNum));
-                $success = false;
+        /** @var array $pluginObjArray */
+        foreach ($pluginObjArray as $pObj) {
+            if ((0 == $pObj->getVar('topic_pid')) && in_array($pObj->getVar('plugin_mod_table'), (array)$modObj->getInfo('tables'))) {
+                $objVars = $pObj->getValues();
+                if (1 == $objVars['plugin_online']) {
+                    $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
+                    $block['modules'][$mid]['parent'] = isset($tmpMap['parent']) ? $tmpMap['parent'] : null;
+                }
             }
         }
-
-        return $success;
     }
 
-    /**
-     *
-     * Remove files and (sub)directories
-     *
-     * @param string $src source directory to delete
-     *
-     * @uses \Xmf\Module\Helper::getHelper()
-     * @uses \Xmf\Module\Helper::isUserAdmin()
-     *
-     * @return bool true on success
-     */
-    public static function deleteDirectory($src)
-    {
-        // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
-            return false;
-        }
+    return $block;
+}
 
-        $success = true;
-        // remove old files
-        $dirInfo = new SplFileInfo($src);
-        // validate is a directory
-        if ($dirInfo->isDir()) {
-            $fileList = array_diff(scandir($src), array('..', '.'));
-            foreach ($fileList as $k => $v) {
-                $fileInfo = new SplFileInfo("{$src}/{$v}");
-                if ($fileInfo->isDir()) {
-                    // recursively handle subdirectories
-                    if (!$success = self::deleteDirectory($fileInfo->getRealPath())) {
-                        break;
+/**
+ * Get the Sitemap
+ *
+ * @param        $table
+ * @param        $id_name
+ * @param        $pid_name
+ * @param        $title_name
+ * @param        $url
+ * @param string $order
+ * @return array sitemap links
+ */
+public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
+{
+    /** @var \XoopsMySQLDatabase $xDB */
+    $xDB  = \XoopsDatabaseFactory::getDatabaseConnection();
+    $myts = \MyTextSanitizer::getInstance();
+
+    $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
+    $result    = $xDB->query($sql);
+    $objsArray = [];
+
+    while (false !== ($row = $xDB->fetchArray($result))) {
+        $objsArray[] = new \XsitemapDummyObject($row, $id_name, $pid_name, $title_name);
+    }
+
+    //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
+    // v1.54 added in the event categories are flat (don't support hierarchy)
+    $sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
+    if ($pid_name !== $id_name) {
+        $sql .= " WHERE `{$pid_name}`= 0";
+    }
+    if ('' != $order) {
+        $sql .= " ORDER BY `{$order}`";
+    }
+    $result = $xDB->query($sql);
+
+    $i        = 0;
+    $xsitemap = [];
+    while (list($catid, $name) = $xDB->fetchRow($result)) {
+        $xsitemap['parent'][$i] = [
+            'id'    => $catid,
+            'title' => $myts->htmlSpecialChars($name),
+            'url'   => $url . $catid
+        ];
+
+        if (($pid_name !== $id_name) && $GLOBALS['xoopsModuleConfig']['show_subcategories']) {
+            $j           = 0;
+            $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
+            $child_array = $mytree->getAllChild($catid);
+            /** @var \XoopsObject $child */
+            foreach ($child_array as $child) {
+                $xsitemap['parent'][$i]['child'][$j] = [
+                    'id'    => $child->getVar($id_name),
+                    'title' => $child->getVar($title_name),
+                    'url'   => $url . $child->getVar($id_name)
+                ];
+                ++$j;
+            }
+        }
+        ++$i;
+    }
+
+    return $xsitemap;
+}
+
+/**
+ * Save the XML Sitemap
+ *
+ * @param array $xsitemap_show
+ * @return mixed int number of bytes saved | false on failure
+ */
+public static function saveSitemap(array $xsitemap_show)
+{
+    $xml                     = new \DOMDocument('1.0', 'UTF-8');
+    $xml->preserveWhiteSpace = false;
+    $xml->formatOutput       = true;
+    $xml_set                 = $xml->createElement('urlset');
+    $xml_set->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+
+    if (!empty($xsitemap_show)) {
+        foreach ($xsitemap_show['modules'] as $mod) {
+            if ($mod['directory']) {
+                $xml_url = $xml->createElement('url');
+                $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))));
+                $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
+                $xml_url->appendChild($loc);
+                $xml_set->appendChild($xml_url);
+            }
+            if (isset($mod['parent']) ? $mod['parent'] : null) {
+                foreach ($mod['parent'] as $parent) {
+                    $xml_parent = $xml->createElement('url');
+                    $loc        = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
+                    $xml_parent->appendChild($loc);
+                    $xml_set->appendChild($xml_parent);
+                }
+                $z = 0;
+                //if ($mod["parent"][$z]["child"]) {
+                if (isset($mod['parent'][$z]['child']) ? $mod['parent'][$z]['child'] : null) {
+                    foreach ($mod['parent'][$z]['child'] as $child) {
+                        $xml_child = $xml->createElement('url');
+                        $loc       = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
+                        $xml_child->appendChild($loc);
+                        $xml_set->appendChild($xml_child);
                     }
-                } else {
-                    // delete the file
-                    if (!($success = unlink($fileInfo->getRealPath()))) {
-                        break;
-                    }
+                    ++$z;
                 }
             }
-            // now delete this (sub)directory if all the files are gone
-            if ($success) {
-                $success = rmdir($dirInfo->getRealPath());
-            }
-        } else {
-            // input is not a valid directory
-            $success = false;
         }
-        return $success;
     }
-
-    /**
-     *
-     * Recursively remove directory
-     *
-     * @todo currently won't remove directories with hidden files, should it?
-     *
-     * @param string $src directory to remove (delete)
-     *
-     * @return bool true on success
-     */
-    public static function rrmdir($src)
-    {
-        // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
-            return false;
-        }
-
-        // If source is not a directory stop processing
-        if (!is_dir($src)) {
-            return false;
-        }
-
-        $success = true;
-
-        // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
-        foreach ($iterator as $fObj) {
-            if ($fObj->isFile()) {
-                $filename = $fObj->getPathname();
-                $fObj     = null; // clear this iterator object to close the file
-                if (!unlink($filename)) {
-                    return false; // couldn't delete the file
-                }
-            } elseif (!$fObj->isDot() && $fObj->isDir()) {
-                // Try recursively on directory
-                self::rrmdir($fObj->getPathname());
-            }
-        }
-        $iterator = null;   // clear iterator Obj to close file/directory
-        return rmdir($src); // remove the directory & return results
-    }
-
-    /**
-     * Recursively move files from one directory to another
-     *
-     * @param string $src  - Source of files being moved
-     * @param string $dest - Destination of files being moved
-     *
-     * @return bool true on success
-     */
-    public static function rmove($src, $dest)
-    {
-        // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
-            return false;
-        }
-
-        // If source is not a directory stop processing
-        if (!is_dir($src)) {
-            return false;
-        }
-
-        // If the destination directory does not exist and could not be created stop processing
-        if (!is_dir($dest) && !mkdir($dest, 0755)) {
-            return false;
-        }
-
-        // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
-        foreach ($iterator as $fObj) {
-            if ($fObj->isFile()) {
-                rename($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
-            } elseif (!$fObj->isDot() && $fObj->isDir()) {
-                // Try recursively on directory
-                self::rmove($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
-                //                rmdir($fObj->getPath()); // now delete the directory
-            }
-        }
-        $iterator = null;   // clear iterator Obj to close file/directory
-        return rmdir($src); // remove the directory & return results
-    }
-
-    /**
-     * Recursively copy directories and files from one directory to another
-     *
-     * @param string $src  - Source of files being moved
-     * @param string $dest - Destination of files being moved
-     *
-     * @uses \Xmf\Module\Helper::getHelper()
-     * @uses \Xmf\Module\Helper::isUserAdmin()
-     *
-     * @return bool true on success
-     */
-    public static function rcopy($src, $dest)
-    {
-        // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
-            return false;
-        }
-
-        // If source is not a directory stop processing
-        if (!is_dir($src)) {
-            return false;
-        }
-
-        // If the destination directory does not exist and could not be created stop processing
-        if (!is_dir($dest) && !mkdir($dest, 0755)) {
-            return false;
-        }
-
-        // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
-        foreach ($iterator as $fObj) {
-            if ($fObj->isFile()) {
-                copy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
-            } else if (!$fObj->isDot() && $fObj->isDir()) {
-                self::rcopy($fObj->getPathname(), "{$dest}/" . $fObj - getFilename());
-            }
-        }
-        return true;
-    }
+    $xml->appendChild($xml_set);
+    return $xml->save($GLOBALS['xoops']->path('www/xsitemap.xml'));
+}
 }

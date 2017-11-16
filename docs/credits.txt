@@ -4,7 +4,7 @@ Developed orginally by 'Urbanspaceman'
 
 Updated to XOOPS 2.5.0 Standard GUI by Michael Beck (Mamba), with contributions by Gregory Mage (Mage)
 
-The graphics Xsitemap is based on the stylesheet and the images created by ASTUTEO (http://www.astuteo.com) 
+The graphics Xsitemap is based on the stylesheet and the images created by ASTUTEO (http://www.astuteo.com)
 
 Translations:
 Italiano: Urbanspaceman
@@ -14,7 +14,7 @@ English: dbman
 Note from the Author:
 ---------------------
 
-I would to thank chanoir and GIJoe for having developed the original modules SITEMAP that inspired this new XSITEMAP, I would to thanks Trabis  and Alessandro for the help given during the development stages, I also thank the  Team Development Module (TDM) for creating the TDMCreate  module that has been on fundamental importance for the realization of  XSITEMAP 
+I would to thank chanoir and GIJoe for having developed the original modules SITEMAP that inspired this new XSITEMAP, I would to thanks Trabis  and Alessandro for the help given during the development stages, I also thank the  Team Development Module (TDM) for creating the TDMCreate  module that has been on fundamental importance for the realization of  XSITEMAP
 
 
 Urbanspaceman

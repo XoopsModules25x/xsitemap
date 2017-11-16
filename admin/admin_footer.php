@@ -12,13 +12,15 @@
 /**
  * @package    module\xsitemap\admin
  * @author     XOOPS Module Development Team
- * @copyright  XOOPS Project (http://xoops.org)
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @link       http://xoops.org XOOPS
+ * @link       https://xoops.org XOOPS
  **/
 
-echo "<div class='adminfooter'>\n" . "  <div class='txtcenter'>\n" . "    <a href='http://www.xoops.org' rel='external' target='_blank'><img src='" . \Xmf\Module\Admin::iconUrl('xoopsmicrobutton.gif',
-                                                                                                                                                                                 '32')
+echo "<div class='adminfooter'>\n" . "  <div class='txtcenter'>\n" . "    <a href='https://xoops.org' rel='external' target='_blank'><img src='" . \Xmf\Module\Admin::iconUrl(
+    'xoopsmicrobutton.gif',
+                                                                                                                                                                                 '32'
+)
      . "' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . "</div>\n";
 
 xoops_cp_footer();

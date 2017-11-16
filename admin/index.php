@@ -19,9 +19,9 @@
  * @author     XOOPS Module Development Team
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
- * @copyright  XOOPS Project (http://xoops.org)
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
- * @link       http://xoops.org XOOPS
+ * @link       https://xoops.org XOOPS
  * @since      1.00
  *
  * @uses       Xmf\Module\Admin
@@ -35,10 +35,14 @@ xoops_cp_header();
 
 // Get online plugin info
 //$countPlugins       = $pluginHandler->getCount();
-$criteria           = new Criteria('plugin_online', 1);
+$criteria           = new \Criteria('plugin_online', 1);
+
+/** @var XsitemapPluginHandler $pluginHandler */
+$onlinePluginObjs = [];
 $onlinePluginObjs   = $pluginHandler->getAll($criteria);
 $countPluginsOnline = (!empty($onlinePluginObjs)) ? count($onlinePluginObjs) : 0;
-$onlinePluginArray  = array();
+$onlinePluginArray  = [];
+/** @var \XoopsObject $onlineObj */
 foreach ($onlinePluginObjs as $onlineObj) {
     $onlinePluginArray[] = $onlineObj->getVar('plugin_name');
 }
@@ -46,10 +50,11 @@ natsort($onlinePluginArray);
 $onlinePluginNames = implode(', ', $onlinePluginArray);
 
 // get offline plugin info
-$criteria            = new Criteria('plugin_online', 0);
+$criteria            = new \Criteria('plugin_online', 0);
 $offlinePluginObjs   = $pluginHandler->getAll($criteria);
 $countPluginsOffline = (!empty($offlinePluginObjs)) ? count($offlinePluginObjs) : 0;
-$offlinePluginArray  = array();
+$offlinePluginArray  = [];
+/** @var XsitemapPlugin $offlineObj */
 foreach ($offlinePluginObjs as $offlineObj) {
     $offlinePluginArray[] = $offlineObj->getVar('plugin_name');
 }
@@ -70,4 +75,6 @@ $adminObject->addConfigBoxLine(sprintf(_AM_XSITEMAP_PLUGIN_OFFLINE_NAMES, $offli
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->displayIndex();
 
-include __DIR__ . '/admin_footer.php';
+echo $utility::getServerStats();
+
+require_once __DIR__ . '/admin_footer.php';
