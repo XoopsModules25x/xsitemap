@@ -1,4 +1,4 @@
-<h5>1.54 RC-1 [2017-07-04]</h5>
+<h5>1.54 RC-1 [2017-11-15]</h5>
 <hr>
 - added SCANDIR_SORT_NONE to scandir() (mamba)
 - fixed folder links to images in style.css (mamba)
