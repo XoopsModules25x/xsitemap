@@ -56,7 +56,7 @@ class XsitemapPlugin extends XoopsObject
     }
 
     /**
-     * @return mixed|string
+     * @return string
      */
     public function __toString()
     {
@@ -69,8 +69,6 @@ class XsitemapPlugin extends XoopsObject
      */
     public function getForm($action = false)
     {
-        global $xoopsDB, $xoopsModuleConfig;
-
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -101,16 +99,16 @@ class XsitemapPlugin extends XoopsObject
         $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_CALL, 'plugin_call', 50, 255, $this->getVar('plugin_call')), true);
         $form->addElement(new XoopsFormSelectUser(_AM_XSITEMAP_PLUGIN_SUBMITTER, 'plugin_submitter', false, $this->getVar('plugin_submitter'), 1, false), true);
         //            $plugin_date_created = $this->isNew() ? time() : $this->getVar("plugin_date_created");
-        $form->addElement(new XoopsFormTextDateSelect(_AM_XSITEMAP_PLUGIN_DATE_CREATED, 'plugin_date_created', '', $plugin_date_created));
+        $form->addElement(new \XoopsFormTextDateSelect(_AM_XSITEMAP_PLUGIN_DATE_CREATED, 'plugin_date_created', '', $plugin_date_created));
         //            $plugin_online = $this->isNew() ? 1 : $this->getVar("plugin_online");
-        $check_plugin_online = new XoopsFormCheckBox(_AM_XSITEMAP_PLUGIN_ONLINE, 'plugin_online', $plugin_online);
+        $check_plugin_online = new \XoopsFormCheckBox(_AM_XSITEMAP_PLUGIN_ONLINE, 'plugin_online', $plugin_online);
         $check_plugin_online->addOption(1, ' ');
         $form->addElement($check_plugin_online);
         $form->addElement(new XoopsFormHidden('op', 'save_plugin'));
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('plugin_id', $this->getVar('plugin_id')));
         }
-        $form->addElement(new XoopsFormButtonTray('submit', _SUBMIT));
+        $form->addElement(new \XoopsFormButtonTray('submit', _SUBMIT));
 
         return $form->display();
     }

@@ -68,3 +68,4 @@ define('_MI_XSITEMAP_OVERVIEW', 'Overview');
 define('_MI_XSITEMAP_DISCLAIMER', 'Disclaimer');
 define('_MI_XSITEMAP_LICENSE', 'License');
 define('_MI_XSITEMAP_SUPPORT', 'Support');
+

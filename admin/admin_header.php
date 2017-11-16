@@ -20,37 +20,33 @@
  * @link       https://xoops.org XOOPS
  * @since      1.00
  **/
-
-require_once __DIR__ . '/../../../include/cp_header.php';
-//require_once __DIR__ . '/../class/utility.php';
+use \Xoopsmodules\xsitemap;
 
 $moduleDirName = basename(dirname(__DIR__));
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../include/common.php';
 
-/** @var XsitemapHelper $xsitemapHelper */
-if (false !== ($xsitemapHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $xsitemapHelper = Xmf\Module\Helper::getHelper();
-}
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon32 = $xsitemapHelper->getModule()->getInfo('modicons32');
+//$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+//$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+//$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 //if functions.php file exist
-require_once __DIR__ . '/../include/functions.php';
+//require_once __DIR__ . '/../include/functions.php';
+
 require_once __DIR__ . '/../class/plugin.php';
 // Load language files
-$xsitemapHelper->loadLanguage('admin');
-$xsitemapHelper->loadLanguage('modinfo');
-$xsitemapHelper->loadLanguage('main');
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('main');
 
-$myts = MyTextSanitizer::getInstance();
-
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
-    require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
-}
-
-/** @var XsitemapPluginHandler $pluginHandler */
-$pluginHandler = $xsitemapHelper->getHandler('plugin');
+//$myts = MyTextSanitizer::getInstance();
+//
+//if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+//    require_once $GLOBALS['xoops']->path('class/template.php');
+//    $xoopsTpl = new XoopsTpl();
+//}
+//
+///** @var XsitemapPluginHandler $pluginHandler */
+//$pluginHandler = $helper->getHandler('plugin');

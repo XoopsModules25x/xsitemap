@@ -25,6 +25,7 @@
  */
 
 use Xmf\Request;
+use \Xoopsmodules\xsitemap;
 
 include __DIR__ . '/admin_header.php';
 
@@ -38,13 +39,14 @@ switch ($op) {
     case 'add_plugin':
 
         // Display the form
+        /** @var XsitemapPlugin $obj */
         $obj = $pluginHandler->create();
         echo $obj->getForm();
         break;
 
     case 'save_plugin':
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            $xsitemapHelper->redirect('admin/plugin.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            $helper->redirect('admin/plugin.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $pluginId = Request::getInt('plugin_id', 0, 'POST');
 
@@ -76,7 +78,7 @@ switch ($op) {
         );
 
         if ($pluginHandler->insert($obj)) {
-            $xsitemapHelper->redirect('admin/plugin.php?op=show_list_plugin', 2, _AM_XSITEMAP_FORMOK);
+            $helper->redirect('admin/plugin.php?op=show_list_plugin', 2, _AM_XSITEMAP_FORMOK);
         }
         //include_once("../include/forms.php");
         echo $obj->getHtmlErrors();
@@ -98,10 +100,10 @@ switch ($op) {
         if (1 == $ok) {
             //        if (isset($_REQUEST["ok"]) && $_REQUEST["ok"] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                $xsitemapHelper->redirect('admin/plugin.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+                $helper->redirect('admin/plugin.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($pluginHandler->delete($obj)) {
-                $xsitemapHelper->redirect('admin/plugin.php', 3, _AM_XSITEMAP_FORMDELOK);
+                $helper->redirect('admin/plugin.php', 3, _AM_XSITEMAP_FORMDELOK);
             } else {
                 echo $obj->getHtmlErrors();
             }
@@ -122,7 +124,7 @@ switch ($op) {
         $obj->setVar('plugin_online', Request::getInt('plugin_online', 0));
 
         if ($pluginHandler->insert($obj)) {
-            $xsitemapHelper->redirect('admin/plugin.php', 3, _AM_XSITEMAP_FORMOK);
+            $helper->redirect('admin/plugin.php', 3, _AM_XSITEMAP_FORMOK);
         }
         echo $obj->getHtmlErrors();
 
@@ -133,7 +135,7 @@ switch ($op) {
         $adminObject->addItemButton(_AM_XSITEMAP_CREATE_PLUGIN, basename(__FILE__) . '?op=add_plugin', 'add');
         $adminObject->displayButton('left', '');
 
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('plugin_name');
         $criteria->order = 'ASC';
         $numrows         = $pluginHandler->getCount();
@@ -150,7 +152,7 @@ switch ($op) {
                  . _AM_XSITEMAP_FORMACTION . "</th>\n" . "  </tr>\n" . "  </thead>\n" . "  <tbody>\n";
 
             $class = 'odd';
-
+            /** @var \XoopsObject[] $plugin_arr[] */
             foreach (array_keys($plugin_arr) as $i) {
                 if (0 == $plugin_arr[$i]->getVar('topic_pid')) {
                     echo "  <tr class='{$class}'>\n";

@@ -35,18 +35,29 @@ class XsitemapCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIndexStart($args)
     {
+        include __DIR__ . '/autoloader.php';
         // check once per user session if xsitemap exists
         $sessionVar = 'xsitemapChecked';
         $retVal     = true;
         if (empty($_SESSION[$sessionVar])) {
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
-                require_once dirname(__DIR__) . '/include/functions.php';
+//                require_once dirname(__DIR__) . '/include/common.php';
                 //Create the xsitemap.xml file in the site root
-                $xsitemap_show = xsitemapGenerateSitemap();
-                $retVal        = xsitemap_save($xsitemap_show) ? true : false;
+                $utility = new xsitemap\Utility();
+                $xsitemap_show = $utility::generateSitemap();
+                $retVal        = $utility::saveSitemap($xsitemap_show) ? true : false;
             }
             $_SESSION[$sessionVar] = 1;
         }
         return $retVal;
+    }
+
+    /**
+     * run autoloader
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonEnd($args)
+    {
+        include __DIR__ . '/autoloader.php';
     }
 }

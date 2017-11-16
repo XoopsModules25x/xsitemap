@@ -32,32 +32,6 @@ if (!defined($capsDirName . '_DIRNAME')) {
     define($capsDirName . '_AUTHOR_LOGOIMG', constant($capsDirName . '_URL') . '/assets/images/logoModule.png');
 }
 
-// Define here the place where main upload path
-
-//$img_dir = $GLOBALS['xoopsModuleConfig']['uploaddir'];
-
-define($capsDirName . '_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . $moduleDirName); // WITHOUT Trailing slash
-//define("XSITEMAP_UPLOAD_PATH", $img_dir); // WITHOUT Trailing slash
-define($capsDirName . '_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName); // WITHOUT Trailing slash
-
-//constant($cloned_lang . '_CATEGORY_NOTIFY')
-
-$uploadFolders = [
-    constant($capsDirName . '_UPLOAD_PATH'),
-    constant($capsDirName . '_UPLOAD_PATH') . '/images',
-    constant($capsDirName . '_UPLOAD_PATH') . '/images/thumbnails'
-];
-
-$copyFiles = [
-    constant($capsDirName . '_UPLOAD_PATH'),
-    constant($capsDirName . '_UPLOAD_PATH') . '/images',
-    constant($capsDirName . '_UPLOAD_PATH') . '/images/thumbnails'
-];
-
-$oldFiles = [
-    '/include/update_functions.php',
-    '/include/install_functions.php'
-];
 
 //Configurator
 return (object)[
@@ -100,54 +74,3 @@ return (object)[
                      <img src='" . constant($capsDirName . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\' /></a>',
 ];
 
-/**
- * Class ModuleConfigurator
- */
-class ModuleConfigurator
-{
-    public $uploadFolders   = [];
-    public $blankFiles      = [];
-    public $templateFolders = [];
-    public $oldFiles        = [];
-    public $oldFolders      = [];
-    public $name;
-
-    /**
-     * ModuleConfigurator constructor.
-     */
-    public function __construct()
-    {
-        $moduleDirName       = basename(dirname(__DIR__));
-        $capsDirName         = strtoupper($moduleDirName);
-        $this->name          = 'Module Configurator';
-        $this->uploadFolders = [
-            constant($capsDirName . '_UPLOAD_PATH'),
-            constant($capsDirName . '_UPLOAD_PATH') . '/midsize',
-            constant($capsDirName . '_UPLOAD_PATH') . '/thumbs',
-        ];
-        $this->blankFiles    = [
-            constant($capsDirName . '_UPLOAD_PATH'),
-            constant($capsDirName . '_UPLOAD_PATH') . '/midsize',
-            constant($capsDirName . '_UPLOAD_PATH') . '/thumbs',
-        ];
-
-        $this->templateFolders = [
-            '/templates/',
-            '/templates/blocks/',
-            '/templates/admin/'
-
-        ];
-        $this->oldFiles        = [
-            '/admin/admin.css',
-            '/class/utilities.php',
-        ];
-        $this->oldFolders      = [
-            '/images',
-            '/style',
-        ];
-    }
-}
-
-// module information
-//$modCopyright = "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
-//                     <img src='" . constant($capsDirName . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\' /></a>';

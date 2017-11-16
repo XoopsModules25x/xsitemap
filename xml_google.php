@@ -29,14 +29,14 @@ $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_xml.tpl';
 include_once $GLOBALS['xoops']->path('header.php');
 include_once $GLOBALS['xoops']->path('class/tree.php');
 include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/include/functions.php');
+include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
 include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
 
 $xmlfile = $GLOBALS['xoops']->path('xsitemap.xml');
 
-$xsitemap_show = xsitemapGenerateSitemap();
+$xsitemap_show = \Utility::generateSitemap();
 if (!empty($xsitemap_show)) {
-    $retVal = xsitemap_save($xsitemap_show);
+    $retVal = \Utility::saveSitemap($xsitemap_show);
     if (false !== $retVal) {
         $stat   = stat($xmlfile);
         $status = formatTimestamp($stat['mtime'], _DATESTRING);

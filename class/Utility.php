@@ -1,49 +1,68 @@
-<?php
+<?php namespace Xoopsmodules\xsitemap;
 /*
- * ****************************************************************************
- * xsitemap - MODULE FOR XOOPS CMS
- *
- * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting source code
- * which is considered copyrighted (c) material of the original comment or credit authors.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * ****************************************************************************
+ Utility Class Definition
+
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 /**
- * Module: xsitemap
+ * Module:  xSitemap
  *
- * @package            module\xsitemap\includes
- * @author             XOOPS Module Development Team
- * @author             Urbanspaceman (http://www.takeaweb.it)
- * @copyright          Urbanspaceman (http://www.takeaweb.it)
- * @copyright          XOOPS Project (https://xoops.org)
- * @license            http://www.fsf.org/copyleft/gpl.html GNU public license
- * @link               https://xoops.org XOOPS
- * @since              1.00
+ * @package      \module\xsitemap\class
+ * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
+ * @author       ZySpec <owners@zyspec.com>
+ * @author       Mamba <mambax7@gmail.com>
+ * @since        File available since version 1.54
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+use Xmf\Request;
+use Xoopsmodules\xsitemap\common;
+
+require_once __DIR__ . '/common/VersionChecks.php';
+require_once __DIR__ . '/common/ServerStats.php';
+require_once __DIR__ . '/common/FilesManagement.php';
+
+//require_once __DIR__ . '/../include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 xoops_loadLanguage('admin', $moduleDirName);
 if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {
     xoops_load('dummy', $moduleDirName);
 }
+
+/**
+ * Class Utility
+ */
+class Utility
+{
+    use common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+
+    use common\ServerStats; // getServerStats Trait
+
+    use common\FilesManagement; // Files Management Trait
+
+    //--------------- Custom module methods -----------------------------
+
 /**
  *
  * Show Site map
  *
  * @return array
  */
-function xsitemapGenerateSitemap()
+public static function generateSitemap()
 {
     $block         = [];
     $moduleDirName = basename(dirname(__DIR__));
     /** @internal can't use Helper since function called during install
-     * $xsitemapHelper = \Xmf\Module\Helper::getHelper($moduleDirName);
-     * $pluginHandler  = $xsitemapHelper->getHandler('plugin', $moduleDirName);
+     * $helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+     * $pluginHandler  = $helper->getHandler('plugin', $moduleDirName);
      */
     xoops_load('plugin', $moduleDirName);
 
@@ -53,37 +72,42 @@ function xsitemapGenerateSitemap()
     $invisibleDirnames = array_map('mb_strtolower', $invisibleDirnames);
 
     // Get the mid for any of these modules if they're active and hasmain (visible frontside)
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler     = xoops_getHandler('module');
     $invisibleMidArray = [];
     foreach ($invisibleDirnames as $hiddenDir) {
-        $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
-        $criteria->add(new Criteria('isactive', 1));
-        $criteria->add(new Criteria('name', $hiddenDir));
+        $criteria = new \CriteriaCompo(new \Criteria('hasmain', 1));
+        $criteria->add(new \Criteria('isactive', 1));
+        $criteria->add(new \Criteria('name', $hiddenDir));
         $modObj = $moduleHandler->getByDirname($hiddenDir);
-        if (false !== $modObj && $modObj instanceof XoopsModule) {
+        if (false !== $modObj && $modObj instanceof \XoopsModule) {
             $invisibleMidArray[] = $modObj->mid();
         }
     }
 
     // Where user has permissions
+    /** @var \XoopsGroupPermHandler $modulepermHandler */
     $modulepermHandler = xoops_getHandler('groupperm');
-    $groups            = ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups            = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $readAllowed       = $modulepermHandler->getItemIds('module_read', $groups);
     $filteredMids      = array_diff($readAllowed, $invisibleMidArray);
-    $pluginHandler     = xoops_getModuleHandler('plugin', $moduleDirName);
-    $criteria          = new CriteriaCompo(new Criteria('hasmain', 1));
-    $criteria->add(new Criteria('isactive', 1));
+    /** @var \XsitemapPluginHandler $pluginHandler */
+    $pluginHandler = xoops_getModuleHandler('plugin', $moduleDirName);
+    $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
+    $criteria->add(new \Criteria('isactive', 1));
     if (count($filteredMids) > 0) {
-        $criteria->add(new Criteria('mid', '(' . implode(',', $filteredMids) . ')', 'IN'));
+        $criteria->add(new \Criteria('mid', '(' . implode(',', $filteredMids) . ')', 'IN'));
     }
 
+    /** @var array $modules */
     $modules = $moduleHandler->getObjects($criteria, true);
 
-    $criteria = new CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     $criteria->setSort('plugin_id');
     $criteria->order = 'ASC';
     $pluginObjArray  = $pluginHandler->getAll($criteria);
 
+    /** @var array $sublinks */
     foreach ($modules as $mid => $modObj) {
         $sublinks               = $modObj->subLink();
         $modDirName             = $modObj->getVar('dirname', 'n');
@@ -92,7 +116,7 @@ function xsitemapGenerateSitemap()
             'name'      => $modObj->getVar('name'),
             'directory' => $modDirName,
             'sublinks'  => []
-             // init the sublinks array
+            // init the sublinks array
         ];
         // Now 'patch' the sublink to include module path
         if (count($sublinks) > 0) {
@@ -104,11 +128,12 @@ function xsitemapGenerateSitemap()
             }
         }
 
+        /** @var array $pluginObjArray */
         foreach ($pluginObjArray as $pObj) {
             if ((0 == $pObj->getVar('topic_pid')) && in_array($pObj->getVar('plugin_mod_table'), (array)$modObj->getInfo('tables'))) {
                 $objVars = $pObj->getValues();
                 if (1 == $objVars['plugin_online']) {
-                    $tmpMap                           = xsitemap_get_map($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
+                    $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
                     $block['modules'][$mid]['parent'] = isset($tmpMap['parent']) ? $tmpMap['parent'] : null;
                 }
             }
@@ -129,17 +154,18 @@ function xsitemapGenerateSitemap()
  * @param string $order
  * @return array sitemap links
  */
-function xsitemap_get_map($table, $id_name, $pid_name, $title_name, $url, $order = '')
+public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
 {
-    $xDB  = XoopsDatabaseFactory::getDatabaseConnection();
-    $myts = MyTextSanitizer::getInstance();
+    /** @var \XoopsMySQLDatabase $xDB */
+    $xDB  = \XoopsDatabaseFactory::getDatabaseConnection();
+    $myts = \MyTextSanitizer::getInstance();
 
     $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
     $result    = $xDB->query($sql);
     $objsArray = [];
 
-    while ($row = $xDB->fetchArray($result)) {
-        $objsArray[] = new XsitemapDummyObject($row, $id_name, $pid_name, $title_name);
+    while (false !== ($row = $xDB->fetchArray($result))) {
+        $objsArray[] = new \XsitemapDummyObject($row, $id_name, $pid_name, $title_name);
     }
 
     //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
@@ -162,10 +188,11 @@ function xsitemap_get_map($table, $id_name, $pid_name, $title_name, $url, $order
             'url'   => $url . $catid
         ];
 
-        if ($GLOBALS['xoopsModuleConfig']['show_subcategories'] && ($pid_name !== $id_name)) {
+        if (($pid_name !== $id_name) && $GLOBALS['xoopsModuleConfig']['show_subcategories']) {
             $j           = 0;
-            $mytree      = new XoopsObjectTree($objsArray, $id_name, $pid_name);
+            $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
             $child_array = $mytree->getAllChild($catid);
+            /** @var \XoopsObject $child */
             foreach ($child_array as $child) {
                 $xsitemap['parent'][$i]['child'][$j] = [
                     'id'    => $child->getVar($id_name),
@@ -187,9 +214,9 @@ function xsitemap_get_map($table, $id_name, $pid_name, $title_name, $url, $order
  * @param array $xsitemap_show
  * @return mixed int number of bytes saved | false on failure
  */
-function xsitemap_save(array $xsitemap_show)
+public static function saveSitemap(array $xsitemap_show)
 {
-    $xml                     = new DOMDocument('1.0', 'UTF-8');
+    $xml                     = new \DOMDocument('1.0', 'UTF-8');
     $xml->preserveWhiteSpace = false;
     $xml->formatOutput       = true;
     $xml_set                 = $xml->createElement('urlset');
@@ -227,4 +254,5 @@ function xsitemap_save(array $xsitemap_show)
     }
     $xml->appendChild($xml_set);
     return $xml->save($GLOBALS['xoops']->path('www/xsitemap.xml'));
+}
 }

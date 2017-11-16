@@ -1,90 +1,76 @@
-<?php
+<?php namespace Xoopsmodules\xsitemap\common;
 /*
- Xsitemap Utility Class Definition
+ You may not change or alter any portion of this comment or credits
+ of supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit authors.
 
- You may not change or alter any portion of this comment or credits of
- supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit
- authors.
-
- This program is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
-/**
- * Module:  xSitemap
- *
- * @package      \module\xsitemap\class
- * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
- * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
- * @author       ZySpec <owners@zyspec.com>
- * @author       Mamba <mambax7@gmail.com>
- * @since        File available since version 1.54
- */
 
 /**
- * XsitemapUtility
- *
- * Static utility class to provide common functionality
- *
+ * @copyright   XOOPS Project (https://xoops.org)
+ * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @author      mamba <mambax7@gmail.com>
  */
-class XsitemapUtility extends XoopsObject
+trait FilesManagement
 {
     /**
+     * Function responsible for checking if a directory exists, we can also write in and create an index.html file
      *
-     * Verifies XOOPS version meets minimum requirements for this module
-     * @static
-     * @param XoopsModule $module
+     * @param string $folder The full path of the directory to check
      *
-     * @param null        $requiredVer
-     * @return bool true if meets requirements, false if not
+     * @return void
+     * @throws \RuntimeException
      */
-    public static function checkVerXoops(XoopsModule $module = null, $requiredVer = null)
+    public static function createFolder($folder)
     {
-        $moduleDirName = basename(dirname(__DIR__));
-        if (null === $module) {
-            $module = XoopsModule::getByDirname($moduleDirName);
-        }
-        xoops_loadLanguage('admin', $moduleDirName);
+        try {
+            if (!file_exists($folder)) {
+                if (!mkdir($folder) && !is_dir($folder)) {
+                    throw new \RuntimeException(sprintf('Unable to create the %s directory', $folder));
+                }
 
-        //check for minimum XOOPS version
-        $currentVer = substr(XOOPS_VERSION, 6); // get the numeric part of string
-        if (null === $requiredVer) {
-            $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
+                file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
+            }
         }
-        $success     = true;
-
-        if (version_compare($currentVer, $requiredVer, '<')){
-            $success     = false;
-            $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
+        catch (\RuntimeException $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
-
-        return $success;
     }
 
     /**
-     *
-     * Verifies PHP version meets minimum requirements for this module
-     * @static
-     * @param XoopsModule $module
-     *
-     * @return bool true if meets requirements, false if not
+     * @param $file
+     * @param $folder
+     * @return bool
      */
-    public static function checkVerPhp(XoopsModule $module)
+    public static function copyFile($file, $folder)
     {
-        xoops_loadLanguage('admin', $module->dirname());
-        // check for minimum PHP version
-        $success = true;
-        $verNum  = PHP_VERSION;
-        $reqVer  =& $module->getInfo('min_php');
-        if ((false !== $reqVer) && ('' !== $reqVer)) {
-            if (version_compare($verNum, (string)$reqVer, '<')) {
-                $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_PHP, $reqVer, $verNum));
-                $success = false;
-            }
-        }
+        return copy($file, $folder);
+    }
 
-        return $success;
+    /**
+     * @param $src
+     * @param $dst
+     */
+    public static function recurseCopy($src, $dst)
+    {
+        $dir = opendir($src);
+//        @mkdir($dst);
+        if (!mkdir($dst) && !is_dir($dst)) {
+            while (false !== ($file = readdir($dir))) {
+                if (('.' !== $file) && ('..' !== $file)) {
+                    if (is_dir($src . '/' . $file)) {
+                        self::recurseCopy($src . '/' . $file, $dst . '/' . $file);
+                    } else {
+                        copy($src . '/' . $file, $dst . '/' . $file);
+                    }
+                }
+            }
+
+            closedir($dir);
+        }
     }
 
     /**
@@ -101,18 +87,18 @@ class XsitemapUtility extends XoopsObject
     public static function deleteDirectory($src)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
         $success = true;
         // remove old files
-        $dirInfo = new SplFileInfo($src);
+        $dirInfo = new \SplFileInfo($src);
         // validate is a directory
         if ($dirInfo->isDir()) {
             $fileList = array_diff(scandir($src, SCANDIR_SORT_NONE), ['..', '.']);
             foreach ($fileList as $k => $v) {
-                $fileInfo = new SplFileInfo("{$src}/{$v}");
+                $fileInfo = new \SplFileInfo("{$src}/{$v}");
                 if ($fileInfo->isDir()) {
                     // recursively handle subdirectories
                     if (!$success = self::deleteDirectory($fileInfo->getRealPath())) {
@@ -149,7 +135,7 @@ class XsitemapUtility extends XoopsObject
     public static function rrmdir($src)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
@@ -161,9 +147,9 @@ class XsitemapUtility extends XoopsObject
         $success = true;
 
         // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
+        $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
-            if ($fObj->isFile()) {
+            if (null !== $fObj && $fObj->isFile()) {
                 $filename = $fObj->getPathname();
                 $fObj     = null; // clear this iterator object to close the file
                 if (!unlink($filename)) {
@@ -189,7 +175,7 @@ class XsitemapUtility extends XoopsObject
     public static function rmove($src, $dest)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
@@ -204,7 +190,7 @@ class XsitemapUtility extends XoopsObject
         }
 
         // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
+        $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 rename($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
@@ -232,7 +218,7 @@ class XsitemapUtility extends XoopsObject
     public static function rcopy($src, $dest)
     {
         // Only continue if user is a 'global' Admin
-        if (!($GLOBALS['xoopsUser'] instanceof XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
+        if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
 
@@ -247,7 +233,7 @@ class XsitemapUtility extends XoopsObject
         }
 
         // Open the source directory to read in files
-        $iterator = new DirectoryIterator($src);
+        $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 copy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());

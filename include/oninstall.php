@@ -24,6 +24,8 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
+//use Xoopsmodules\xsitemap;
+
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
     || !$GLOBALS['xoopsUser']->isAdmin()
@@ -42,14 +44,15 @@ if ((!defined('XOOPS_ROOT_PATH'))
 function xoops_module_pre_install_xsitemap(XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    /** @var XsitemapUtility $utilityClass */
-    $utilityClass    = ucfirst($moduleDirName) . 'Utility';
-    if (!class_exists($utilityClass)) {
-        xoops_load('utility', $moduleDirName);
-    }
+    include __DIR__ . '/../preloads/autoloader.php';
+    /** @var \Utility $utilityClass */
+    $utility = new \Xoopsmodules\xsitemap\Utility();
+//    if (!class_exists($utilityClass)) {
+//        xoops_load('utility', $moduleDirName);
+//    }
 
-    $xoopsSuccess = $utilityClass::checkVerXoops($module);
-    $phpSuccess   = $utilityClass::checkVerPhp($module);
+    $xoopsSuccess = $utility::checkVerXoops($module);
+    $phpSuccess   = $utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
@@ -63,10 +66,10 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
  */
 function xoops_module_install_xsitemap(XoopsModule $module)
 {
-    $configuratorArray = include __DIR__ . '/config.php';
+//    $configuratorArray = include __DIR__ . '/config.php';
 
-    require_once __DIR__  . '/../class/configurator.php';
-    $configuratorClass = new XsitemapConfigurator();
+//    require_once __DIR__  . '/../class/configurator.php';
+//    $configuratorClass = new XsitemapConfigurator();
 
     return true; //
     /** @internal following code removed, it will fail because module not fully loaded/available until
@@ -79,7 +82,7 @@ function xoops_module_install_xsitemap(XoopsModule $module)
     include_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/dummy.php");
 
     //Create the xsitemap.xml file in the site root
-    $xsitemap_show = xsitemapGenerateSitemap();
-    return xsitemap_save($xsitemap_show) ? true : false;
+    $xsitemap_show = Utility::generateSitemap();
+    return Utility::saveSitemap($xsitemap_show) ? true : false;
     */
 }

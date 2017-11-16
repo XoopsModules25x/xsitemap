@@ -12,6 +12,8 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
+use \Xoopsmodules\xsitemap;
+
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
     || !$GLOBALS['xoopsUser']->isAdmin()
@@ -46,15 +48,16 @@ function xoops_module_uninstall_xsitemap(XoopsModule $module)
 {
     //    return true;
     $moduleDirName = $module->getVar('dirname');
-    /** @var XsitemapUtility $utilityClass */
-    $xsitemapHelper      = \Xmf\Module\Helper::getHelper($moduleDirName);
-    $utilityClass    = ucfirst($moduleDirName) . 'Utility';
-    if (!class_exists($utilityClass)) {
-        xoops_load('utility', $moduleDirName);
-    }
+    $helper      = \Xmf\Module\Helper::getHelper($moduleDirName);
+    /** @var \Utility $utility */
+    $utility = new xsitemap\Utility();
+
+//    if (!class_exists($utility)) {
+//        xoops_load('utility', $moduleDirName);
+//    }
 
     $success = true;
-    $xsitemapHelper->loadLanguage('admin');
+    $helper->loadLanguage('admin');
 
     //------------------------------------------------------------------
     // Remove xSitemap uploads folder (and all subfolders) if they exist
@@ -65,7 +68,7 @@ function xoops_module_uninstall_xsitemap(XoopsModule $module)
         $dirInfo = new SplFileInfo($old_dir);
         if ($dirInfo->isDir()) {
             // The directory exists so delete it
-            if (false === $utilityClass::rrmdir($old_dir)) {
+            if (false === $utility::rrmdir($old_dir)) {
                 $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_DEL_PATH, $old_dir));
                 $success = false;
             }

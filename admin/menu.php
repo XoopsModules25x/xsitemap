@@ -25,18 +25,17 @@
  * @since           1.00
  */
 
+use \Xoopsmodules\xsitemap;
+
 //defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+require_once __DIR__ . '/../include/common.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+$helper = xsitemap\Helper::getInstance();
 
-if (false !== ($xsitemapHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $xsitemapHelper = Xmf\Module\Helper::getHelper('system');
-}
 $pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $xsitemapHelper->getModule()->getInfo('modicons32');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
-//$xsitemapHelper->loadLanguage('modinfo');
+//$helper->loadLanguage('modinfo');
 
 $adminmenu = [
     [

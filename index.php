@@ -18,8 +18,13 @@
  * @copyright  XOOPS Project
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @link       https://xoops.org XOOPS
- * @since      ::    1.00
+ * @since      1.00
  **/
+
+use Xmf\Request;
+use Xoopsmodules\xsitemap;
+
+require_once __DIR__ . '/header.php';
 
 $moduleDirName = basename(__DIR__);
 require_once __DIR__ . '/../../mainfile.php';
@@ -30,12 +35,12 @@ $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 include_once $GLOBALS['xoops']->path('header.php');
 include_once $GLOBALS['xoops']->path('class/tree.php');
 include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/include/functions.php');
+//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
 include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
 
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 
-$xsitemap_show = xsitemapGenerateSitemap();
+$xsitemap_show = $utility::generateSitemap();
 
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url('browse.php?modules/' . $moduleDirName . '/assets/css/style.css'));
 $GLOBALS['xoopsTpl']->assign([

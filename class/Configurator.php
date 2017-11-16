@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\xsitemap;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,19 +14,16 @@
  * @copyright   XOOPS Project (https://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      XOOPS Development Team
- * @package     Publisher
- * @since       1.05
+ * @since       1.00
  *
  */
 
 require_once dirname(__DIR__) . '/include/common.php';
 
-//namespace Publisher;
-
 /**
- * Class PublisherConfigurator
+ * Class Configurator
  */
-class XsitemapConfigurator
+class Configurator
 {
     public $uploadFolders   = [];
     public $blankFiles      = [];
@@ -68,7 +65,7 @@ class XsitemapConfigurator
             '/class/utilities.php',
             '/class/util.php',
             '/include/constants.php',
-            '/include/functions.php',
+            '/class/Utility.php',
             '/ajaxrating.txt'
         ];
         $this->oldFolders      = [

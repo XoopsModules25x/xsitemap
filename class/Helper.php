@@ -1,9 +1,9 @@
-<?php
+<?php namespace Xoopsmodules\xsitemap;
 
 /**
- * Class XsitemapHelper
+ * Class Helper
  */
-class XsitemapHelper extends Xmf\Module\Helper
+class Helper extends \Xmf\Module\Helper
 {
     public $debug;
 

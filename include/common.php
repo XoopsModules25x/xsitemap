@@ -17,6 +17,19 @@
  * @author     XOOPS Development Team
  */
 
+use Xoopsmodules\xsitemap;
+
+$moduleDirName = basename(dirname(__DIR__));
+
+require_once __DIR__ . '/../class/Helper.php';
+require_once __DIR__ . '/../class/Utility.php';
+
+$db = \XoopsDatabaseFactory::getDatabase();
+$helper = xsitemap\Helper::getInstance();
+
+/** @var \Xoopsmodules\xsitemap\Utility $utility */
+$utility = new xsitemap\Utility();
+
 if (!defined('XSITEMAP_MODULE_PATH')) {
     define('XSITEMAP_DIRNAME', basename(dirname(__DIR__)));
     define('XSITEMAP_URL', XOOPS_URL . '/modules/' . XSITEMAP_DIRNAME);
@@ -27,9 +40,10 @@ if (!defined('XSITEMAP_MODULE_PATH')) {
     define('XSITEMAP_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . XSITEMAP_DIRNAME);
     define('XSITEMAP_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . XSITEMAP_DIRNAME);
 }
-xoops_loadLanguage('common', XSITEMAP_DIRNAME);
 
-require_once XSITEMAP_ROOT_PATH . '/include/functions.php';
+$helper->loadLanguage('common');
+
+//require_once XSITEMAP_ROOT_PATH . '/class/Utility.php';
 //require_once XSITEMAP_ROOT_PATH . '/include/constants.php';
 //require_once XSITEMAP_ROOT_PATH . '/include/seo_functions.php';
 //require_once XSITEMAP_ROOT_PATH . '/class/metagen.php';
@@ -38,5 +52,25 @@ require_once XSITEMAP_ROOT_PATH . '/include/functions.php';
 //require_once XSITEMAP_ROOT_PATH . '/class/request.php';
 
 
+$pathIcon16    = Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32    = Xmf\Module\Admin::iconUrl('', 32);
+$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
 $debug = false;
-//$xoalbum = XoalbumXoalbum::getInstance($debug);
+
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new \XoopsTpl();
+}
+
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+
+// Local icons path
+$GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+$GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
+
+//module handlers
+
+/** @var XsitemapPluginHandler $pluginHandler */
+$pluginHandler = $helper->getHandler('plugin');

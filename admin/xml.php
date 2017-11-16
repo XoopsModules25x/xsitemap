@@ -25,6 +25,8 @@
  * @since           1.00
  */
 
+use \Xoopsmodules\xsitemap;
+
 include __DIR__ . '/admin_header.php';
 
 $moduleDirName = basename(dirname(__DIR__));
@@ -33,7 +35,7 @@ xoops_cp_header();
 
 require_once $GLOBALS['xoops']->path('class/tree.php');
 require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/include/functions.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
 require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
 
 $adminObject = \Xmf\Module\Admin::getInstance();
@@ -44,15 +46,15 @@ $xmlfile_loc = $GLOBALS['xoops']->url('xsitemap.xml');
 
 if (isset($_POST['update'])) {
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        $xsitemapHelper->redirect('admin/xml.php', 3, $GLOBALS['xoopsSecurity']->getErrors(true));
+        $helper->redirect('admin/xml.php', 3, $GLOBALS['xoopsSecurity']->getErrors(true));
     }
 
     echo "<div class='pad7 width80'>\n";
-
-    $xsitemap_show = xsitemapGenerateSitemap();
+//    $utility = new xsitemap\Utility();
+    $xsitemap_show = $utility::generateSitemap();
     $update = _AM_XSITEMAP_XML_ERROR_UPDATE;
     if (!empty($xsitemap_show)) {
-        $retVal = xsitemap_save($xsitemap_show);
+        $retVal = $utility::saveSitemap($xsitemap_show);
         if (false !== $retVal) {
             $update = sprintf(_AM_XSITEMAP_BYTES_WRITTEN, $retVal) . "\n";
         }

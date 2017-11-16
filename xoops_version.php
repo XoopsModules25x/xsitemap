@@ -61,9 +61,9 @@ $modversion    = [
                   $moduleDirName . '_' . 'plugin'
             ],
             // Scripts to run upon installation or update
-            'onInstall'           => 'include/install.php',
-            'onUpdate'            => 'include/update.php',
-            'onUninstall'         => 'include/uninstall.php',
+            'onInstall'           => 'include/oninstall.php',
+            'onUpdate'            => 'include/onupdate.php',
+            'onUninstall'         => 'include/onuninstall.php',
             // Menu
             'hasMain'             => 1,
             'system_menu'         => 1,
