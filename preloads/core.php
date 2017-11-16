@@ -26,6 +26,8 @@
  * @package    xoopspoll
  * @subpackage class
  */
+use Xoopsmodules\xsitemap;
+
 class XsitemapCorePreload extends XoopsPreloadItem
 {
     /**
