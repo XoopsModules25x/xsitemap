@@ -45,14 +45,18 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     include __DIR__ . '/../preloads/autoloader.php';
-    /** @var \Utility $utilityClass */
+    /** @var \Utility $utility */
     $utility = new \Xoopsmodules\xsitemap\Utility();
-//    if (!class_exists($utilityClass)) {
-//        xoops_load('utility', $moduleDirName);
-//    }
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
+
+    if (false !== $xoopsSuccess && false !==  $phpSuccess) {
+        $moduleTables =& $module->getInfo('tables');
+        foreach ($moduleTables as $table) {
+            $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
+        }
+    }
     return $xoopsSuccess && $phpSuccess;
 }
 

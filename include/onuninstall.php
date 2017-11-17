@@ -15,7 +15,7 @@
 use \Xoopsmodules\xsitemap;
 
 if ((!defined('XOOPS_ROOT_PATH'))
-    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->isAdmin()
 ) {
     exit('Restricted access' . PHP_EOL);
