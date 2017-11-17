@@ -24,7 +24,7 @@
 $moduleDirName = basename(__DIR__);
 $modversion    = [
             'version'             => 1.54,
-            'module_status'       => 'RC-1',
+            'module_status'       => 'RC-2',
             'release_date'        => '2017/11/15',
             'name'                => _MI_XSITEMAP_NAME,
             'description'         => _MI_XSITEMAP_DESC,
