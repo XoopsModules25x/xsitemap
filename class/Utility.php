@@ -226,7 +226,7 @@ public static function saveSitemap(array $xsitemap_show)
         foreach ($xsitemap_show['modules'] as $mod) {
             if ($mod['directory']) {
                 $xml_url = $xml->createElement('url');
-                $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))));
+                $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))." "));
                 $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
                 $xml_url->appendChild($loc);
                 $xml_set->appendChild($xml_url);
