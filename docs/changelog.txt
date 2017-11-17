@@ -1,3 +1,10 @@
+<h5>1.54 RC-2 [NOT RELEASED]</h5>
+<hr>
+- Edit image off (aerograf)
+- cosmetics  (aerograf)
+- added removal of old tables on istall (mamba)
+
+
 <h5>1.54 RC-1 [2017-11-15]</h5>
 <hr>
 - added SCANDIR_SORT_NONE to scandir() (mamba)
@@ -6,6 +13,8 @@
 - added namespaces (mamba)
 - moved functions to Utility class (mamba)
 - added traits for Utility class (mamba)
+
+
 
 <h5>1.54 Beta 1 [2017-05-02] - NOT RELEASED</h5>
 <hr>
