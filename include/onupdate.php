@@ -17,7 +17,8 @@
  * @author       XOOPS Development Team
  */
 
-use \Xoopsmodules\xsitemap;
+use Xoopsmodules\xsitemap;
+require_once __DIR__ . '/../class/utility.php';
 
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()
@@ -37,7 +38,7 @@ function xoops_module_pre_update_xsitemap(XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     /** @var \Utility $utility */
-    $utility = new \Xoopsmodules\xsitemap\Utility();
+    $utility = new xsitemap\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
