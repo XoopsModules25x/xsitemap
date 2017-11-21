@@ -52,8 +52,8 @@ $helper->loadLanguage('common');
 //require_once XSITEMAP_ROOT_PATH . '/class/request.php';
 
 
-$pathIcon16    = Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32    = Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
 $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
 $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 

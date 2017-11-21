@@ -1,4 +1,5 @@
 <?php namespace Xoopsmodules\xsitemap;
+
 /*
  Utility Class Definition
 
@@ -50,209 +51,209 @@ class Utility
 
     //--------------- Custom module methods -----------------------------
 
-/**
- *
- * Show Site map
- *
- * @return array
- */
-public static function generateSitemap()
-{
-    $block         = [];
-    $moduleDirName = basename(dirname(__DIR__));
-    /** @internal can't use Helper since function called during install
-     * $helper = \Xmf\Module\Helper::getHelper($moduleDirName);
-     * $pluginHandler  = $helper->getHandler('plugin', $moduleDirName);
+    /**
+     *
+     * Show Site map
+     *
+     * @return array
      */
-    xoops_load('plugin', $moduleDirName);
+    public static function generateSitemap()
+    {
+        $block         = [];
+        $moduleDirName = basename(dirname(__DIR__));
+        /** @internal can't use Helper since function called during install
+         * $helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+         * $pluginHandler  = $helper->getHandler('plugin', $moduleDirName);
+         */
+        xoops_load('plugin', $moduleDirName);
 
-    // Get list of modules admin wants to hide from xsitemap
-    $invisibleDirnames = empty($GLOBALS['xoopsModuleConfig']['invisible_dirnames']) ? ['xsitemap'] : explode(',', $GLOBALS['xoopsModuleConfig']['invisible_dirnames'] . ',xsitemap');
-    $invisibleDirnames = array_map('trim', $invisibleDirnames);
-    $invisibleDirnames = array_map('mb_strtolower', $invisibleDirnames);
+        // Get list of modules admin wants to hide from xsitemap
+        $invisibleDirnames = empty($GLOBALS['xoopsModuleConfig']['invisible_dirnames']) ? ['xsitemap'] : explode(',', $GLOBALS['xoopsModuleConfig']['invisible_dirnames'] . ',xsitemap');
+        $invisibleDirnames = array_map('trim', $invisibleDirnames);
+        $invisibleDirnames = array_map('mb_strtolower', $invisibleDirnames);
 
-    // Get the mid for any of these modules if they're active and hasmain (visible frontside)
-    /** @var \XoopsModuleHandler $moduleHandler */
-    $moduleHandler     = xoops_getHandler('module');
-    $invisibleMidArray = [];
-    foreach ($invisibleDirnames as $hiddenDir) {
-        $criteria = new \CriteriaCompo(new \Criteria('hasmain', 1));
-        $criteria->add(new \Criteria('isactive', 1));
-        $criteria->add(new \Criteria('name', $hiddenDir));
-        $modObj = $moduleHandler->getByDirname($hiddenDir);
-        if (false !== $modObj && $modObj instanceof \XoopsModule) {
-            $invisibleMidArray[] = $modObj->mid();
+        // Get the mid for any of these modules if they're active and hasmain (visible frontside)
+        /** @var \XoopsModuleHandler $moduleHandler */
+        $moduleHandler     = xoops_getHandler('module');
+        $invisibleMidArray = [];
+        foreach ($invisibleDirnames as $hiddenDir) {
+            $criteria = new \CriteriaCompo(new \Criteria('hasmain', 1));
+            $criteria->add(new \Criteria('isactive', 1));
+            $criteria->add(new \Criteria('name', $hiddenDir));
+            $modObj = $moduleHandler->getByDirname($hiddenDir);
+            if (false !== $modObj && $modObj instanceof \XoopsModule) {
+                $invisibleMidArray[] = $modObj->mid();
+            }
         }
-    }
 
-    // Where user has permissions
-    /** @var \XoopsGroupPermHandler $modulepermHandler */
-    $modulepermHandler = xoops_getHandler('groupperm');
-    $groups            = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $readAllowed       = $modulepermHandler->getItemIds('module_read', $groups);
-    $filteredMids      = array_diff($readAllowed, $invisibleMidArray);
-    /** @var \XsitemapPluginHandler $pluginHandler */
-    $pluginHandler = xoops_getModuleHandler('plugin', $moduleDirName);
-    $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
-    $criteria->add(new \Criteria('isactive', 1));
-    if (count($filteredMids) > 0) {
-        $criteria->add(new \Criteria('mid', '(' . implode(',', $filteredMids) . ')', 'IN'));
-    }
+        // Where user has permissions
+        /** @var \XoopsGroupPermHandler $modulepermHandler */
+        $modulepermHandler = xoops_getHandler('groupperm');
+        $groups            = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $readAllowed       = $modulepermHandler->getItemIds('module_read', $groups);
+        $filteredMids      = array_diff($readAllowed, $invisibleMidArray);
+        /** @var \XsitemapPluginHandler $pluginHandler */
+        $pluginHandler = xoops_getModuleHandler('plugin', $moduleDirName);
+        $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
+        $criteria->add(new \Criteria('isactive', 1));
+        if (count($filteredMids) > 0) {
+            $criteria->add(new \Criteria('mid', '(' . implode(',', $filteredMids) . ')', 'IN'));
+        }
 
-    /** @var array $modules */
-    $modules = $moduleHandler->getObjects($criteria, true);
+        /** @var array $modules */
+        $modules = $moduleHandler->getObjects($criteria, true);
 
-    $criteria = new \CriteriaCompo();
-    $criteria->setSort('plugin_id');
-    $criteria->order = 'ASC';
-    $pluginObjArray  = $pluginHandler->getAll($criteria);
+        $criteria = new \CriteriaCompo();
+        $criteria->setSort('plugin_id');
+        $criteria->order = 'ASC';
+        $pluginObjArray  = $pluginHandler->getAll($criteria);
 
-    /** @var array $sublinks */
-    foreach ($modules as $mid => $modObj) {
-        $sublinks               = $modObj->subLink();
-        $modDirName             = $modObj->getVar('dirname', 'n');
-        $block['modules'][$mid] = [
+        /** @var array $sublinks */
+        foreach ($modules as $mid => $modObj) {
+            $sublinks               = $modObj->subLink();
+            $modDirName             = $modObj->getVar('dirname', 'n');
+            $block['modules'][$mid] = [
             'id'        => $mid,
             'name'      => $modObj->getVar('name'),
             'directory' => $modDirName,
             'sublinks'  => []
             // init the sublinks array
         ];
-        // Now 'patch' the sublink to include module path
-        if (count($sublinks) > 0) {
-            foreach ($sublinks as $sublink) {
-                $block['modules'][$mid]['sublinks'][] = [
+            // Now 'patch' the sublink to include module path
+            if (count($sublinks) > 0) {
+                foreach ($sublinks as $sublink) {
+                    $block['modules'][$mid]['sublinks'][] = [
                     'name' => $sublink['name'],
                     'url'  => $GLOBALS['xoops']->url("www/modules/{$modDirName}/{$sublink['url']}")
                 ];
+                }
             }
-        }
 
-        /** @var array $pluginObjArray */
-        foreach ($pluginObjArray as $pObj) {
-            if ((0 == $pObj->getVar('topic_pid')) && in_array($pObj->getVar('plugin_mod_table'), (array)$modObj->getInfo('tables'))) {
-                $objVars = $pObj->getValues();
-                if (1 == $objVars['plugin_online']) {
-                    $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
-                    $block['modules'][$mid]['parent'] = isset($tmpMap['parent']) ? $tmpMap['parent'] : null;
+            /** @var array $pluginObjArray */
+            foreach ($pluginObjArray as $pObj) {
+                if ((0 == $pObj->getVar('topic_pid')) && in_array($pObj->getVar('plugin_mod_table'), (array)$modObj->getInfo('tables'))) {
+                    $objVars = $pObj->getValues();
+                    if (1 == $objVars['plugin_online']) {
+                        $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
+                        $block['modules'][$mid]['parent'] = isset($tmpMap['parent']) ? $tmpMap['parent'] : null;
+                    }
                 }
             }
         }
+
+        return $block;
     }
 
-    return $block;
-}
+    /**
+     * Get the Sitemap
+     *
+     * @param        $table
+     * @param        $id_name
+     * @param        $pid_name
+     * @param        $title_name
+     * @param        $url
+     * @param string $order
+     * @return array sitemap links
+     */
+    public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
+    {
+        /** @var \XoopsMySQLDatabase $xDB */
+        $xDB  = \XoopsDatabaseFactory::getDatabaseConnection();
+        $myts = \MyTextSanitizer::getInstance();
 
-/**
- * Get the Sitemap
- *
- * @param        $table
- * @param        $id_name
- * @param        $pid_name
- * @param        $title_name
- * @param        $url
- * @param string $order
- * @return array sitemap links
- */
-public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
-{
-    /** @var \XoopsMySQLDatabase $xDB */
-    $xDB  = \XoopsDatabaseFactory::getDatabaseConnection();
-    $myts = \MyTextSanitizer::getInstance();
+        $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
+        $result    = $xDB->query($sql);
+        $objsArray = [];
 
-    $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
-    $result    = $xDB->query($sql);
-    $objsArray = [];
+        while (false !== ($row = $xDB->fetchArray($result))) {
+            $objsArray[] = new \XsitemapDummyObject($row, $id_name, $pid_name, $title_name);
+        }
 
-    while (false !== ($row = $xDB->fetchArray($result))) {
-        $objsArray[] = new \XsitemapDummyObject($row, $id_name, $pid_name, $title_name);
-    }
+        //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
+        // v1.54 added in the event categories are flat (don't support hierarchy)
+        $sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
+        if ($pid_name !== $id_name) {
+            $sql .= " WHERE `{$pid_name}`= 0";
+        }
+        if ('' != $order) {
+            $sql .= " ORDER BY `{$order}`";
+        }
+        $result = $xDB->query($sql);
 
-    //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
-    // v1.54 added in the event categories are flat (don't support hierarchy)
-    $sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
-    if ($pid_name !== $id_name) {
-        $sql .= " WHERE `{$pid_name}`= 0";
-    }
-    if ('' != $order) {
-        $sql .= " ORDER BY `{$order}`";
-    }
-    $result = $xDB->query($sql);
-
-    $i        = 0;
-    $xsitemap = [];
-    while (list($catid, $name) = $xDB->fetchRow($result)) {
-        $xsitemap['parent'][$i] = [
+        $i        = 0;
+        $xsitemap = [];
+        while (list($catid, $name) = $xDB->fetchRow($result)) {
+            $xsitemap['parent'][$i] = [
             'id'    => $catid,
             'title' => $myts->htmlSpecialChars($name),
             'url'   => $url . $catid
         ];
 
-        if (($pid_name !== $id_name) && $GLOBALS['xoopsModuleConfig']['show_subcategories']) {
-            $j           = 0;
-            $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
-            $child_array = $mytree->getAllChild($catid);
-            /** @var \XoopsObject $child */
-            foreach ($child_array as $child) {
-                $xsitemap['parent'][$i]['child'][$j] = [
+            if (($pid_name !== $id_name) && $GLOBALS['xoopsModuleConfig']['show_subcategories']) {
+                $j           = 0;
+                $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
+                $child_array = $mytree->getAllChild($catid);
+                /** @var \XoopsObject $child */
+                foreach ($child_array as $child) {
+                    $xsitemap['parent'][$i]['child'][$j] = [
                     'id'    => $child->getVar($id_name),
                     'title' => $child->getVar($title_name),
                     'url'   => $url . $child->getVar($id_name)
                 ];
-                ++$j;
+                    ++$j;
+                }
             }
+            ++$i;
         }
-        ++$i;
+
+        return $xsitemap;
     }
 
-    return $xsitemap;
-}
+    /**
+     * Save the XML Sitemap
+     *
+     * @param array $xsitemap_show
+     * @return mixed int number of bytes saved | false on failure
+     */
+    public static function saveSitemap(array $xsitemap_show)
+    {
+        $xml                     = new \DOMDocument('1.0', 'UTF-8');
+        $xml->preserveWhiteSpace = false;
+        $xml->formatOutput       = true;
+        $xml_set                 = $xml->createElement('urlset');
+        $xml_set->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
-/**
- * Save the XML Sitemap
- *
- * @param array $xsitemap_show
- * @return mixed int number of bytes saved | false on failure
- */
-public static function saveSitemap(array $xsitemap_show)
-{
-    $xml                     = new \DOMDocument('1.0', 'UTF-8');
-    $xml->preserveWhiteSpace = false;
-    $xml->formatOutput       = true;
-    $xml_set                 = $xml->createElement('urlset');
-    $xml_set->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-
-    if (!empty($xsitemap_show)) {
-        foreach ($xsitemap_show['modules'] as $mod) {
-            if ($mod['directory']) {
-                $xml_url = $xml->createElement('url');
-                $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))." "));
-                $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
-                $xml_url->appendChild($loc);
-                $xml_set->appendChild($xml_url);
-            }
-            if (isset($mod['parent']) ? $mod['parent'] : null) {
-                foreach ($mod['parent'] as $parent) {
-                    $xml_parent = $xml->createElement('url');
-                    $loc        = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
-                    $xml_parent->appendChild($loc);
-                    $xml_set->appendChild($xml_parent);
+        if (!empty($xsitemap_show)) {
+            foreach ($xsitemap_show['modules'] as $mod) {
+                if ($mod['directory']) {
+                    $xml_url = $xml->createElement('url');
+                    $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))." "));
+                    $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
+                    $xml_url->appendChild($loc);
+                    $xml_set->appendChild($xml_url);
                 }
-                $z = 0;
-                //if ($mod["parent"][$z]["child"]) {
-                if (isset($mod['parent'][$z]['child']) ? $mod['parent'][$z]['child'] : null) {
-                    foreach ($mod['parent'][$z]['child'] as $child) {
-                        $xml_child = $xml->createElement('url');
-                        $loc       = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
-                        $xml_child->appendChild($loc);
-                        $xml_set->appendChild($xml_child);
+                if (isset($mod['parent']) ? $mod['parent'] : null) {
+                    foreach ($mod['parent'] as $parent) {
+                        $xml_parent = $xml->createElement('url');
+                        $loc        = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
+                        $xml_parent->appendChild($loc);
+                        $xml_set->appendChild($xml_parent);
                     }
-                    ++$z;
+                    $z = 0;
+                    //if ($mod["parent"][$z]["child"]) {
+                    if (isset($mod['parent'][$z]['child']) ? $mod['parent'][$z]['child'] : null) {
+                        foreach ($mod['parent'][$z]['child'] as $child) {
+                            $xml_child = $xml->createElement('url');
+                            $loc       = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
+                            $xml_child->appendChild($loc);
+                            $xml_set->appendChild($xml_child);
+                        }
+                        ++$z;
+                    }
                 }
             }
         }
+        $xml->appendChild($xml_set);
+        return $xml->save($GLOBALS['xoops']->path('www/xsitemap.xml'));
     }
-    $xml->appendChild($xml_set);
-    return $xml->save($GLOBALS['xoops']->path('www/xsitemap.xml'));
-}
 }

@@ -18,6 +18,7 @@
  */
 
 use Xoopsmodules\xsitemap;
+
 require_once __DIR__ . '/../class/Utility.php';
 
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)

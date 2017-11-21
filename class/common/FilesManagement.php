@@ -1,4 +1,5 @@
 <?php namespace Xoopsmodules\xsitemap\common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -34,8 +35,7 @@ trait FilesManagement
 
                 file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
             }
-        }
-        catch (\RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }

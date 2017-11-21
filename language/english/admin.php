@@ -88,7 +88,7 @@ define('_AM_XSITEMAP_ABOUT_AUTHOR', 'Author');
 define('_AM_XSITEMAP_ABOUT_CREDITS', 'Credits');
 define('_AM_XSITEMAP_ABOUT_CREDITS_TEXT', "The graphics Xsitemap is based on the stylesheet and the images created by <a href='http://www.astuteo.com'> ASTUTEO </a>");
 define('_AM_XSITEMAP_ABOUT_TNX', 'Acknowledgments');
-define('_AM_XSITEMAP_ABOUT_TNX_TEXT','I would to thank <b>chanoir</b> and <b>GIJoe</b> for having developed the original modules SITEMAP that inspired this new <b>XSITEMAP</b>. I would also give thanks to <b>trabis</b> and < b>Alessandro</b> for the help given during the development stages, I also thank the <b>Team Development Module</b> for creating the <b>TDMCreate</b> module that has been of fundamental importance for the realization of <b>XSITEMAP</b>');
+define('_AM_XSITEMAP_ABOUT_TNX_TEXT', 'I would to thank <b>chanoir</b> and <b>GIJoe</b> for having developed the original modules SITEMAP that inspired this new <b>XSITEMAP</b>. I would also give thanks to <b>trabis</b> and < b>Alessandro</b> for the help given during the development stages, I also thank the <b>Team Development Module</b> for creating the <b>TDMCreate</b> module that has been of fundamental importance for the realization of <b>XSITEMAP</b>');
 define('_AM_XSITEMAP_ABOUT_README', 'Information');
 define('_AM_XSITEMAP_ABOUT_MANUAL', 'Help');
 define('_AM_XSITEMAP_ABOUT_LICENSE', 'License');

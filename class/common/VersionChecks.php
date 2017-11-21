@@ -1,4 +1,5 @@
 <?php namespace Xoopsmodules\xsitemap\common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -40,7 +41,7 @@ trait VersionChecks
         }
         $success     = true;
 
-        if (version_compare($currentVer, $requiredVer, '<')){
+        if (version_compare($currentVer, $requiredVer, '<')) {
             $success     = false;
             $module->setErrors(sprintf(_AM_XSITEMAP_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
