@@ -11,7 +11,7 @@
  */
 
 /**
- * @package    module\xsitemap\admin
+ * @package    module\Xsitemap\admin
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @author     XOOPS Module Dev Team
@@ -20,12 +20,17 @@
  * @link       https://xoops.org XOOPS
  * @since      1.00
  **/
-use \Xoopsmodules\xsitemap;
+use \XoopsModules\Xsitemap;
 
 $moduleDirName = basename(dirname(__DIR__));
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once __DIR__ . '/../include/common.php';
 
+$moduleDirName = basename(dirname(__DIR__));
+/** @var Xsitemap\Helper $helper */
+$helper = Xsitemap\Helper::getInstance();
+
+/** @var Xmf\Module\Admin $adminObject */
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 //$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
@@ -41,7 +46,7 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-//$myts = MyTextSanitizer::getInstance();
+//$myts = \MyTextSanitizer::getInstance();
 //
 //if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
 //    require_once $GLOBALS['xoops']->path('class/template.php');
@@ -50,3 +55,5 @@ $helper->loadLanguage('main');
 //
 ///** @var XsitemapPluginHandler $pluginHandler */
 //$pluginHandler = $helper->getHandler('plugin');
+
+//xoops_cp_header();

@@ -18,7 +18,7 @@
  * @author     XOOPS Development Team
  */
 
-
+use XoopsModules\Xsitemap;
 
 $moduleDirName = basename(__DIR__);
 
@@ -26,22 +26,12 @@ require_once __DIR__ . '/../../mainfile.php';
 //require_once __DIR__ . '/../../include/cp_header.php';
 require_once __DIR__ . '/include/common.php';
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 
-//if (false !== ($helper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-//} else {
-//    $helper = Xmf\Module\Helper::getHelper('system');
-//}
-
+$helper       = Xsitemap\Helper::getInstance();
+$utility      = new Xsitemap\Utility();
+$configurator = new Xsitemap\Configurator();
 // Load language files
-$helper->loadLanguage('main');
-
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
-    require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
-}
-
-//if ($publisher->getConfig('seo_url_rewrite') != 'none') {
-//    require_once PUBLISHER_ROOT_PATH . '/include/seo.inc.php';
-//}
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');

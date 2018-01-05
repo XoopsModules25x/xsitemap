@@ -17,19 +17,39 @@
  * @author     XOOPS Development Team
  */
 
-use Xoopsmodules\xsitemap;
+use XoopsModules\Xsitemap;
+include __DIR__ . '/../preloads/autoloader.php';
 
 $moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper   = strtoupper($moduleDirName); //$capsDirName
 
-require_once __DIR__ . '/../class/Helper.php';
-require_once __DIR__ . '/../class/Utility.php';
+/** @var \XoopsDatabase $db */
+/** @var Xsitemap\Helper $helper */
+/** @var Xsitemap\Utility $utility */
+$db      = \XoopsDatabaseFactory::getDatabaseConnection();
+$helper  = Xsitemap\Helper::getInstance();
+$utility = new Xsitemap\Utility();
+//$configurator = new Xsitemap\Common\Configurator();
 
-$db = \XoopsDatabaseFactory::getDatabase();
-$helper = xsitemap\Helper::getInstance();
+$helper->loadLanguage('common');
 
-/** @var \Xoopsmodules\xsitemap\Utility $utility */
-$utility = new xsitemap\Utility();
+if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
+    define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
+    define($moduleDirNameUpper . '_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/');
+    define($moduleDirNameUpper . '_URL', XOOPS_URL . '/modules/' . $moduleDirName . '/');
+    define($moduleDirNameUpper . '_IMAGE_URL', constant($moduleDirNameUpper . '_URL') . '/assets/images/');
+    define($moduleDirNameUpper . '_IMAGE_PATH', constant($moduleDirNameUpper . '_ROOT_PATH') . '/assets/images');
+    define($moduleDirNameUpper . '_ADMIN_URL', constant($moduleDirNameUpper . '_URL') . '/admin/');
+    define($moduleDirNameUpper . '_ADMIN_PATH', constant($moduleDirNameUpper . '_ROOT_PATH') . '/admin/');
+    define($moduleDirNameUpper . '_PATH', XOOPS_ROOT_PATH . '/modules/' . constant($moduleDirNameUpper . '_DIRNAME'));
+    define($moduleDirNameUpper . '_ADMIN', constant($moduleDirNameUpper . '_URL') . '/admin/index.php');
+    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', constant($moduleDirNameUpper . '_URL') . '/assets/images/logoModule.png');
+    define($moduleDirNameUpper . '_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . $moduleDirName); // WITHOUT Trailing slash
+    define($moduleDirNameUpper . '_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName); // WITHOUT Trailing slash
+    define($moduleDirNameUpper . '_CONSTANTS_DEFINED', 1);
+}
 
+/*
 if (!defined('XSITEMAP_MODULE_PATH')) {
     define('XSITEMAP_DIRNAME', basename(dirname(__DIR__)));
     define('XSITEMAP_URL', XOOPS_URL . '/modules/' . XSITEMAP_DIRNAME);
@@ -40,6 +60,7 @@ if (!defined('XSITEMAP_MODULE_PATH')) {
     define('XSITEMAP_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . XSITEMAP_DIRNAME);
     define('XSITEMAP_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . XSITEMAP_DIRNAME);
 }
+*/
 
 $helper->loadLanguage('common');
 

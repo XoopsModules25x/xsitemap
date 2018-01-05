@@ -15,7 +15,7 @@
 /**
  * Module: xsitemap
  *
- * @package         module\xsitemap\admin
+ * @package         module\Xsitemap\admin
  * @author          XOOPS Module Development Team
  * @author          Urbanspaceman (http://www.takeaweb.it)
  * @copyright       Urbanspaceman (http://www.takeaweb.it)
@@ -25,7 +25,7 @@
  * @since           1.00
  */
 
-use \Xoopsmodules\xsitemap;
+use \XoopsModules\Xsitemap;
 
 include __DIR__ . '/admin_header.php';
 
@@ -50,7 +50,7 @@ if (isset($_POST['update'])) {
     }
 
     echo "<div class='pad7 width80'>\n";
-//    $utility = new xsitemap\Utility();
+//    $utility = new Xsitemap\Utility();
     $xsitemap_show = $utility::generateSitemap();
     $update = _AM_XSITEMAP_XML_ERROR_UPDATE;
     if (!empty($xsitemap_show)) {

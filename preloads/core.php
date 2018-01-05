@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 /**
- * @package    module\xsitemap\admin
+ * @package    module\Xsitemap\admin
  * @copyright  https://xoops.org 2001-2017 XOOPS Project
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @author     ZySpec <owners@zyspec.com>
@@ -26,7 +26,7 @@
  * @package    xoopspoll
  * @subpackage class
  */
-use Xoopsmodules\xsitemap;
+use XoopsModules\Xsitemap;
 
 class XsitemapCorePreload extends XoopsPreloadItem
 {
@@ -45,7 +45,7 @@ class XsitemapCorePreload extends XoopsPreloadItem
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
 //                require_once dirname(__DIR__) . '/include/common.php';
                 //Create the xsitemap.xml file in the site root
-                $utility = new xsitemap\Utility();
+                $utility = new Xsitemap\Utility();
                 $xsitemap_show = $utility::generateSitemap();
                 $retVal        = $utility::saveSitemap($xsitemap_show) ? true : false;
             }

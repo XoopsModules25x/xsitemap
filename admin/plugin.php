@@ -14,7 +14,7 @@
 /**
  * Module: xsitemap
  *
- * @package         module\xsitemap\admin
+ * @package         module\Xsitemap\admin
  * @author          Urbanspaceman (http://www.takeaweb.it)
  * @copyright       Urbanspaceman (http://www.takeaweb.it)
  * @author          XOOPS Module Development Team
@@ -25,7 +25,7 @@
  */
 
 use Xmf\Request;
-use \Xoopsmodules\xsitemap;
+use \XoopsModules\Xsitemap;
 
 include __DIR__ . '/admin_header.php';
 

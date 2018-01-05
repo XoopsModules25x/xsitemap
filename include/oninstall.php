@@ -24,7 +24,7 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
-//use Xoopsmodules\xsitemap;
+//use XoopsModules\Xsitemap;
 
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
@@ -46,7 +46,7 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
     $moduleDirName = basename(dirname(__DIR__));
     include __DIR__ . '/../preloads/autoloader.php';
     /** @var \Utility $utility */
-    $utility = new \Xoopsmodules\xsitemap\Utility();
+    $utility = new \XoopsModules\Xsitemap\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);

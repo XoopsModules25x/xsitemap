@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xsitemap;
+<?php namespace XoopsModules\Xsitemap;
 
 /**
  * Class Helper

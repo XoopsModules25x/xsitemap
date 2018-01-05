@@ -14,7 +14,7 @@
 /**
  * Module: xsitemap
  *
- * @package    module\xsitemap\class
+ * @package    module\Xsitemap\class
  * @author     XOOPS Module Development Team
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)

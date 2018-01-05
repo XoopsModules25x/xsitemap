@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xsitemap;
+<?php namespace XoopsModules\Xsitemap;
 
 /*
  Utility Class Definition
@@ -15,7 +15,7 @@
 /**
  * Module:  xSitemap
  *
- * @package      \module\xsitemap\class
+ * @package      \module\Xsitemap\class
  * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
  * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       ZySpec <owners@zyspec.com>
@@ -24,11 +24,8 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\xsitemap\common;
+use XoopsModules\Xsitemap\Common;
 
-require_once __DIR__ . '/common/VersionChecks.php';
-require_once __DIR__ . '/common/ServerStats.php';
-require_once __DIR__ . '/common/FilesManagement.php';
 
 //require_once __DIR__ . '/../include/common.php';
 
@@ -66,6 +63,7 @@ class Utility
          * $pluginHandler  = $helper->getHandler('plugin', $moduleDirName);
          */
         xoops_load('plugin', $moduleDirName);
+        xoops_load('XoopsModuleConfig');
 
         // Get list of modules admin wants to hide from xsitemap
         $invisibleDirnames = empty($GLOBALS['xoopsModuleConfig']['invisible_dirnames']) ? ['xsitemap'] : explode(',', $GLOBALS['xoopsModuleConfig']['invisible_dirnames'] . ',xsitemap');
@@ -157,6 +155,7 @@ class Utility
      */
     public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
     {
+        global $xoopsModuleConfig;
         /** @var \XoopsMySQLDatabase $xDB */
         $xDB  = \XoopsDatabaseFactory::getDatabaseConnection();
         $myts = \MyTextSanitizer::getInstance();
@@ -189,7 +188,7 @@ class Utility
             'url'   => $url . $catid
         ];
 
-            if (($pid_name !== $id_name) && $GLOBALS['xoopsModuleConfig']['show_subcategories']) {
+            if (($pid_name !== $id_name) && $xoopsModuleConfig['show_subcategories']) {
                 $j           = 0;
                 $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
                 $child_array = $mytree->getAllChild($catid);
@@ -227,7 +226,7 @@ class Utility
             foreach ($xsitemap_show['modules'] as $mod) {
                 if ($mod['directory']) {
                     $xml_url = $xml->createElement('url');
-                    $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']))." "));
+                    $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name'])) . ' '));
                     $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
                     $xml_url->appendChild($loc);
                     $xml_set->appendChild($xml_url);

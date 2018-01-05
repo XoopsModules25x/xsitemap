@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xsitemap;
+<?php namespace XoopsModules\Xsitemap;
 
 /*
  You may not change or alter any portion of this comment or credits

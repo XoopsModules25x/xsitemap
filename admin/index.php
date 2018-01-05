@@ -15,7 +15,7 @@
 /**
  * Module: xsitemap
  *
- * @package    module\xsitemap\admin
+ * @package    module\Xsitemap\admin
  * @author     XOOPS Module Development Team
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
@@ -27,11 +27,13 @@
  * @uses       Xmf\Module\Admin
  */
 
-require_once __DIR__ . '/admin_header.php';
+use XoopsModules\Xsitemap;
 
+require_once __DIR__ . '/admin_header.php';
+// Display Admin header
+xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-xoops_cp_header();
 
 // Get online plugin info
 //$countPlugins       = $pluginHandler->getCount();

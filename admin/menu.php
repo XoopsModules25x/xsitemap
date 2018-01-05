@@ -15,7 +15,7 @@
 /**
  * Module: xsitemap
  *
- * @package         module\xsitemap\admin
+ * @package         module\Xsitemap\admin
  * @author          XOOPS Module Development Team
  * @author          Urbanspaceman (http://www.takeaweb.it)
  * @copyright       Urbanspaceman (http://www.takeaweb.it)
@@ -25,16 +25,14 @@
  * @since           1.00
  */
 
-use \Xoopsmodules\xsitemap;
+use \XoopsModules\Xsitemap;
 
-require_once __DIR__ . '/../include/common.php';
+//require_once __DIR__ . '/../class/Helper.php';
+//require_once __DIR__ . '/../include/common.php';
+$helper = Xsitemap\Helper::getInstance();
 
-$helper = xsitemap\Helper::getInstance();
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-//$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
-//$helper->loadLanguage('modinfo');
-//$helper->loadLanguage('main');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 $adminmenu = [
     [

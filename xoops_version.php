@@ -13,13 +13,15 @@
  * ****************************************************************************
  */
 /**
- * @package    module\xsitemap\frontside
+ * @package    module\Xsitemap\frontside
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @link       https://xoops.org XOOPS
  */
+
+include __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
 $modversion    = [

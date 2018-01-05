@@ -12,7 +12,7 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
-use \Xoopsmodules\xsitemap;
+use \XoopsModules\Xsitemap;
 
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
@@ -50,7 +50,7 @@ function xoops_module_uninstall_xsitemap(XoopsModule $module)
     $moduleDirName = $module->getVar('dirname');
     $helper      = \Xmf\Module\Helper::getHelper($moduleDirName);
     /** @var \Utility $utility */
-    $utility = new xsitemap\Utility();
+    $utility = new Xsitemap\Utility();
 
 //    if (!class_exists($utility)) {
 //        xoops_load('utility', $moduleDirName);

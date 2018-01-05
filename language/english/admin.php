@@ -15,7 +15,7 @@
 /**
  * Module: xsitemap
  *
- * @package    module\xsitemap\language
+ * @package    module\Xsitemap\language
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @copyright  XOOPS Project (https://xoops.org)

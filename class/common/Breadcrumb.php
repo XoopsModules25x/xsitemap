@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xsitemap\common;
+<?php namespace XoopsModules\Xsitemap\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -12,7 +12,7 @@
 /**
  * Breadcrumb Class
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (https://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      lucio <lucio.rota@gmail.com>
  * @package     pedigree
@@ -29,7 +29,7 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
- * Class PedigreeBreadcrumb
+ * Class Breadcrumb
  */
 class Breadcrumb
 {

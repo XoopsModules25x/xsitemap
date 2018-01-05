@@ -17,7 +17,7 @@
 /**
  * Module: xsitemap
  *
- * @package    module\xsitemap\class
+ * @package    module\Xsitemap\class
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
