@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Xsitemap;
 /*
  * ****************************************************************************
  * xsitemap - MODULE FOR XOOPS CMS
@@ -27,13 +27,13 @@
 defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
- * Class XsitemapPlugin
+ * Class Plugin
  */
-class XsitemapPlugin extends XoopsObject
+class Plugin extends \XoopsObject
 {
     //Constructor
     /**
-     * XsitemapPlugin constructor.
+     * Plugin constructor.
      */
     public function __construct()
     {
@@ -86,46 +86,30 @@ class XsitemapPlugin extends XoopsObject
 
         include_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
 
-        $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
 
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_NAME, 'plugin_name', 50, 255, $this->getVar('plugin_name')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_MOD_VERSION, 'plugin_mod_version', 50, 255, $this->getVar('plugin_mod_version')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_MOD_TABLE, 'plugin_mod_table', 50, 255, $this->getVar('plugin_mod_table')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_CAT_ID, 'plugin_cat_id', 50, 255, $this->getVar('plugin_cat_id')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_CAT_PID, 'plugin_cat_pid', 50, 255, $this->getVar('plugin_cat_pid')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_CAT_NAME, 'plugin_cat_name', 50, 255, $this->getVar('plugin_cat_name')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_WEIGHT, 'plugin_weight', 50, 255, $this->getVar('plugin_weight')), true);
-        $form->addElement(new XoopsFormText(_AM_XSITEMAP_PLUGIN_CALL, 'plugin_call', 50, 255, $this->getVar('plugin_call')), true);
-        $form->addElement(new XoopsFormSelectUser(_AM_XSITEMAP_PLUGIN_SUBMITTER, 'plugin_submitter', false, $this->getVar('plugin_submitter'), 1, false), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_NAME, 'plugin_name', 50, 255, $this->getVar('plugin_name')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_MOD_VERSION, 'plugin_mod_version', 50, 255, $this->getVar('plugin_mod_version')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_MOD_TABLE, 'plugin_mod_table', 50, 255, $this->getVar('plugin_mod_table')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_CAT_ID, 'plugin_cat_id', 50, 255, $this->getVar('plugin_cat_id')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_CAT_PID, 'plugin_cat_pid', 50, 255, $this->getVar('plugin_cat_pid')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_CAT_NAME, 'plugin_cat_name', 50, 255, $this->getVar('plugin_cat_name')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_WEIGHT, 'plugin_weight', 50, 255, $this->getVar('plugin_weight')), true);
+        $form->addElement(new \XoopsFormText(_AM_XSITEMAP_PLUGIN_CALL, 'plugin_call', 50, 255, $this->getVar('plugin_call')), true);
+        $form->addElement(new \XoopsFormSelectUser(_AM_XSITEMAP_PLUGIN_SUBMITTER, 'plugin_submitter', false, $this->getVar('plugin_submitter'), 1, false), true);
         //            $plugin_date_created = $this->isNew() ? time() : $this->getVar("plugin_date_created");
         $form->addElement(new \XoopsFormTextDateSelect(_AM_XSITEMAP_PLUGIN_DATE_CREATED, 'plugin_date_created', '', $plugin_date_created));
         //            $plugin_online = $this->isNew() ? 1 : $this->getVar("plugin_online");
         $check_plugin_online = new \XoopsFormCheckBox(_AM_XSITEMAP_PLUGIN_ONLINE, 'plugin_online', $plugin_online);
         $check_plugin_online->addOption(1, ' ');
         $form->addElement($check_plugin_online);
-        $form->addElement(new XoopsFormHidden('op', 'save_plugin'));
+        $form->addElement(new \XoopsFormHidden('op', 'save_plugin'));
         if (!$this->isNew()) {
-            $form->addElement(new XoopsFormHidden('plugin_id', $this->getVar('plugin_id')));
+            $form->addElement(new \XoopsFormHidden('plugin_id', $this->getVar('plugin_id')));
         }
         $form->addElement(new \XoopsFormButtonTray('submit', _SUBMIT));
 
         return $form->display();
-    }
-}
-
-/**
- * Class XsitemapPluginHandler
- */
-class XsitemapPluginHandler extends XoopsPersistableObjectHandler
-{
-
-    /**
-     * XsitemapPluginHandler constructor.
-     * @param null|XoopsDatabase $db
-     */
-    public function __construct(XoopsDatabase $db)
-    {
-        parent::__construct($db, 'xsitemap_plugin', 'XsitemapPlugin', 'plugin_id', 'plugin_name');
     }
 }

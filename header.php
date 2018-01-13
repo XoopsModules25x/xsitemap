@@ -31,7 +31,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 $helper       = Xsitemap\Helper::getInstance();
 $utility      = new Xsitemap\Utility();
-$configurator = new Xsitemap\Configurator();
+$configurator = new Xsitemap\Common\Configurator();
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');

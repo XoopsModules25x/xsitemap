@@ -163,8 +163,8 @@
         color: black;
         background: #c3eafb url('../assets/images/white-highlight.png') top left repeat-x;
         border: 2px solid #b5d9ea;
-        -moz-border-radius: 10px 0 10px 0px;
-        -webkit-border-radius: 10px 0 10px 0px;
+        -moz-border-radius: 10px 0 10px 0;
+        -webkit-border-radius: 10px 0 10px 0;
         -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
         -moz-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px; /* FF 3.5+ */
     }
@@ -328,8 +328,8 @@
         text-align: center;
         color: black;
         background: #fff7aa url('../assets/images/white-highlight.png') top left repeat-x;
-        -moz-border-radius: 10px 0 10px 0px;
-        -webkit-border-radius: 10px 0 10px 0px;
+        -moz-border-radius: 10px 0 10px 0;
+        -webkit-border-radius: 10px 0 10px 0;
         -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
         -moz-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px; /* FF 3.5+ */
     }

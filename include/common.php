@@ -93,5 +93,5 @@ $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 
 //module handlers
 
-/** @var XsitemapPluginHandler $pluginHandler */
-$pluginHandler = $helper->getHandler('plugin');
+/** @var Xsitemap\PluginHandler $pluginHandler */
+$pluginHandler = $helper->getHandler('Plugin');

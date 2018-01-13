@@ -21,8 +21,6 @@
  * @since      1.00
  **/
 
-use Xmf\Request;
-use XoopsModules\Xsitemap;
 
 require_once __DIR__ . '/header.php';
 
@@ -34,9 +32,9 @@ $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 
 include_once $GLOBALS['xoops']->path('header.php');
 include_once $GLOBALS['xoops']->path('class/tree.php');
-include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
+//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
 //include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
+//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
 
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 

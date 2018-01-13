@@ -39,10 +39,11 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //$countPlugins       = $pluginHandler->getCount();
 $criteria           = new \Criteria('plugin_online', 1);
 
-/** @var XsitemapPluginHandler $pluginHandler */
+/** @var Xsitemap\PluginHandler $pluginHandler */
+$pluginHandler = Xsitemap\Helper::getInstance()->getHandler('Plugin');
 $onlinePluginObjs = [];
 $onlinePluginObjs   = $pluginHandler->getAll($criteria);
-$countPluginsOnline = (!empty($onlinePluginObjs)) ? count($onlinePluginObjs) : 0;
+$countPluginsOnline = !empty($onlinePluginObjs) ? count($onlinePluginObjs) : 0;
 $onlinePluginArray  = [];
 /** @var \XoopsObject $onlineObj */
 foreach ($onlinePluginObjs as $onlineObj) {
@@ -54,9 +55,9 @@ $onlinePluginNames = implode(', ', $onlinePluginArray);
 // get offline plugin info
 $criteria            = new \Criteria('plugin_online', 0);
 $offlinePluginObjs   = $pluginHandler->getAll($criteria);
-$countPluginsOffline = (!empty($offlinePluginObjs)) ? count($offlinePluginObjs) : 0;
+$countPluginsOffline = !empty($offlinePluginObjs) ? count($offlinePluginObjs) : 0;
 $offlinePluginArray  = [];
-/** @var XsitemapPlugin $offlineObj */
+/** @var Xsitemap\Plugin $offlineObj */
 foreach ($offlinePluginObjs as $offlineObj) {
     $offlinePluginArray[] = $offlineObj->getVar('plugin_name');
 }

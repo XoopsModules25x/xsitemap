@@ -1,8 +1,9 @@
-<h5>1.54 RC-2 [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.0
+<h5>1.54 RC-2 [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.1
 <hr>
 - Edit image off (aerograf)
 - cosmetics  (aerograf)
 - added removal of old tables on istall (mamba)
+- namespaces, autoload (mamba)
 
 
 <h5>1.54 RC-1 [2017-11-15]</h5>

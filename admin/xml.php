@@ -25,7 +25,7 @@
  * @since           1.00
  */
 
-use \XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap;
 
 include __DIR__ . '/admin_header.php';
 
@@ -36,7 +36,7 @@ xoops_cp_header();
 require_once $GLOBALS['xoops']->path('class/tree.php');
 require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
 //require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
+require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
@@ -50,7 +50,7 @@ if (isset($_POST['update'])) {
     }
 
     echo "<div class='pad7 width80'>\n";
-//    $utility = new Xsitemap\Utility();
+    $utility = new Xsitemap\Utility();
     $xsitemap_show = $utility::generateSitemap();
     $update = _AM_XSITEMAP_XML_ERROR_UPDATE;
     if (!empty($xsitemap_show)) {

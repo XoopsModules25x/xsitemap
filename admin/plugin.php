@@ -39,7 +39,7 @@ switch ($op) {
     case 'add_plugin':
 
         // Display the form
-        /** @var XsitemapPlugin $obj */
+        /** @var Xsitemap\Plugin $obj */
         $obj = $pluginHandler->create();
         echo $obj->getForm();
         break;
@@ -52,7 +52,7 @@ switch ($op) {
 
         if (!empty($pluginId)) {
             $obj = $pluginHandler->get($pluginId);
-            if (!$obj instanceof XsitemapPlugin) { // passed Id for non-existent plugin so create new plugin
+            if (!$obj instanceof Xsitemap\Plugin) { // passed Id for non-existent plugin so create new plugin
                 $obj = $pluginHandler->create();
             }
         } else {
@@ -87,7 +87,7 @@ switch ($op) {
 
     case 'edit_plugin':
         $obj = $pluginHandler->get(Request::getInt('plugin_id'));
-        if ($obj instanceof XsitemapPlugin) {
+        if ($obj instanceof Xsitemap\Plugin) {
             echo $obj->getForm();
         } else {
             echo _AM_XSITEMAP_ERROR_NO_PLUGIN;

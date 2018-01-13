@@ -28,6 +28,9 @@
  */
 use XoopsModules\Xsitemap;
 
+/**
+ * Class XsitemapCorePreload
+ */
 class XsitemapCorePreload extends XoopsPreloadItem
 {
     /**

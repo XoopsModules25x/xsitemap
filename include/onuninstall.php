@@ -49,7 +49,7 @@ function xoops_module_uninstall_xsitemap(XoopsModule $module)
     //    return true;
     $moduleDirName = $module->getVar('dirname');
     $helper      = \Xmf\Module\Helper::getHelper($moduleDirName);
-    /** @var \Utility $utility */
+    /** @var Xsitemap\Utility $utility */
     $utility = new Xsitemap\Utility();
 
 //    if (!class_exists($utility)) {
@@ -65,7 +65,7 @@ function xoops_module_uninstall_xsitemap(XoopsModule $module)
 
     $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
     foreach ($old_directories as $old_dir) {
-        $dirInfo = new SplFileInfo($old_dir);
+        $dirInfo = new \SplFileInfo($old_dir);
         if ($dirInfo->isDir()) {
             // The directory exists so delete it
             if (false === $utility::rrmdir($old_dir)) {

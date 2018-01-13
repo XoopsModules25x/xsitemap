@@ -21,7 +21,7 @@ use XoopsModules\Xsitemap;
 
 require_once __DIR__ . '/../class/Utility.php';
 
-if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()
 ) {
     exit('Restricted access' . PHP_EOL);
@@ -84,10 +84,10 @@ function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = nu
 
     /** @var Xsitemap\Helper $helper */
     /** @var Xsitemap\Utility $utility */
-    /** @var Xsitemap\Configurator $configurator */
+    /** @var Xsitemap\Common\Configurator $configurator */
     $helper  = Xsitemap\Helper::getInstance();
     $utility = new Xsitemap\Utility();
-    $configurator = new Xsitemap\Configurator();
+    $configurator = new Xsitemap\Common\Configurator();
 
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
@@ -110,7 +110,7 @@ function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = nu
             XOOPS_UPLOAD_PATH . '/' . $module->dirname()
         ];
         foreach ($old_directories as $old_dir) {
-            $dirInfo = new SplFileInfo($old_dir);
+            $dirInfo = new \SplFileInfo($old_dir);
             if ($dirInfo->isDir()) {
                 // The directory exists so delete it
                 if (false === $utility::rrmdir($old_dir)) {

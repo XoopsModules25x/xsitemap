@@ -23,7 +23,7 @@
  * @since        File available since version 1.54
  */
 
-use Xmf\Request;
+use XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\Common;
 
 
@@ -31,20 +31,20 @@ use XoopsModules\Xsitemap\Common;
 
 $moduleDirName = basename(dirname(__DIR__));
 xoops_loadLanguage('admin', $moduleDirName);
-if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {
-    xoops_load('dummy', $moduleDirName);
-}
+//if (!class_exists('DummyObject')) {
+//    xoops_load('dummy', $moduleDirName);
+//}
 
 /**
  * Class Utility
  */
 class Utility
 {
-    use common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
 
-    use common\ServerStats; // getServerStats Trait
+    use Common\ServerStats; // getServerStats Trait
 
-    use common\FilesManagement; // Files Management Trait
+    use Common\FilesManagement; // Files Management Trait
 
     //--------------- Custom module methods -----------------------------
 
@@ -62,7 +62,7 @@ class Utility
          * $helper = \Xmf\Module\Helper::getHelper($moduleDirName);
          * $pluginHandler  = $helper->getHandler('plugin', $moduleDirName);
          */
-        xoops_load('plugin', $moduleDirName);
+//        xoops_load('plugin', $moduleDirName);
         xoops_load('XoopsModuleConfig');
 
         // Get list of modules admin wants to hide from xsitemap
@@ -90,8 +90,8 @@ class Utility
         $groups            = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $readAllowed       = $modulepermHandler->getItemIds('module_read', $groups);
         $filteredMids      = array_diff($readAllowed, $invisibleMidArray);
-        /** @var \XsitemapPluginHandler $pluginHandler */
-        $pluginHandler = xoops_getModuleHandler('plugin', $moduleDirName);
+        /** @var Xsitemap\PluginHandler $pluginHandler */
+        $pluginHandler = Xsitemap\Helper::getInstance()->getHandler('Plugin');
         $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
         $criteria->add(new \Criteria('isactive', 1));
         if (count($filteredMids) > 0) {
@@ -165,7 +165,7 @@ class Utility
         $objsArray = [];
 
         while (false !== ($row = $xDB->fetchArray($result))) {
-            $objsArray[] = new \XsitemapDummyObject($row, $id_name, $pid_name, $title_name);
+            $objsArray[] = new Xsitemap\DummyObject($row, $id_name, $pid_name, $title_name);
         }
 
         //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";

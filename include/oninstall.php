@@ -24,10 +24,10 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
-//use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap;
 
 if ((!defined('XOOPS_ROOT_PATH'))
-    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->isAdmin()
 ) {
     exit('Restricted access' . PHP_EOL);
@@ -45,8 +45,8 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     include __DIR__ . '/../preloads/autoloader.php';
-    /** @var \Utility $utility */
-    $utility = new \XoopsModules\Xsitemap\Utility();
+    /** @var Xsitemap\Utility $utility */
+    $utility = new Xsitemap\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
@@ -83,7 +83,7 @@ function xoops_module_install_xsitemap(XoopsModule $module)
     include_once $GLOBALS['xoops']->path("class/tree.php");
     include_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/class/plugin.php");
     include_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/include/functions.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/dummy.php");
+    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/DummyObject.php");
 
     //Create the xsitemap.xml file in the site root
     $xsitemap_show = Utility::generateSitemap();
