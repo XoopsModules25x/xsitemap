@@ -40,7 +40,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //if functions.php file exist
 //require_once __DIR__ . '/../include/functions.php';
 
-require_once __DIR__ . '/../class/plugin.php';
+// require_once __DIR__ . '/../class/plugin.php';
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');

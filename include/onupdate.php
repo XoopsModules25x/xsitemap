@@ -19,7 +19,7 @@
 
 use XoopsModules\Xsitemap;
 
-require_once __DIR__ . '/../class/Utility.php';
+// require_once __DIR__ . '/../class/Utility.php';
 
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()
@@ -35,7 +35,7 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUs
  *
  * @return bool true if successfully ready to update module, false if not
  */
-function xoops_module_pre_update_xsitemap(XoopsModule $module)
+function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
     /** @var Xsitemap\Helper $helper */
     /** @var Xsitemap\Utility $utility */
@@ -58,7 +58,7 @@ function xoops_module_pre_update_xsitemap(XoopsModule $module)
  * @internal param int $curr_version version number of module currently installed
  *
  */
-function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = null)
+function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = null)
 {
     /*======================================================================
         //----------------------------------------------------------------

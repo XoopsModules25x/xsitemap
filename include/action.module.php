@@ -41,7 +41,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
  *
  * @return bool true if ready to install, false if not
  */
-function xoops_module_pre_install_xsitemap(XoopsModule $module)
+function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     /** @var Xsitemap\Utility $utility */
@@ -61,7 +61,7 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xsitemap(XoopsModule $module)
+function xoops_module_install_xsitemap(\XoopsModule $module)
 {
     return true; //
     /** @internal following code removed, it will fail because module not fully loaded/available until
@@ -87,7 +87,7 @@ function xoops_module_install_xsitemap(XoopsModule $module)
  *
  * @return bool true if successfully ready to update module, false if not
  */
-function xoops_module_pre_update_xsitemap(XoopsModule $module)
+function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
     /** @var Xsitemap\Helper $helper */
     /** @var Xsitemap\Utility $utility */
@@ -110,7 +110,7 @@ function xoops_module_pre_update_xsitemap(XoopsModule $module)
  * @internal param int $curr_version version number of module currently installed
  *
  */
-function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = null)
+function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = null)
 {
     /*======================================================================
         //----------------------------------------------------------------
@@ -218,7 +218,7 @@ function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = nu
  *
  * @return bool true if successfully executed, false if not
  */
-function xoops_module_pre_uninstall_xsitemap(XoopsModule $module)
+function xoops_module_pre_uninstall_xsitemap(\XoopsModule $module)
 {
     return true;
 }
@@ -231,7 +231,7 @@ function xoops_module_pre_uninstall_xsitemap(XoopsModule $module)
  *
  * @return bool true if successfully executed uninstall of module, false if not
  */
-function xoops_module_uninstall_xsitemap(XoopsModule $module)
+function xoops_module_uninstall_xsitemap(\XoopsModule $module)
 {
     //    return true;
     $moduleDirName = $module->getVar('dirname');

@@ -181,7 +181,7 @@ class Utility
 
         $i        = 0;
         $xsitemap = [];
-        while (list($catid, $name) = $xDB->fetchRow($result)) {
+        while (false !== (list($catid, $name) = $xDB->fetchRow($result))) {
             $xsitemap['parent'][$i] = [
             'id'    => $catid,
             'title' => $myts->htmlSpecialChars($name),
