@@ -30,11 +30,11 @@ require_once __DIR__ . '/../../mainfile.php';
 //template assign
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 
-include_once $GLOBALS['xoops']->path('header.php');
-include_once $GLOBALS['xoops']->path('class/tree.php');
-//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
+require_once $GLOBALS['xoops']->path('header.php');
+require_once $GLOBALS['xoops']->path('class/tree.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
 
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 
@@ -48,4 +48,4 @@ $GLOBALS['xoopsTpl']->assign([
                                  'show_subcategories' => $xsitemap_configs['show_subcategories']
                              ]);
 
-include_once $GLOBALS['xoops']->path('footer.php');
+require_once $GLOBALS['xoops']->path('footer.php');

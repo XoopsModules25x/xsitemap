@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Xsitemap;
+
 /*
  * ****************************************************************************
  * xsitemap - MODULE FOR XOOPS CMS

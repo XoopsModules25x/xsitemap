@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Xsitemap;
+
 /*
  * ****************************************************************************
  * xsitemap - MODULE FOR XOOPS CMS
@@ -84,7 +85,7 @@ class Plugin extends \XoopsObject
         }
         //            $title = $this->isNew() ? sprintf(_AM_XSITEMAP_PLUGIN_ADD) : sprintf(_AM_XSITEMAP_PLUGIN_EDIT);
 
-        include_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
+        require_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
 
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');

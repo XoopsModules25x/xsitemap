@@ -25,7 +25,8 @@
 
 use XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\Common;
-
+/** @var Xsitemap\Helper $helper */
+$helper = Xsitemap\Helper::getInstance();
 
 //require_once __DIR__ . '/../include/common.php';
 
@@ -155,7 +156,9 @@ class Utility
      */
     public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
     {
-        global $xoopsModuleConfig;
+        /** @var Xsitemap\Helper $helper */
+        $helper = Xsitemap\Helper::getInstance();
+
         /** @var \XoopsMySQLDatabase $xDB */
         $xDB  = \XoopsDatabaseFactory::getDatabaseConnection();
         $myts = \MyTextSanitizer::getInstance();
@@ -188,7 +191,7 @@ class Utility
             'url'   => $url . $catid
         ];
 
-            if (($pid_name !== $id_name) && $xoopsModuleConfig['show_subcategories']) {
+            if (($pid_name !== $id_name) && $helper->getConfig('show_subcategories')) {
                 $j           = 0;
                 $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
                 $child_array = $mytree->getAllChild($catid);
@@ -226,15 +229,15 @@ class Utility
             foreach ($xsitemap_show['modules'] as $mod) {
                 if ($mod['directory']) {
                     $xml_url = $xml->createElement('url');
-                    $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name'])) . ' '));
-                    $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php")));
+                    $xml_url->appendChild($xml->createComment(htmlentities(ucwords($mod['name']), ENT_QUOTES | ENT_HTML5) . ' '));
+                    $loc = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php"), ENT_QUOTES | ENT_HTML5));
                     $xml_url->appendChild($loc);
                     $xml_set->appendChild($xml_url);
                 }
                 if (isset($mod['parent']) ? $mod['parent'] : null) {
                     foreach ($mod['parent'] as $parent) {
                         $xml_parent = $xml->createElement('url');
-                        $loc        = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
+                        $loc        = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}"), ENT_QUOTES | ENT_HTML5));
                         $xml_parent->appendChild($loc);
                         $xml_set->appendChild($xml_parent);
                     }
@@ -243,7 +246,7 @@ class Utility
                     if (isset($mod['parent'][$z]['child']) ? $mod['parent'][$z]['child'] : null) {
                         foreach ($mod['parent'][$z]['child'] as $child) {
                             $xml_child = $xml->createElement('url');
-                            $loc       = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
+                            $loc       = $xml->createElement('loc', htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}"), ENT_QUOTES | ENT_HTML5));
                             $xml_child->appendChild($loc);
                             $xml_set->appendChild($xml_child);
                         }

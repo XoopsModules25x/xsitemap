@@ -68,7 +68,7 @@ if (file_exists($xmlfile)) {
 
     echo "<div class='pad7 width80'>\n" . "<div class='bold floatleft width15'>\n" . "<p style='margin-bottom: 2em;'>" . _AM_XSITEMAP_XML_LOCATION . ":</p>\n" . "<p style='margin-bottom: 2em;'>"
          . _AM_XSITEMAP_XML_LASTUPD . ":</p>\n" . "<p style='margin-bottom: 2em;'>" . _AM_XSITEMAP_XML_FILE_SIZE . ":</p>\n" . "</div>\n" . "<div class='pad7 floatleft width20'>\n"
-         . "<p style='margin-bottom: 2em;'>" . htmlentities($xmlfile_loc) . "</p>\n" . "<p style='margin-bottom: 2em;'>{$last_mod}</p>\n" . "<p style='margin-bottom: 2em;'>{$stat['size']}</p>\n"
+         . "<p style='margin-bottom: 2em;'>" . htmlentities($xmlfile_loc, ENT_QUOTES | ENT_HTML5) . "</p>\n" . "<p style='margin-bottom: 2em;'>{$last_mod}</p>\n" . "<p style='margin-bottom: 2em;'>{$stat['size']}</p>\n"
          . "</div></div>\n" . "<div class='clear'></div>" . "<div class='pad7 width80'>\n" . "<br><br>\n" . "<form action=xml.php method=post>\n"
          . "  <input type='hidden' name='XOOPS_TOKEN_REQUEST' value='" . $GLOBALS['xoopsSecurity']->createToken() . "'>\n" . "  <input id='viewbtn' type='button' value='" . _AM_XSITEMAP_XML_VIEW_XML
          . "' onclick='window.location.href =\"" . $GLOBALS['xoops']->url('www/xsitemap.xml') . "\"'>\n" . "  <input style='margin-left: 3em;' type='submit' name='update' value='"

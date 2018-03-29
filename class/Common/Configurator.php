@@ -44,7 +44,7 @@ class Configurator
         $moduleDirName = basename(dirname(__DIR__));
         $capsDirName   = strtoupper($moduleDirName);
 
-        require_once __DIR__ . '/../../include/config.php';        
+        require_once __DIR__ . '/../../include/config.php';
         $config = getConfig();
 
         $this->name            = $config->name;
@@ -56,6 +56,5 @@ class Configurator
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
         $this->modCopyright    = $config->modCopyright;
-
     }
 }
