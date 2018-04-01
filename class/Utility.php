@@ -25,10 +25,11 @@
 
 use XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\Common;
-/** @var Xsitemap\Helper $helper */
-$helper = Xsitemap\Helper::getInstance();
 
 //require_once __DIR__ . '/../include/common.php';
+
+/** @var Xsitemap\Helper $helper */
+$helper = Xsitemap\Helper::getInstance();
 
 $moduleDirName = basename(dirname(__DIR__));
 xoops_loadLanguage('admin', $moduleDirName);
@@ -156,6 +157,8 @@ class Utility
      */
     public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
     {
+        require_once XOOPS_ROOT_PATH . '/class/tree.php';
+
         /** @var Xsitemap\Helper $helper */
         $helper = Xsitemap\Helper::getInstance();
 
