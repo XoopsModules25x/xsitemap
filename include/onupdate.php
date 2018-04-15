@@ -19,7 +19,7 @@
 
 use XoopsModules\Xsitemap;
 
-// require_once __DIR__ . '/../class/Utility.php';
+// require_once  dirname(__DIR__) . '/class/Utility.php';
 
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()
@@ -64,7 +64,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         //----------------------------------------------------------------
         // Remove xSitemap uploads folder (and all subfolders) if they exist
         //----------------------------------------------------------------*
-        $utility = ucfirst($moduleDirName) . 'Utility';
+        $utility = new Xsitemap\Utility();
         if (!class_exists($utility)) {
             xoops_load('utility', $moduleDirName);
         }

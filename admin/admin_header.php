@@ -23,8 +23,8 @@
 use \XoopsModules\Xsitemap;
 
 $moduleDirName = basename(dirname(__DIR__));
-require_once __DIR__ . '/../../../include/cp_header.php';
-require_once __DIR__ . '/../include/common.php';
+require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require_once  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 /** @var Xsitemap\Helper $helper */
@@ -38,9 +38,9 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 //if functions.php file exist
-//require_once __DIR__ . '/../include/functions.php';
+//require_once  dirname(__DIR__) . '/include/functions.php';
 
-// require_once __DIR__ . '/../class/plugin.php';
+// require_once  dirname(__DIR__) . '/class/plugin.php';
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');

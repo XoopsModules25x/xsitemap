@@ -26,7 +26,6 @@
 use XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\Common;
 
-//require_once __DIR__ . '/../include/common.php';
 
 /** @var Xsitemap\Helper $helper */
 $helper = Xsitemap\Helper::getInstance();
@@ -87,10 +86,10 @@ class Utility
         }
 
         // Where user has permissions
-        /** @var \XoopsGroupPermHandler $modulepermHandler */
-        $modulepermHandler = xoops_getHandler('groupperm');
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups            = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $readAllowed       = $modulepermHandler->getItemIds('module_read', $groups);
+        $readAllowed       = $grouppermHandler->getItemIds('module_read', $groups);
         $filteredMids      = array_diff($readAllowed, $invisibleMidArray);
         /** @var Xsitemap\PluginHandler $pluginHandler */
         $pluginHandler = Xsitemap\Helper::getInstance()->getHandler('Plugin');

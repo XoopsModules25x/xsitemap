@@ -176,7 +176,7 @@ switch ($op) {
                          . "    <td class='txtcenter'>" . $plugin_arr[$i]->getVar('plugin_mod_table') . "</td>\n" . "    <td class='txtcenter'>" . $plugin_arr[$i]->getVar('plugin_cat_id') . "</td>\n"
                          . "    <td class='txtcenter'>" . $plugin_arr[$i]->getVar('plugin_cat_pid') . "</td>\n" . "    <td class='txtcenter'>" . $plugin_arr[$i]->getVar('plugin_cat_name') . "</td>\n"
                          . "    <td class='txtcenter'>" . $plugin_arr[$i]->getVar('plugin_weight') . "</td>\n" . "    <td class='txtcenter'>" . $plugin_arr[$i]->getVar('plugin_call') . "</td>\n"
-                         . "    <td class='txtcenter'>" . XoopsUser::getUnameFromId($plugin_arr[$i]->getVar('plugin_submitter'), 'S') . "</td>\n" . "    <td class='txtcenter'>"
+                         . "    <td class='txtcenter'>" . \XoopsUser::getUnameFromId($plugin_arr[$i]->getVar('plugin_submitter'), 'S') . "</td>\n" . "    <td class='txtcenter'>"
                          . formatTimestamp($plugin_arr[$i]->getVar('plugin_date_created'), 'S') . "</td>\n" . "    <td class='txtcenter width5'>\n"
                          . "      <a href='plugin.php?op=edit_plugin&plugin_id=" . $plugin_arr[$i]->getVar('plugin_id') . "'><img src='" . \Xmf\Module\Admin::iconUrl('edit.png', '16') . "' alt='"
                          . _EDIT . "' title='" . _EDIT . "'></a>\n" . "      <a href='plugin.php?op=delete_plugin&plugin_id=" . $plugin_arr[$i]->getVar('plugin_id') . "'><img src='"

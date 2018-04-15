@@ -116,7 +116,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         //----------------------------------------------------------------
         // Remove xSitemap uploads folder (and all subfolders) if they exist
         //----------------------------------------------------------------*
-        $utility = ucfirst($moduleDirName) . 'Utility';
+        $utility = new Xsitemap\Utility();
         if (!class_exists($utility)) {
             xoops_load('utility', $moduleDirName);
         }
@@ -236,7 +236,7 @@ function xoops_module_uninstall_xsitemap(\XoopsModule $module)
     //    return true;
     $moduleDirName = $module->getVar('dirname');
     /** @var Xsitemap\Utility $utility */
-    $helper      = \Xmf\Module\Helper::getHelper($moduleDirName);
+    $helper        = \XoopsModules\Xsitemap\Helper::getInstance();
     $utility    =  new Xsitemap\Utility();
 //    if (!class_exists($utility)) {
 //        xoops_load('utility', $moduleDirName);

@@ -31,7 +31,7 @@ use XoopsModules\Xsitemap;
 /**
  * Class XsitemapCorePreload
  */
-class XsitemapCorePreload extends XoopsPreloadItem
+class XsitemapCorePreload extends \XoopsPreloadItem
 {
     /**
      * plugin class for Xoops preload for index page start
