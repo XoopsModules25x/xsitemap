@@ -26,6 +26,8 @@
  * @since           1.00
  */
 
+use Xmf\Module\Admin;
+use Xmf\Request;
 use XoopsModules\Xsitemap;
 
 require_once __DIR__ . '/admin_header.php';
@@ -35,11 +37,11 @@ require_once $GLOBALS['xoops']->path('class/tree.php');
 require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
 //require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
 require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $xmlfile     = $GLOBALS['xoops']->path('xsitemap.xml');
 $xmlfile_loc = $GLOBALS['xoops']->url('xsitemap.xml');
-if (\Xmf\Request::hasVar('update', 'POST')) {
+if (Request::hasVar('update', 'POST')) {
     if (!$GLOBALS['xoopsSecurity']->check()) {
         $helper->redirect('admin/xml.php', 3, $GLOBALS['xoopsSecurity']->getErrors(true));
     }

@@ -25,12 +25,13 @@
  * @since           1.00
  */
 
+use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Xsitemap;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
 $op = Request::getCmd('op', 'show_list_plugin');
@@ -186,7 +187,7 @@ switch ($op) {
                         echo "    <td class='txtcenter width5'><a href='./plugin.php?op=update_online_plugin&plugin_id="
                              . $plugin_arr[$i]->getVar('plugin_id')
                              . "&plugin_online=0'><img src='"
-                             . \Xmf\Module\Admin::iconUrl('on.png', '16')
+                             . Admin::iconUrl('on.png', '16')
                              . "' border='0' alt='"
                              . _AM_XSITEMAP_ON
                              . "' title='"
@@ -198,7 +199,7 @@ switch ($op) {
                         echo "    <td class='txtcenter width5'><a href='./plugin.php?op=update_online_plugin&plugin_id="
                              . $plugin_arr[$i]->getVar('plugin_id')
                              . "&plugin_online=1'><img src='"
-                             . \Xmf\Module\Admin::iconUrl('off.png', '16')
+                             . Admin::iconUrl('off.png', '16')
                              . "' border='0' alt='"
                              . _AM_XSITEMAP_OFF
                              . "' title='"
@@ -241,7 +242,7 @@ switch ($op) {
                          . "      <a href='plugin.php?op=edit_plugin&plugin_id="
                          . $plugin_arr[$i]->getVar('plugin_id')
                          . "'><img src='"
-                         . \Xmf\Module\Admin::iconUrl('edit.png', '16')
+                         . Admin::iconUrl('edit.png', '16')
                          . "' alt='"
                          . _EDIT
                          . "' title='"
@@ -250,7 +251,7 @@ switch ($op) {
                          . "      <a href='plugin.php?op=delete_plugin&plugin_id="
                          . $plugin_arr[$i]->getVar('plugin_id')
                          . "'><img src='"
-                         . \Xmf\Module\Admin::iconUrl('delete.png', '16')
+                         . Admin::iconUrl('delete.png', '16')
                          . "' alt='"
                          . _DELETE
                          . "' title='"

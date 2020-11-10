@@ -28,12 +28,13 @@
  * @uses       Xmf\Module\Admin
  */
 
+use Xmf\Module\Admin;
 use XoopsModules\Xsitemap;
 
 require_once __DIR__ . '/admin_header.php';
 // Display Admin header
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 // Get online plugin info
 //$countPlugins       = $pluginHandler->getCount();
 $criteria = new \Criteria('plugin_online', 1);

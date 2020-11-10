@@ -17,10 +17,13 @@
  * @license    https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @link       https://xoops.org XOOPS
  **/
+
+use Xmf\Module\Admin;
+
 echo "<div class='adminfooter'>\n"
      . "  <div class='txtcenter'>\n"
      . "    <a href='https://xoops.org' rel='external' target='_blank'><img src='"
-     . \Xmf\Module\Admin::iconUrl('xoopsmicrobutton.gif', '32')
+     . Admin::iconUrl('xoopsmicrobutton.gif', '32')
      . "' alt='XOOPS' title='XOOPS'></a>\n"
      . "  </div>\n"
      . '  '

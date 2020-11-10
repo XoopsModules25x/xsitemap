@@ -21,6 +21,7 @@
  * @since      1.00
  **/
 
+use Xmf\Module\Admin;
 use XoopsModules\Xsitemap;
 
 $moduleDirName = basename(dirname(__DIR__));
@@ -30,7 +31,7 @@ $moduleDirName = basename(dirname(__DIR__));
 /** @var Xsitemap\Helper $helper */
 $helper = Xsitemap\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 //$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
 //$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');

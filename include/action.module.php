@@ -22,6 +22,7 @@
  */
 
 use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\Helper;
 
 /**
  * @internal {Make sure you PROTECT THIS FILE}
@@ -85,7 +86,7 @@ function xoops_module_pre_update_xsitemap(\XoopsModule $module)
     /** @var Xsitemap\Helper $helper */
     /** @var Xsitemap\Utility $utility */
     $moduleDirName = basename(dirname(__DIR__));
-    $helper        = Xsitemap\Helper::getInstance();
+    $helper        = Helper::getInstance();
     $utility       = new Xsitemap\Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
@@ -124,7 +125,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
     /** @var Xsitemap\Helper $helper */ /** @var Xsitemap\Utility $utility */
     /** @var Xsitemap\Common\Configurator $configurator */
-    $helper       = Xsitemap\Helper::getInstance();
+    $helper       = Helper::getInstance();
     $utility      = new Xsitemap\Utility();
     $configurator = new Xsitemap\Common\Configurator();
     //-----------------------------------------------------------------------
@@ -215,7 +216,7 @@ function xoops_module_uninstall_xsitemap(\XoopsModule $module)
     //    return true;
     $moduleDirName = $module->getVar('dirname');
     /** @var \XoopsModules\Xsitemap\Utility $utility */
-    $helper  = \XoopsModules\Xsitemap\Helper::getInstance();
+    $helper  = Helper::getInstance();
     $utility = new Xsitemap\Utility();
     //    if (!class_exists($utility)) {
     //        xoops_load('utility', $moduleDirName);

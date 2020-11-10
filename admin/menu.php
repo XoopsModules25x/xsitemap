@@ -25,6 +25,7 @@
  * @since           1.00
  */
 
+use Xmf\Module\Admin;
 use XoopsModules\Xsitemap;
 
 // require_once  dirname(__DIR__) . '/class/Helper.php';
@@ -33,7 +34,7 @@ use XoopsModules\Xsitemap;
 $helper = Xsitemap\Helper::getInstance();
 $helper->loadLanguage('common');
 $helper->loadLanguage('feedback');
-$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+$pathIcon32 = Admin::menuIconPath('');
 if (is_object($helper->getModule())) {
     $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 }
