@@ -30,7 +30,6 @@ use XoopsModules\Xsitemap;
 
 // require_once  dirname(__DIR__) . '/class/Helper.php';
 //require_once  dirname(__DIR__) . '/include/common.php';
-/** @var Xsitemap\Helper $helper */
 $helper = Xsitemap\Helper::getInstance();
 $helper->loadLanguage('common');
 $helper->loadLanguage('feedback');

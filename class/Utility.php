@@ -30,7 +30,6 @@ use XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\Common;
 use XoopsModules\Xsitemap\Constants;
 
-/** @var Xsitemap\Helper $helper */
 $helper        = Xsitemap\Helper::getInstance();
 $moduleDirName = \basename(\dirname(__DIR__));
 \xoops_loadLanguage('admin', $moduleDirName);
@@ -89,7 +88,6 @@ class Utility extends Common\SysUtility
         if (\count($filteredMids) > 0) {
             $criteria->add(new \Criteria('mid', '(' . \implode(',', $filteredMids) . ')', 'IN'));
         }
-        /** @var array $modules */
         $modules  = $moduleHandler->getObjects($criteria, true);
         $criteria = new \CriteriaCompo();
         $criteria->setSort('plugin_id');
@@ -115,7 +113,6 @@ class Utility extends Common\SysUtility
                     ];
                 }
             }
-            /** @var array $pluginObjArray */
             foreach ($pluginObjArray as $pObj) {
                 if ((0 == $pObj->getVar('topic_pid')) && \in_array($pObj->getVar('plugin_mod_table'), (array)$modObj->getInfo('tables'))) {
                     $objVars = $pObj->getValues();
@@ -143,7 +140,6 @@ class Utility extends Common\SysUtility
     public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
     {
         require_once XOOPS_ROOT_PATH . '/class/tree.php';
-        /** @var Xsitemap\Helper $helper */
         $helper = Xsitemap\Helper::getInstance();
         /** @var \XoopsMySQLDatabase $xDB */
         $xDB       = \XoopsDatabaseFactory::getDatabaseConnection();

@@ -42,7 +42,6 @@ if ((!defined('XOOPS_ROOT_PATH'))
 function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    /** @var Xsitemap\Utility $utility */
     $utility      = new Xsitemap\Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);

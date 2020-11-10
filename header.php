@@ -24,7 +24,6 @@ require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 //require_once  dirname(dirname(__DIR__)) . '/include/cp_header.php';
 require_once __DIR__ . '/include/common.php';
 $myts = \MyTextSanitizer::getInstance();
-/** @var Xsitemap\Helper $helper */
 $helper       = Xsitemap\Helper::getInstance();
 $utility      = new Xsitemap\Utility();
 $configurator = new Xsitemap\Common\Configurator();

@@ -42,7 +42,6 @@ function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     require_once dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Xsitemap\Utility $utility */
     $utility      = new Xsitemap\Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);

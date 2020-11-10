@@ -28,7 +28,6 @@ $moduleDirName = basename(dirname(__DIR__));
 require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 require_once dirname(__DIR__) . '/include/common.php';
 $moduleDirName = basename(dirname(__DIR__));
-/** @var Xsitemap\Helper $helper */
 $helper = Xsitemap\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();
