@@ -24,35 +24,29 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
-//use Xoopsmodules\xsitemap;
+use XoopsModules\Xsitemap;
 
 if ((!defined('XOOPS_ROOT_PATH'))
-    || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-    || !$GLOBALS['xoopsUser']->isAdmin()
-) {
+    || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
+    || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
-
 /**
- *
  * Prepares system prior to attempting to install module
  *
- * @param XoopsModule $module
+ * @param \XoopsModule $module
  *
  * @return bool true if ready to install, false if not
  */
-function xoops_module_pre_install_xsitemap(XoopsModule $module)
+function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    include __DIR__ . '/../preloads/autoloader.php';
-    /** @var \Utility $utility */
-    $utility = new \Xoopsmodules\xsitemap\Utility();
-
+    require_once dirname(__DIR__) . '/preloads/autoloader.php';
+    $utility      = new Xsitemap\Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
-
-    if (false !== $xoopsSuccess && false !==  $phpSuccess) {
-        $moduleTables =& $module->getInfo('tables');
+    if (false !== $xoopsSuccess && false !== $phpSuccess) {
+        $moduleTables = &$module->getInfo('tables');
         foreach ($moduleTables as $table) {
             $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
         }
@@ -61,29 +55,26 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
 }
 
 /**
- *
  * Performs tasks required during installation of the module
  *
- * @param XoopsModule $module
+ * @param \XoopsModule $module
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xsitemap(XoopsModule $module)
+function xoops_module_install_xsitemap(\XoopsModule $module)
 {
-//    $configuratorArray = include __DIR__ . '/config.php';
-
-//    require_once __DIR__  . '/../class/configurator.php';
-//    $configuratorClass = new XsitemapConfigurator();
-
-    return true; //
+    //    $configuratorArray = require_once __DIR__   . '/config.php';
+    //    require_once __DIR__  . '/../class/configurator.php';
+    //    $configuratorClass = new XsitemapConfigurator();
+    return true;
     /** @internal following code removed, it will fail because module not fully loaded/available until
      * after install, module now uses XOOPS preload instead */
     /*
     //28/08/2009 by urbanspaceman
-    include_once $GLOBALS['xoops']->path("class/tree.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/class/plugin.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/include/functions.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/dummy.php");
+    require_once $GLOBALS['xoops']->path("class/tree.php");
+    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/class/plugin.php");
+    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/include/functions.php");
+    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/DummyObject.php");
 
     //Create the xsitemap.xml file in the site root
     $xsitemap_show = Utility::generateSitemap();

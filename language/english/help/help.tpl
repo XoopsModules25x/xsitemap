@@ -10,7 +10,7 @@
     No special measures necessary, follow the standard installation process – extract the xsitemap folder into the
     ../modules directory. Install the module through Admin -> System Module -> Modules.
     <br><br>
-    Detailed instructions on installing modules are available in the <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a>
+    Detailed instructions on installing modules are available in the <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a>
 
     <h4 class="odd">OPERATING INSTRUCTIONS</h4>
     <p class="even">
@@ -28,13 +28,13 @@
         <br><br>
 
         Detailed instructions on configuring the access rights for user groups are available in the <a
-                href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS
+                href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS
             Operations Manual</a></p>
     <h4 class="odd">TUTORIAL</h4>
     <p class="even">
-        Tutorial has been started, but we might need your help! Please check out the status of the tutorial <a href="https://www.gitbook.com/book/xoops/xsitemap-tutorial/" target="_blank">here </a>.
+        Tutorial has been started, but we might need your help! Please check out the status of the tutorial <a href="https://xoops.gitbook.io/xsitemap-tutorial/" target="_blank">here </a>.
         <br><br>To contribute to this Tutorial, <a href="https://github.com/XoopsDocs/xsitemap-tutorial/" target="_blank">please fork it on GitHub</a>.
-        <br> This document describes our <a href="https://www.gitbook.com/book/xoops/xoops-documentation-process/details/" target="_blank">Documentation Process</a> and it will help you to understand
+        <br> This document describes our <a href="https://xoops.gitbook.io/xoops-documentation-process/details/" target="_blank">Documentation Process</a> and it will help you to understand
         how to contribute.
         <br><br>
         There are more XOOPS Tutorials, so check them out in our <a href="https://www.gitbook.com/@xoops/" target="_blank">XOOPS Tutorial Repository on GitBook</a>.

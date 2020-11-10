@@ -11,57 +11,57 @@
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
  */
 
-require_once __DIR__ . '/../../../mainfile.php';
+use Xmf\Module\Admin;
 
-$moduleDirName = basename(dirname(__DIR__));
-$capsDirName   = strtoupper($moduleDirName);
-
-if (!defined($capsDirName . '_DIRNAME')) {
-    //if (!defined(constant($capsDirName . '_DIRNAME'))) {
-    define($capsDirName . '_DIRNAME', $GLOBALS['xoopsModule']->dirname());
-    define($capsDirName . '_PATH', XOOPS_ROOT_PATH . '/modules/' . constant($capsDirName . '_DIRNAME'));
-    define($capsDirName . '_URL', XOOPS_URL . '/modules/' . constant($capsDirName . '_DIRNAME'));
-    define($capsDirName . '_ADMIN', constant($capsDirName . '_URL') . '/admin/index.php');
-    define($capsDirName . '_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . constant($capsDirName . '_DIRNAME'));
-    define($capsDirName . '_AUTHOR_LOGOIMG', constant($capsDirName . '_URL') . '/assets/images/logoModule.png');
-}
-
-
-//Configurator
+$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 return (object)[
-    'name'          => 'Module Configurator',
-    'paths'      => [
+    'name'            => $moduleDirNameUpper . ' Module Configurator',
+    'paths'           => [
         'dirname'    => $moduleDirName,
         'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
-//        'path'       => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
-//        'url'        => XOOPS_URL . '/modules/' . $moduleDirName,
+        'modPath'    => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
+        'modUrl'     => XOOPS_URL . '/modules/' . $moduleDirName,
         'uploadPath' => XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         'uploadUrl'  => XOOPS_UPLOAD_URL . '/' . $moduleDirName,
     ],
-    'uploadFolders' => [
-        constant($capsDirName . '_UPLOAD_PATH'),
-        constant($capsDirName . '_UPLOAD_PATH') . '/images'
+    'uploadFolders'   => [
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/category',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots',
+        //XOOPS_UPLOAD_PATH . '/flags'
     ],
-    'blankFiles'    => [
-        constant($capsDirName . '_UPLOAD_PATH'),
-        constant($capsDirName . '_UPLOAD_PATH') . '/images'
+    'copyBlankFiles'  => [
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/category',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots',
+        //XOOPS_UPLOAD_PATH . '/flags'
     ],
-
+    'copyTestFolders' => [
+        //[
+        //    constant($moduleDirNameUpper . '_PATH') . '/testdata/images',
+        //    XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        //]
+    ],
     'templateFolders' => [
         '/templates/',
         '/templates/blocks/',
-        '/templates/admin/'
-
+        '/templates/admin/',
     ],
     'oldFiles'        => [
-        '/include/update_functions.php',
-        '/include/install_functions.php'
+        '/class/request.php',
+        '/class/registry.php',
+        '/class/utilities.php',
+        '/class/util.php',
+        '/include/constants.php',
+        '/include/functions.php',
+        '/ajaxrating.txt',
     ],
     'oldFolders'      => [
         '/images',
@@ -70,7 +70,13 @@ return (object)[
         '/tcpdf',
         '/images',
     ],
+    'renameTables'    => [//         'XX_archive'     => 'ZZZZ_archive',
+    ],
+    'moduleStats'     => [
+        //            'totalcategories' => $helper->getHandler('Category')->getCategoriesCount(-1),
+        //            'totalitems'      => $helper->getHandler('Item')->getItemsCount(),
+        //            'totalsubmitted'  => $helper->getHandler('Item')->getItemsCount(-1, [Constants::PUBLISHER_STATUS_SUBMITTED]),
+    ],
     'modCopyright'    => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
-                     <img src='" . constant($capsDirName . '_AUTHOR_LOGOIMG') . '\' alt=\'XOOPS Project\' /></a>',
+                     <img src='" . Admin::iconUrl('xoopsmicrobutton.gif') . "' alt='XOOPS Project'></a>",
 ];
-

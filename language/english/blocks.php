@@ -12,17 +12,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * ****************************************************************************
  */
+
 /**
  * Module: xsitemap
  *
- * @package      module\xsitemap\language
+ * @package      module\Xsitemap\language
  * @author       Urbanspaceman (http://www.takeaweb.it)
  * @copyright    Urbanspaceman (http://www.takeaweb.it)
  * @copyright    XOOPS Project
  * @license      http://www.fsf.org/copyleft/gpl.html GNU public license}
  * @since        1.00
  */
-
 define('_MB_XSITEMAP_PLUGIN_ID', 'Id');
 define('_MB_XSITEMAP_PLUGIN_NAME', 'Name');
 define('_MB_XSITEMAP_PLUGIN_MOD_VERSION', 'Mod_version');

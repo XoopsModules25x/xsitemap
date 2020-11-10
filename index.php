@@ -11,8 +11,9 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
- * @package    module\xsitemap\frontside
+ * @package    module\Xsitemap\frontside
  * @author     Urbanspaceman (http://www.takeaweb.it)
  * @copyright  Urbanspaceman (http://www.takeaweb.it)
  * @copyright  XOOPS Project
@@ -20,34 +21,25 @@
  * @link       https://xoops.org XOOPS
  * @since      1.00
  **/
-
-use Xmf\Request;
-use Xoopsmodules\xsitemap;
-
 require_once __DIR__ . '/header.php';
-
 $moduleDirName = basename(__DIR__);
-require_once __DIR__ . '/../../mainfile.php';
-
+require_once dirname(__DIR__, 2) . '/mainfile.php';
 //template assign
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
-
-include_once $GLOBALS['xoops']->path('header.php');
-include_once $GLOBALS['xoops']->path('class/tree.php');
-include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-//include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-include_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/dummy.php');
-
+require_once $GLOBALS['xoops']->path('header.php');
+require_once $GLOBALS['xoops']->path('class/tree.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
+//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
-
-$xsitemap_show = $utility::generateSitemap();
-
+$xsitemap_show    = $utility::generateSitemap();
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url('browse.php?modules/' . $moduleDirName . '/assets/css/style.css'));
-$GLOBALS['xoopsTpl']->assign([
-                                 'xsitemap'           => $xsitemap_show,
-                                 'num_col'            => $xsitemap_configs['columns_number'],
-                                 'show_sublink'       => $xsitemap_configs['show_sublink'],
-                                 'show_subcategories' => $xsitemap_configs['show_subcategories']
-                             ]);
-
-include_once $GLOBALS['xoops']->path('footer.php');
+$GLOBALS['xoopsTpl']->assign(
+    [
+        'xsitemap'           => $xsitemap_show,
+        'num_col'            => $xsitemap_configs['columns_number'],
+        'show_sublink'       => $xsitemap_configs['show_sublink'],
+        'show_subcategories' => $xsitemap_configs['show_subcategories'],
+    ]
+);
+require_once $GLOBALS['xoops']->path('footer.php');

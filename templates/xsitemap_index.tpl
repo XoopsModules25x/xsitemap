@@ -9,7 +9,7 @@
     <{/if}>
     <ul id="primaryNav" class="col<{$num_col}>">
         <li id="home"><a href="<{$xoops_url}>/"><{$smarty.const._MA_XSITEMAP_HOME}></a></li>
-        <{foreach name=i item=module from=$xsitemap.modules}>
+        <{foreach name=i item=module from=$xsitemap.modules|default:null}>
             <{include file="db:xsitemap_slickmap.tpl"}>
         <{/foreach}>
     </ul>

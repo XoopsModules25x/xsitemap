@@ -9,11 +9,12 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
- * @package    module\xsitemap\admin
+ * @package    module\Xsitemap\admin
  * @copyright  https://xoops.org 2001-2017 XOOPS Project
- * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @author     ZySpec <owners@zyspec.com>
+ * @license    https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author     ZySpec <zyspec@yahoo.com>
  * @link       https://xoops.org XOOPS
  * @since      1.54
  **/
@@ -26,9 +27,13 @@
  * @package    xoopspoll
  * @subpackage class
  */
-use Xoopsmodules\xsitemap;
 
-class XsitemapCorePreload extends XoopsPreloadItem
+use XoopsModules\Xsitemap;
+
+/**
+ * Class XsitemapCorePreload
+ */
+class XsitemapCorePreload extends \XoopsPreloadItem
 {
     /**
      * plugin class for Xoops preload for index page start
@@ -37,15 +42,15 @@ class XsitemapCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIndexStart($args)
     {
-        include __DIR__ . '/autoloader.php';
+        require_once __DIR__ . '/autoloader.php';
         // check once per user session if xsitemap exists
         $sessionVar = 'xsitemapChecked';
         $retVal     = true;
         if (empty($_SESSION[$sessionVar])) {
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
-//                require_once dirname(__DIR__) . '/include/common.php';
+                //                require_once dirname(__DIR__) . '/include/common.php';
                 //Create the xsitemap.xml file in the site root
-                $utility = new xsitemap\Utility();
+                $utility       = new Xsitemap\Utility();
                 $xsitemap_show = $utility::generateSitemap();
                 $retVal        = $utility::saveSitemap($xsitemap_show) ? true : false;
             }
@@ -60,6 +65,6 @@ class XsitemapCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        include __DIR__ . '/autoloader.php';
+        require_once __DIR__ . '/autoloader.php';
     }
 }
