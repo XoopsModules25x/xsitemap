@@ -7,7 +7,7 @@
                     <li>
                         <a href="<{$xoops_url}>/modules/<{$module.directory}>/<{$parent.url}>"><{$parent.title}></a>
                         <{if $show_subcategories}>
-                            <{if $parent.child}>
+                            <{if $parent.child|default:null}>
                                 <ul>
                                     <{foreach item=child from=$parent.child}>
                                         <li><a href="<{$xoops_url}>/modules/<{$module.directory}>/<{$child.url}>"><{$child.title}></a></li>
