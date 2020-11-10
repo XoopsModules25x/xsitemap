@@ -28,7 +28,6 @@ namespace XoopsModules\Xsitemap;
 
 use XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\Common;
-use XoopsModules\Xsitemap\Constants;
 
 $helper        = Xsitemap\Helper::getInstance();
 $moduleDirName = \basename(\dirname(__DIR__));

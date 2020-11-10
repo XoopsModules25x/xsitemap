@@ -26,7 +26,8 @@ namespace XoopsModules\Xsitemap\Common;
 use MyTextSanitizer;
 use XoopsFormDhtmlTextArea;
 use XoopsFormTextArea;
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\Helper;
+/** @var Helper $helper */
 
 /**
  * Class SysUtility
@@ -152,7 +153,6 @@ class SysUtility
      */
     public static function getEditor($helper = null, $options = null)
     {
-        /** @var Helper $helper */
         if (null === $options) {
             $options           = [];
             $options['name']   = 'Editor';
