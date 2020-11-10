@@ -3,7 +3,6 @@
 - replaced index.html with index.php (geekwright/mamba)
 - PHP 8 tests (mamba)
 - code cosmetics (mamba)
-- replaced index.html with index.php (geekwright/mamba)
 
 
 <h5>1.54 RC-2 [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
