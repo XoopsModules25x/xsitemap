@@ -23,7 +23,7 @@
  **/
 require_once __DIR__ . '/header.php';
 $moduleDirName = basename(__DIR__);
-require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once dirname(__DIR__, 2) . '/mainfile.php';
 //template assign
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 require_once $GLOBALS['xoops']->path('header.php');

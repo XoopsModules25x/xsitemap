@@ -51,7 +51,7 @@ define('_MI_XSITEMAP_NAME', 'xSitemap');
 define('_MI_XSITEMAP_DESC', 'Module to visualize Sitemap in a XOOPS website');
 //1.54
 //Help
-define('_MI_XSITEMAP_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_XSITEMAP_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_XSITEMAP_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_XSITEMAP_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_XSITEMAP_OVERVIEW', 'Overview');
