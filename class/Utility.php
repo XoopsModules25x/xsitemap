@@ -118,7 +118,7 @@ class Utility extends Common\SysUtility
                     $objVars = $pObj->getValues();
                     if (1 == $objVars['plugin_online']) {
                         $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
-                        $block['modules'][$mid]['parent'] = isset($tmpMap['parent']) ? $tmpMap['parent'] : null;
+                        $block['modules'][$mid]['parent'] = $tmpMap['parent'] ?? null;
                     }
                 }
             }
@@ -209,7 +209,7 @@ class Utility extends Common\SysUtility
                     $xml_url->appendChild($loc);
                     $xml_set->appendChild($xml_url);
                 }
-                if (isset($mod['parent']) ? $mod['parent'] : null) {
+                if ($mod['parent'] ?? null) {
                     foreach ($mod['parent'] as $parent) {
                         $xml_parent = $xml->createElement('url');
                         $loc        = $xml->createElement('loc', \htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}"), \ENT_QUOTES | \ENT_HTML5));
@@ -218,7 +218,7 @@ class Utility extends Common\SysUtility
                     }
                     $z = 0;
                     //if ($mod["parent"][$z]["child"]) {
-                    if (isset($mod['parent'][$z]['child']) ? $mod['parent'][$z]['child'] : null) {
+                    if ($mod['parent'][$z]['child'] ?? null) {
                         foreach ($mod['parent'][$z]['child'] as $child) {
                             $xml_child = $xml->createElement('url');
                             $loc       = $xml->createElement('loc', \htmlentities($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}"), \ENT_QUOTES | \ENT_HTML5));
