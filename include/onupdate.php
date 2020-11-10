@@ -11,7 +11,7 @@
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
@@ -20,18 +20,14 @@
 use XoopsModules\Xsitemap;
 
 // require_once  dirname(__DIR__) . '/class/Utility.php';
-
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
-    || !$GLOBALS['xoopsUser']->IsAdmin()
-) {
+    || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
-
 /**
- *
  * Prepares system prior to attempting to update module
  *
- * @param XoopsModule $module
+ * @param \XoopsModule $module
  *
  * @return bool true if successfully ready to update module, false if not
  */
@@ -40,23 +36,20 @@ function xoops_module_pre_update_xsitemap(\XoopsModule $module)
     /** @var Xsitemap\Helper $helper */
     /** @var Xsitemap\Utility $utility */
     $moduleDirName = basename(dirname(__DIR__));
-    $helper       = Xsitemap\Helper::getInstance();
-    $utility      = new Xsitemap\Utility();
-
-    $xoopsSuccess = $utility::checkVerXoops($module);
-    $phpSuccess   = $utility::checkVerPhp($module);
+    $helper        = Xsitemap\Helper::getInstance();
+    $utility       = new Xsitemap\Utility();
+    $xoopsSuccess  = $utility::checkVerXoops($module);
+    $phpSuccess    = $utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
- *
  * Functions to upgrade from previous version of the module
  *
- * @param XoopsModule $module
- * @param int|null        $previousVersion
+ * @param \XoopsModule $module
+ * @param int|null     $previousVersion
  * @return bool true if successfully updated module, false if not
  * @internal param int $curr_version version number of module currently installed
- *
  */
 function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = null)
 {
@@ -78,26 +71,19 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         }
         return $success;
     ======================================================================*/
-
-    $moduleDirName = basename(dirname(__DIR__));
-    $capsDirName   = strtoupper($moduleDirName);
-
-    /** @var Xsitemap\Helper $helper */
-    /** @var Xsitemap\Utility $utility */
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    /** @var Xsitemap\Helper $helper */ /** @var Xsitemap\Utility $utility */
     /** @var Xsitemap\Common\Configurator $configurator */
-    $helper  = Xsitemap\Helper::getInstance();
-    $utility = new Xsitemap\Utility();
+    $helper       = Xsitemap\Helper::getInstance();
+    $utility      = new Xsitemap\Utility();
     $configurator = new Xsitemap\Common\Configurator();
-
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
     //-----------------------------------------------------------------------
-
     $success = true;
-
     $helper->loadLanguage('modinfo');
     $helper->loadLanguage('admin');
-
     if ($previousVersion < 154) {
         //----------------------------------------------------------------
         // Remove previous css & images directories since they've been relocated to ./assets
@@ -107,7 +93,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
             $helper->path('css/'),
             $helper->path('js/'),
             $helper->path('images/'),
-            XOOPS_UPLOAD_PATH . '/' . $module->dirname()
+            XOOPS_UPLOAD_PATH . '/' . $module->dirname(),
         ];
         foreach ($old_directories as $old_dir) {
             $dirInfo = new \SplFileInfo($old_dir);
@@ -120,7 +106,6 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
             }
             unset($dirInfo);
         }
-
         //-----------------------------------------------------------------------
         // Remove ./template/*.html (except index.html) files since they've
         // been replaced by *.tpl files
@@ -137,14 +122,13 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
                 }
             }
         }
-
         //-----------------------------------------------------------------------
         // Now remove a some misc files that were renamed or deprecated
         //-----------------------------------------------------------------------
         $oldFiles = [
             $helper->path('include/install.php'),
             $helper->path('class/module.php'),
-            $helper->path('class/menu.php')
+            $helper->path('class/menu.php'),
         ];
         foreach ($oldFiles as $file) {
             if (is_file($file)) {

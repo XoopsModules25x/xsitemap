@@ -12,6 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * ****************************************************************************
  */
+
 /**
  * Module: xsitemap
  *
@@ -33,15 +34,12 @@ require_once __DIR__ . '/admin_header.php';
 // Display Admin header
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
-
-
 // Get online plugin info
 //$countPlugins       = $pluginHandler->getCount();
-$criteria           = new \Criteria('plugin_online', 1);
-
+$criteria = new \Criteria('plugin_online', 1);
 /** @var Xsitemap\PluginHandler $pluginHandler */
-$pluginHandler = Xsitemap\Helper::getInstance()->getHandler('Plugin');
-$onlinePluginObjs = [];
+$pluginHandler      = Xsitemap\Helper::getInstance()->getHandler('Plugin');
+$onlinePluginObjs   = [];
 $onlinePluginObjs   = $pluginHandler->getAll($criteria);
 $countPluginsOnline = !empty($onlinePluginObjs) ? count($onlinePluginObjs) : 0;
 $onlinePluginArray  = [];
@@ -51,7 +49,6 @@ foreach ($onlinePluginObjs as $onlineObj) {
 }
 natsort($onlinePluginArray);
 $onlinePluginNames = implode(', ', $onlinePluginArray);
-
 // get offline plugin info
 $criteria            = new \Criteria('plugin_online', 0);
 $offlinePluginObjs   = $pluginHandler->getAll($criteria);
@@ -63,7 +60,6 @@ foreach ($offlinePluginObjs as $offlineObj) {
 }
 natsort($offlinePluginArray);
 $offlinePluginNames = implode(', ', $offlinePluginArray);
-
 $adminObject->addInfoBox(_AM_XSITEMAP_MANAGER_INDEX);
 // display number of plugins online
 $adminObject->addInfoBoxLine(sprintf(_AM_XSITEMAP_THEREARE_PLUGIN_ONLINE, $countPluginsOnline), '', 'green');
@@ -71,13 +67,9 @@ $adminObject->addInfoBoxLine(sprintf(_AM_XSITEMAP_THEREARE_PLUGIN_ONLINE, $count
 $adminObject->addInfoBoxLine(sprintf(_AM_XSITEMAP_THEREARE_PLUGIN_OFFLINE, $countPluginsOffline), '', 'green');
 // display total number of plugins
 $adminObject->addInfoBoxLine(sprintf(_AM_XSITEMAP_THEREARE_PLUGIN, $countPluginsOnline + $countPluginsOffline), '', 'green');
-
 $adminObject->addConfigBoxLine(sprintf(_AM_XSITEMAP_PLUGIN_ONLINE_NAMES, $onlinePluginNames), 'information');
 $adminObject->addConfigBoxLine(sprintf(_AM_XSITEMAP_PLUGIN_OFFLINE_NAMES, $offlinePluginNames), 'information');
-
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->displayIndex();
-
 echo $utility::getServerStats();
-
 require_once __DIR__ . '/admin_footer.php';

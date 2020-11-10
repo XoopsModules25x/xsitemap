@@ -12,6 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * ****************************************************************************
  */
+
 /**
  * Module: xsitemap
  *
@@ -22,7 +23,6 @@
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @since      1.00
  */
-
 //Add by urbanspaceman 26/08/2009
 //home
 define('_MA_XSITEMAP', 'Sitemap');

@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Xsitemap;
+<?php
+
+namespace XoopsModules\Xsitemap;
 
 /*
  * ****************************************************************************
@@ -25,20 +27,16 @@
  * @since      1.00
  */
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
-
-
 /**
  * Class PluginHandler
  */
 class PluginHandler extends \XoopsPersistableObjectHandler
 {
-
     /**
      * PluginHandler constructor.
      * @param null|\XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'xsitemap_plugin', Plugin::class, 'plugin_id', 'plugin_name');
     }

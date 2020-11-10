@@ -12,22 +12,17 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
-use \XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap;
 
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
-    || !$GLOBALS['xoopsUser']->isAdmin()
-) {
+    || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
-
-
-
 /**
- *
  * Function to perform before module uninstall
  *
- * @param XoopsModule $module
+ * @param \XoopsModule $module
  *
  * @return bool true if successfully executed, false if not
  */
@@ -37,10 +32,9 @@ function xoops_module_pre_uninstall_xsitemap(\XoopsModule $module)
 }
 
 /**
- *
  * Function to complete upon module uninstall
  *
- * @param XoopsModule $module
+ * @param \XoopsModule $module
  *
  * @return bool true if successfully executed uninstall of module, false if not
  */
@@ -48,21 +42,18 @@ function xoops_module_uninstall_xsitemap(\XoopsModule $module)
 {
     //    return true;
     $moduleDirName = $module->getVar('dirname');
-    $helper        = \XoopsModules\Xsitemap\Helper::getInstance();
+    /** @var \XoopsModules\Xsitemap\Helper $helper */
+    $helper = \XoopsModules\Xsitemap\Helper::getInstance();
     /** @var Xsitemap\Utility $utility */
     $utility = new Xsitemap\Utility();
-
-//    if (!class_exists($utility)) {
-//        xoops_load('utility', $moduleDirName);
-//    }
-
+    //    if (!class_exists($utility)) {
+    //        xoops_load('utility', $moduleDirName);
+    //    }
     $success = true;
     $helper->loadLanguage('admin');
-
     //------------------------------------------------------------------
     // Remove xSitemap uploads folder (and all subfolders) if they exist
     //------------------------------------------------------------------
-
     $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
     foreach ($old_directories as $old_dir) {
         $dirInfo = new \SplFileInfo($old_dir);

@@ -1,6 +1,6 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
-## xSitemap module for  [XOOPS CMS 2.5.9+](https://xoops.org)
-[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+## xSitemap module for  [XOOPS CMS 2.5.10+](https://xoops.org)
+[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
 
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/XoopsModules25x/xsitemap.svg?style=flat)](https://scrutinizer-ci.com/g/XoopsModules25x/xsitemap/?branch=master)
@@ -15,11 +15,11 @@
 A reference to the XML file can also be placed in the robots.txt file so Google can find it automatically.  Just add
 _Sitemap: http\[s\]://**yoursite.com**/xsitemap.xml_ to the robots.txt file.
 
-[![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/xsitemap-tutorial/) Tutorial: see [GitBook](https://www.gitbook.com/book/xoops/xsitemap-tutorial/).
+[![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://xoops.gitbook.io/xsitemap-tutorial/) Tutorial: see [GitBook](https://xoops.gitbook.io/xsitemap-tutorial/).
 To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/xsitemap-tutorial)
 
 [![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
 
 Please visit us on https://xoops.org
 
-Current and upcoming "next generation" versions of XOOPS CMS are being crafted on GitHub at: https://github.com/XOOPS
+Current and upcoming "next generation" versions of XOOPS CMS are crafted on GitHub at: https://github.com/XOOPS

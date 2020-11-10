@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Xsitemap\Common;
+<?php
+
+namespace XoopsModules\Xsitemap\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -16,10 +18,7 @@
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      XOOPS Development Team
  * @since       1.00
- *
  */
-
-require_once  dirname(dirname(__DIR__)) . '/include/common.php';
 
 /**
  * Class Configurator
@@ -34,6 +33,7 @@ class Configurator
     public $templateFolders = [];
     public $oldFiles        = [];
     public $oldFolders      = [];
+    public $renameTables    = [];
     public $modCopyright;
 
     /**
@@ -41,12 +41,9 @@ class Configurator
      */
     public function __construct()
     {
-        $moduleDirName = basename(dirname(__DIR__));
-        $capsDirName   = strtoupper($moduleDirName);
-
-        require_once  dirname(dirname(__DIR__)) . '/include/config.php';
-        $config = getConfig();
-
+        $moduleDirName         = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirNameUpper    = mb_strtoupper($moduleDirName);
+        $config                = require \dirname(\dirname(__DIR__)) . '/config/config.php';
         $this->name            = $config->name;
         $this->paths           = $config->paths;
         $this->uploadFolders   = $config->uploadFolders;
@@ -55,6 +52,7 @@ class Configurator
         $this->templateFolders = $config->templateFolders;
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
+        $this->renameTables    = $config->renameTables;
         $this->modCopyright    = $config->modCopyright;
     }
 }
