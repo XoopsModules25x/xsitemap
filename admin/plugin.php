@@ -27,19 +27,25 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Helper,
+    Plugin,
+    PluginHandler
+};
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 $adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
+$pluginHandler = $helper->getHandler('Plugin');
 
 $op = Request::getCmd('op', 'show_list_plugin');
 
 switch ($op) {
     case 'add_plugin':
         // Display the form
-        /** @var Xsitemap\Plugin $obj */
+        /** @var Plugin $obj */
         $obj = $pluginHandler->create();
         echo $obj->getForm();
         break;
@@ -50,7 +56,7 @@ switch ($op) {
         $pluginId = Request::getInt('plugin_id', 0, 'POST');
         if (!empty($pluginId)) {
             $obj = $pluginHandler->get($pluginId);
-            if (!$obj instanceof Xsitemap\Plugin) { // passed Id for non-existent plugin so create new plugin
+            if (!$obj instanceof Plugin) { // passed Id for non-existent plugin so create new plugin
                 $obj = $pluginHandler->create();
             }
         } else {
@@ -82,7 +88,7 @@ switch ($op) {
         break;
     case 'edit_plugin':
         $obj = $pluginHandler->get(Request::getInt('plugin_id'));
-        if ($obj instanceof Xsitemap\Plugin) {
+        if ($obj instanceof Plugin) {
             echo $obj->getForm();
         } else {
             echo _AM_XSITEMAP_ERROR_NO_PLUGIN;

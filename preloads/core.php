@@ -28,7 +28,9 @@
  * @subpackage class
  */
 
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Utility
+};
 
 /**
  * Class XsitemapCorePreload
@@ -50,7 +52,7 @@ class XsitemapCorePreload extends \XoopsPreloadItem
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
                 //                require_once dirname(__DIR__) . '/include/common.php';
                 //Create the xsitemap.xml file in the site root
-                $utility       = new Xsitemap\Utility();
+                $utility       = new Utility();
                 $xsitemap_show = $utility::generateSitemap();
                 $retVal        = $utility::saveSitemap($xsitemap_show) ? true : false;
             }

@@ -28,7 +28,13 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Helper,
+    Utility
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var Utility $utility */
 
 require_once __DIR__ . '/admin_header.php';
 $moduleDirName = basename(dirname(__DIR__));
@@ -44,7 +50,7 @@ if (Request::hasVar('update', 'POST')) {
         $helper->redirect('admin/xml.php', 3, $GLOBALS['xoopsSecurity']->getErrors(true));
     }
     echo "<div class='pad7 width80'>\n";
-    $utility       = new Xsitemap\Utility();
+    $utility       = new Utility();
     $xsitemap_show = $utility::generateSitemap();
     $update        = _AM_XSITEMAP_XML_ERROR_UPDATE;
     if (!empty($xsitemap_show)) {

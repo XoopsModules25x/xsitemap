@@ -12,7 +12,6 @@
 /**
  * Module: xsitemap
  *
- * @package    module\Xsitemap\includes
  * @author     Taiwen Jiang <phppp@users.sourceforge.net>
  * @author     ZySpec <zyspec@yahoo.com>
  * @copyright  https://xoops.org 2001-2017 XOOPS Project
@@ -21,8 +20,14 @@
  * @since      1.00
  */
 
-use XoopsModules\Xsitemap;
-use XoopsModules\Xsitemap\Helper;
+use XoopsModules\Xsitemap\{
+    Common\Configurator,
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
+/** @var Configurator $configurator */
 
 /**
  * @internal {Make sure you PROTECT THIS FILE}
@@ -42,7 +47,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
 function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    $utility       = new Xsitemap\Utility();
+    $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
@@ -82,11 +87,9 @@ function xoops_module_install_xsitemap(\XoopsModule $module)
  */
 function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
-    /** @var Xsitemap\Helper $helper */
-    /** @var Xsitemap\Utility $utility */
     $moduleDirName = basename(dirname(__DIR__));
     $helper        = Helper::getInstance();
-    $utility       = new Xsitemap\Utility();
+    $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
@@ -106,7 +109,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         //----------------------------------------------------------------
         // Remove xSitemap uploads folder (and all subfolders) if they exist
         //----------------------------------------------------------------*
-        $utility = new Xsitemap\Utility();
+        $utility = new Utility();
         if (!class_exists($utility)) {
             xoops_load('utility', $moduleDirName);
         }
@@ -122,11 +125,10 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
     ======================================================================*/
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-    /** @var Xsitemap\Helper $helper */ /** @var Xsitemap\Utility $utility */
-    /** @var Xsitemap\Common\Configurator $configurator */
+
     $helper       = Helper::getInstance();
-    $utility      = new Xsitemap\Utility();
-    $configurator = new Xsitemap\Common\Configurator();
+    $utility      = new Utility();
+    $configurator = new Configurator();
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
     //-----------------------------------------------------------------------
@@ -214,9 +216,8 @@ function xoops_module_uninstall_xsitemap(\XoopsModule $module)
 {
     //    return true;
     $moduleDirName = $module->getVar('dirname');
-    /** @var \XoopsModules\Xsitemap\Utility $utility */
     $helper  = Helper::getInstance();
-    $utility = new Xsitemap\Utility();
+    $utility = new Utility();
     //    if (!class_exists($utility)) {
     //        xoops_load('utility', $moduleDirName);
     //    }

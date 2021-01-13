@@ -12,8 +12,12 @@
  * @internal {Make sure you PROTECT THIS FILE}
  */
 
-use XoopsModules\Xsitemap;
-use XoopsModules\Xsitemap\Helper;
+use XoopsModules\Xsitemap\{
+    Helper,
+    Utility
+};
+/** @var Utility $utility */
+/** @var Helper $helper */
 
 if ((!defined('XOOPS_ROOT_PATH'))
     || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
@@ -44,7 +48,7 @@ function xoops_module_uninstall_xsitemap(\XoopsModule $module)
     //    return true;
     $moduleDirName = $module->getVar('dirname');
     $helper        = Helper::getInstance();
-    $utility       = new Xsitemap\Utility();
+    $utility       = new Utility();
     $delOk         = false;
     //    if (!class_exists($utility)) {
     //        xoops_load('utility', $moduleDirName);

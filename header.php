@@ -17,16 +17,19 @@
  * @author       XOOPS Development Team
  */
 
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Common\Configurator,
+    Helper,
+    Utility
+};
 
 $moduleDirName = basename(__DIR__);
 require_once dirname(__DIR__, 2) . '/mainfile.php';
-//require_once  dirname(dirname(__DIR__)) . '/include/cp_header.php';
 require_once __DIR__ . '/include/common.php';
 $myts         = \MyTextSanitizer::getInstance();
-$helper       = Xsitemap\Helper::getInstance();
-$utility      = new Xsitemap\Utility();
-$configurator = new Xsitemap\Common\Configurator();
+$helper       = Helper::getInstance();
+$utility      = new Utility();
+$configurator = new Configurator();
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');

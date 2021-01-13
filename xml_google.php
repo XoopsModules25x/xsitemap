@@ -22,7 +22,9 @@
  * @since      ::    1.00
  **/
 
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Utility
+};
 
 $moduleDirName = basename(__DIR__);
 require_once dirname(__DIR__, 2) . '/mainfile.php';
@@ -32,9 +34,9 @@ require_once $GLOBALS['xoops']->path('header.php');
 require_once $GLOBALS['xoops']->path('class/tree.php');
 
 $xmlfile       = $GLOBALS['xoops']->path('xsitemap.xml');
-$xsitemap_show = Xsitemap\Utility::generateSitemap();
+$xsitemap_show = Utility::generateSitemap();
 if (!empty($xsitemap_show)) {
-    $retVal = Xsitemap\Utility::saveSitemap($xsitemap_show);
+    $retVal = Utility::saveSitemap($xsitemap_show);
     if (false !== $retVal) {
         $stat   = stat($xmlfile);
         $status = formatTimestamp($stat['mtime'], _DATESTRING);
