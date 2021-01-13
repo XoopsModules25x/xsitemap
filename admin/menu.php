@@ -26,11 +26,12 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Helper
+};
 
-// require_once  dirname(__DIR__) . '/class/Helper.php';
 //require_once  dirname(__DIR__) . '/include/common.php';
-$helper = Xsitemap\Helper::getInstance();
+$helper = Helper::getInstance();
 $helper->loadLanguage('common');
 $helper->loadLanguage('feedback');
 $pathIcon32 = Admin::menuIconPath('');

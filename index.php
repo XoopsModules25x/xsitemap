@@ -21,16 +21,22 @@
  * @link       https://xoops.org XOOPS
  * @since      1.00
  **/
+
+use XoopsModules\Xsitemap\{
+    Utility
+};
+
+/** @var Utility $utility */
+
 require_once __DIR__ . '/header.php';
 $moduleDirName = basename(__DIR__);
-require_once dirname(__DIR__, 2) . '/mainfile.php';
+$utility      = new Utility();
+
 //template assign
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 require_once $GLOBALS['xoops']->path('header.php');
 require_once $GLOBALS['xoops']->path('class/tree.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
+
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 $xsitemap_show    = $utility::generateSitemap();
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url('browse.php?modules/' . $moduleDirName . '/assets/css/style.css'));

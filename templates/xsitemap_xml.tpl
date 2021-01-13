@@ -2,4 +2,4 @@
 <div>
     <{$smarty.const._MA_XSITEMAP_LAST_MOD}> <{$lastmod}>
 </div>
-<{$update}>
+<{$update|default:''}>

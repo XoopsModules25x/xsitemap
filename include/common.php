@@ -18,18 +18,23 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Helper,
+    Utility,
+    PluginHandler
+};
+
+/** @var Helper $helper */
+/** @var Utility $utility */
+/** @var PluginHandler $pluginHandler */
 
 require_once dirname(__DIR__) . '/preloads/autoloader.php';
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
-/** @var \XoopsDatabase $db */
-/** @var Xsitemap\Helper $helper */
-/** @var Xsitemap\Utility $utility */
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
-$helper  = Xsitemap\Helper::getInstance();
-$utility = new Xsitemap\Utility();
-//$configurator = new Xsitemap\Common\Configurator();
+$helper  = Helper::getInstance();
+$utility = new Utility();
+//$configurator = new Configurator();
 $helper->loadLanguage('common');
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
@@ -46,26 +51,8 @@ if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName); // WITHOUT Trailing slash
     define($moduleDirNameUpper . '_CONSTANTS_DEFINED', 1);
 }
-/*
-if (!defined('XSITEMAP_MODULE_PATH')) {
-    define('XSITEMAP_DIRNAME', basename(dirname(__DIR__)));
-    define('XSITEMAP_URL', XOOPS_URL . '/modules/' . XSITEMAP_DIRNAME);
-    define('XSITEMAP_IMAGE_URL', XSITEMAP_URL . '/assets/images/');
-    define('XSITEMAP_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . XSITEMAP_DIRNAME);
-    define('XSITEMAP_IMAGE_PATH', XSITEMAP_ROOT_PATH . '/assets/images');
-    define('XSITEMAP_ADMIN_URL', XSITEMAP_URL . '/admin/');
-    define('XSITEMAP_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . XSITEMAP_DIRNAME);
-    define('XSITEMAP_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . XSITEMAP_DIRNAME);
-}
-*/
+
 $helper->loadLanguage('common');
-//require_once XSITEMAP_ROOT_PATH . '/class/Utility.php';
-//require_once XSITEMAP_ROOT_PATH . '/include/constants.php';
-//require_once XSITEMAP_ROOT_PATH . '/include/seo_functions.php';
-//require_once XSITEMAP_ROOT_PATH . '/class/metagen.php';
-//require_once XSITEMAP_ROOT_PATH . '/class/session.php';
-//require_once XSITEMAP_ROOT_PATH . '/class/xoalbum.php';
-//require_once XSITEMAP_ROOT_PATH . '/class/request.php';
 $pathIcon16    = Admin::iconUrl('', 16);
 $pathIcon32    = Admin::iconUrl('', 32);
 $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
@@ -80,5 +67,4 @@ $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName
 $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
 $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 //module handlers
-/** @var Xsitemap\PluginHandler $pluginHandler */
 $pluginHandler = $helper->getHandler('Plugin');

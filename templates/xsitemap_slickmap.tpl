@@ -1,7 +1,7 @@
 <{if $module.name}>
     <li>
         <a href="<{$xoops_url}>/modules/<{$module.directory}>/"><{$module.name}></a>
-        <{if $module.parent}>
+        <{if $module.parent|default:''}>
             <ul>
                 <{foreach item=parent from=$module.parent}>
                     <li>

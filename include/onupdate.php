@@ -17,7 +17,14 @@
  * @author       XOOPS Development Team
  */
 
-use XoopsModules\Xsitemap;
+use XoopsModules\Xsitemap\{
+    Common\Configurator,
+    Helper,
+    Utility
+};
+/** @var Utility $utility */
+/** @var Helper $helper */
+/** @var Configurator $configurator */
 
 // require_once  dirname(__DIR__) . '/class/Utility.php';
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
@@ -33,11 +40,8 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUs
  */
 function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
-    /** @var Xsitemap\Helper $helper */
-    /** @var Xsitemap\Utility $utility */
     $moduleDirName = basename(dirname(__DIR__));
-    $helper        = Xsitemap\Helper::getInstance();
-    $utility       = new Xsitemap\Utility();
+    $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
     return $xoopsSuccess && $phpSuccess;
@@ -57,7 +61,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         //----------------------------------------------------------------
         // Remove xSitemap uploads folder (and all subfolders) if they exist
         //----------------------------------------------------------------*
-        $utility = new Xsitemap\Utility();
+        $utility = new Utility();
         if (!class_exists($utility)) {
             xoops_load('utility', $moduleDirName);
         }
@@ -73,11 +77,8 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
     ======================================================================*/
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-    /** @var Xsitemap\Helper $helper */ /** @var Xsitemap\Utility $utility */
-    /** @var Xsitemap\Common\Configurator $configurator */
-    $helper       = Xsitemap\Helper::getInstance();
-    $utility      = new Xsitemap\Utility();
-    $configurator = new Xsitemap\Common\Configurator();
+    $helper       = Helper::getInstance();
+    $utility      = new Utility();
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
     //-----------------------------------------------------------------------
@@ -113,7 +114,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         //-----------------------------------------------------------------------
         $path       = $helper->path('templates/');
         $unfiltered = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-        $iterator   = new RegexIterator($unfiltered, "/.*\.html/");
+        $iterator   = new RegexIterator($unfiltered, '/.*\.html/');
         foreach ($iterator as $name => $fObj) {
             if ($fObj->isFile() && ('index.html' !== $fObj->getFilename())) {
                 if (false === ($success = unlink($fObj->getPathname()))) {

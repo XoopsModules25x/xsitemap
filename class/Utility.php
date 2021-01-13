@@ -26,10 +26,14 @@ namespace XoopsModules\Xsitemap;
  * @since        File available since version 1.54
  */
 
-use XoopsModules\Xsitemap;
-use XoopsModules\Xsitemap\Common;
+use XoopsModules\Xsitemap\{
+    Common
+};
+/** @var Helper $helper */
+/** @var PluginHandler $pluginHandler */
 
-$helper        = Xsitemap\Helper::getInstance();
+
+$helper        = Helper::getInstance();
 $moduleDirName = \basename(\dirname(__DIR__));
 \xoops_loadLanguage('admin', $moduleDirName);
 //if (!class_exists('DummyObject')) {
@@ -80,8 +84,7 @@ class Utility extends Common\SysUtility
         $groups           = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $readAllowed      = $grouppermHandler->getItemIds('module_read', $groups);
         $filteredMids     = \array_diff($readAllowed, $invisibleMidArray);
-        /** @var Xsitemap\PluginHandler $pluginHandler */
-        $pluginHandler = Xsitemap\Helper::getInstance()->getHandler('Plugin');
+        $pluginHandler = Helper::getInstance()->getHandler('Plugin');
         $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
         $criteria->add(new \Criteria('isactive', 1));
         if (\count($filteredMids) > 0) {
@@ -139,15 +142,14 @@ class Utility extends Common\SysUtility
     public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
     {
         require_once XOOPS_ROOT_PATH . '/class/tree.php';
-        $helper = Xsitemap\Helper::getInstance();
+        $helper = Helper::getInstance();
         /** @var \XoopsMySQLDatabase $xDB */
         $xDB       = \XoopsDatabaseFactory::getDatabaseConnection();
-        $myts      = \MyTextSanitizer::getInstance();
         $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
         $result    = $xDB->query($sql);
         $objsArray = [];
         while (false !== ($row = $xDB->fetchArray($result))) {
-            $objsArray[] = new Xsitemap\DummyObject($row, $id_name, $pid_name, $title_name);
+            $objsArray[] = new DummyObject($row, $id_name, $pid_name, $title_name);
         }
         //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
         // v1.54 added in the event categories are flat (don't support hierarchy)
@@ -164,7 +166,7 @@ class Utility extends Common\SysUtility
         while (list($catid, $name) = $xDB->fetchRow($result)) {
             $xsitemap['parent'][$i] = [
                 'id'    => $catid,
-                'title' => $myts->htmlSpecialChars($name),
+                'title' => htmlspecialchars($name, ENT_QUOTES | ENT_HTML5),
                 'url'   => $url . $catid,
             ];
             if (($pid_name !== $id_name) && $helper->getConfig('show_subcategories')) {
