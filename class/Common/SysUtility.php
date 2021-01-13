@@ -27,6 +27,7 @@ use MyTextSanitizer;
 use XoopsFormDhtmlTextArea;
 use XoopsFormTextArea;
 use XoopsModules\Xsitemap\Helper;
+
 /** @var Helper $helper */
 
 /**

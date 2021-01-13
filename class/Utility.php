@@ -164,7 +164,7 @@ class Utility extends Common\SysUtility
         while (list($catid, $name) = $xDB->fetchRow($result)) {
             $xsitemap['parent'][$i] = [
                 'id'    => $catid,
-                'title' => $myts->htmlSpecialChars($name),
+                'title' => htmlspecialchars($name),
                 'url'   => $url . $catid,
             ];
             if (($pid_name !== $id_name) && $helper->getConfig('show_subcategories')) {

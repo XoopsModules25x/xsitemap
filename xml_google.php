@@ -30,9 +30,7 @@ require_once dirname(__DIR__, 2) . '/mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_xml.tpl';
 require_once $GLOBALS['xoops']->path('header.php');
 require_once $GLOBALS['xoops']->path('class/tree.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
+
 $xmlfile       = $GLOBALS['xoops']->path('xsitemap.xml');
 $xsitemap_show = Xsitemap\Utility::generateSitemap();
 if (!empty($xsitemap_show)) {

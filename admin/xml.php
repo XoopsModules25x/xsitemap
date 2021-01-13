@@ -34,9 +34,7 @@ require_once __DIR__ . '/admin_header.php';
 $moduleDirName = basename(dirname(__DIR__));
 xoops_cp_header();
 require_once $GLOBALS['xoops']->path('class/tree.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
+
 $adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $xmlfile     = $GLOBALS['xoops']->path('xsitemap.xml');

@@ -28,9 +28,7 @@ require_once dirname(__DIR__, 2) . '/mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_index.tpl';
 require_once $GLOBALS['xoops']->path('header.php');
 require_once $GLOBALS['xoops']->path('class/tree.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/plugin.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/Utility.php');
-//require_once $GLOBALS['xoops']->path('modules/' . $moduleDirName . '/class/DummyObject.php');
+
 $xsitemap_configs = $GLOBALS['xoopsModuleConfig'];
 $xsitemap_show    = $utility::generateSitemap();
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url('browse.php?modules/' . $moduleDirName . '/assets/css/style.css'));

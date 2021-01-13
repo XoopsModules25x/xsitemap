@@ -72,9 +72,6 @@ function xoops_module_install_xsitemap(\XoopsModule $module)
     /*
     //28/08/2009 by urbanspaceman
     require_once $GLOBALS['xoops']->path("class/tree.php");
-    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/class/plugin.php");
-    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/include/functions.php");
-    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/DummyObject.php");
 
     //Create the xsitemap.xml file in the site root
     $xsitemap_show = Utility::generateSitemap();
