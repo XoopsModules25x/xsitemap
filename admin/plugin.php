@@ -39,6 +39,7 @@ xoops_cp_header();
 $adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $pluginHandler = $helper->getHandler('Plugin');
+$obj = null;
 
 $op = Request::getCmd('op', 'show_list_plugin');
 
