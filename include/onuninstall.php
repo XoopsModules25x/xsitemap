@@ -45,6 +45,7 @@ function xoops_module_uninstall_xsitemap(\XoopsModule $module)
     $moduleDirName = $module->getVar('dirname');
     $helper        = Helper::getInstance();
     $utility       = new Xsitemap\Utility();
+    $delOk         = false;
     //    if (!class_exists($utility)) {
     //        xoops_load('utility', $moduleDirName);
     //    }
