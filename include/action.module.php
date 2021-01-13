@@ -162,7 +162,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         //-----------------------------------------------------------------------
         $path       = $helper->path('templates/');
         $unfiltered = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-        $iterator   = new RegexIterator($unfiltered, "/.*\.html/");
+        $iterator   = new RegexIterator($unfiltered, '/.*\.html/');
         foreach ($iterator as $name => $fObj) {
             if ($fObj->isFile() && ('index.html' !== $fObj->getFilename())) {
                 if (false === ($success = unlink($fObj->getPathname()))) {
