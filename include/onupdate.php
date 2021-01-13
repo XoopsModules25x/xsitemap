@@ -41,7 +41,6 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUs
 function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    $helper        = Helper::getInstance();
     $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
@@ -80,7 +79,6 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
     $helper       = Helper::getInstance();
     $utility      = new Utility();
-    $configurator = new Configurator();
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
     //-----------------------------------------------------------------------

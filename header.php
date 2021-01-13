@@ -33,3 +33,8 @@ $configurator = new Configurator();
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
+
+if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
+    require XOOPS_ROOT_PATH . '/class/template.php';
+    $xoopsTpl = new XoopsTpl();
+}

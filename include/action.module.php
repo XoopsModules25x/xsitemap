@@ -21,13 +21,11 @@
  */
 
 use XoopsModules\Xsitemap\{
-    Common\Configurator,
     Helper,
     Utility
 };
 /** @var Helper $helper */
 /** @var Utility $utility */
-/** @var Configurator $configurator */
 
 /**
  * @internal {Make sure you PROTECT THIS FILE}
@@ -128,7 +126,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
 
     $helper       = Helper::getInstance();
     $utility      = new Utility();
-    $configurator = new Configurator();
+
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
     //-----------------------------------------------------------------------

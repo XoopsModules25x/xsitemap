@@ -27,10 +27,8 @@ namespace XoopsModules\Xsitemap;
  */
 
 use XoopsModules\Xsitemap\{
-    Common,
-    DummyObject,
-    Helper,
-    PluginHandler};
+    Common
+};
 /** @var Helper $helper */
 /** @var PluginHandler $pluginHandler */
 
@@ -147,7 +145,6 @@ class Utility extends Common\SysUtility
         $helper = Helper::getInstance();
         /** @var \XoopsMySQLDatabase $xDB */
         $xDB       = \XoopsDatabaseFactory::getDatabaseConnection();
-        $myts      = \MyTextSanitizer::getInstance();
         $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
         $result    = $xDB->query($sql);
         $objsArray = [];
