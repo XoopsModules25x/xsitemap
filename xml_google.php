@@ -27,9 +27,10 @@ use XoopsModules\Xsitemap\{
 };
 
 $moduleDirName = basename(__DIR__);
-require_once dirname(__DIR__, 2) . '/mainfile.php';
+
 //template assign
 $GLOBALS['xoopsOption']['template_main'] = 'xsitemap_xml.tpl';
+require_once __DIR__ . '/header.php';
 require_once $GLOBALS['xoops']->path('header.php');
 require_once $GLOBALS['xoops']->path('class/tree.php');
 
