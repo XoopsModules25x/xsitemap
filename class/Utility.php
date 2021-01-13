@@ -29,7 +29,7 @@ namespace XoopsModules\Xsitemap;
 use XoopsModules\Xsitemap\{
     Common,
     DummyObject,
-    Helper, 
+    Helper,
     PluginHandler};
 /** @var Helper $helper */
 /** @var PluginHandler $pluginHandler */

@@ -29,7 +29,6 @@ use Xmf\Module\Admin;
 use XoopsModules\Xsitemap\{
     Helper
 };
-/** @var Helper $helper */
 
 //require_once  dirname(__DIR__) . '/include/common.php';
 $helper = Helper::getInstance();
