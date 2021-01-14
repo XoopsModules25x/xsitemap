@@ -1,3 +1,7 @@
+<h5>1.55 Beta 2 [2021-01-13]</h5>   Dev: XOOPS 2.5.11, PHP 7.4.14, PHP 8.0.1
+<hr>
+- fix for XML file, https://github.com/XoopsModules25x/xsitemap/issues/15 (AxelF1977/mamba)
+
 <h5>1.55 Beta 1 [2021-01-12]</h5>   Dev: XOOPS 2.5.11, PHP 7.4.14, PHP 8.0.1
 <hr>
 - namespaces, cosmetics (geeronzero/mamba)
