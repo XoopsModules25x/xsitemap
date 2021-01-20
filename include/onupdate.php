@@ -140,7 +140,6 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
             }
         }
     }
-
     if ($previousVersion < 156) {
         // update table (add new field)
         $table = $GLOBALS['xoopsDB']->prefix('xsitemap_plugin');
@@ -154,10 +153,9 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
                 $module->setErrors("Error when adding '$field' to table '$table'.");
                 $ret = false;
             }
+            $success = $success && $result;
         }
     }
-
-
-
+    
     return $success;
 }
