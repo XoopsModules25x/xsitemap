@@ -24,8 +24,8 @@
 require __DIR__ . '/preloads/autoloader.php';
 $moduleDirName = basename(__DIR__);
 $modversion    = [
-    'version'             => 1.55,
-    'module_status'       => 'Beta 3',
+    'version'             => 1.56,
+    'module_status'       => 'Beta 1',
     'release_date'        => '2021/01/14',
     'name'                => _MI_XSITEMAP_NAME,
     'description'         => _MI_XSITEMAP_DESC,
@@ -74,33 +74,23 @@ $modversion    = [
         ['name' => _MI_XSITEMAP_DISCLAIMER, 'link' => 'page=disclaimer'],
         ['name' => _MI_XSITEMAP_LICENSE, 'link' => 'page=license'],
         ['name' => _MI_XSITEMAP_SUPPORT, 'link' => 'page=support'],
-    ],
-    //Templates
-    'templates'           => [
-        [
-            'file'        => 'xsitemap_index.tpl',
-            'description' => '',
-        ],
-        [
-            'file'        => 'xsitemap_slickmap.tpl',
-            'description' => '',
-        ],
-        /*
-        [
-            file' => 'xsitemap_style.tpl',
-            description' => ''
-        ],
-        */
-        [
-            'file'        => 'xsitemap_xml.tpl',
-            'description' => '',
-        ],
-        [
-            'file'        => 'admin/xsitemap_index.tpl',
-            'description' => '',
-        ],
-    ],
+    ]
 ];
+// ------------------- Templates ------------------- //
+$modversion['templates'] = [
+    // Admin templates
+    ['file' => 'xsitemap_admin_about.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'xsitemap_admin_header.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'xsitemap_admin_index.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'xsitemap_admin_xml.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'xsitemap_admin_plugins.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'xsitemap_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
+    // User templates
+    ['file' => 'xsitemap_index.tpl', 'description' => ''],
+    ['file' => 'xsitemap_slickmap.tpl', 'description' => ''],
+    ['file' => 'xsitemap_xml.tpl', 'description' => ''],
+];
+
 // Preferences
 $modversion['config'] = [
     [

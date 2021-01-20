@@ -20,14 +20,7 @@
 
 use Xmf\Module\Admin;
 
-echo "<div class='adminfooter'>\n"
-     . "  <div class='txtcenter'>\n"
-     . "    <a href='https://xoops.org' rel='external' target='_blank'><img src='"
-     . Admin::iconUrl('xoopsmicrobutton.gif', '32')
-     . "' alt='XOOPS' title='XOOPS'></a>\n"
-     . "  </div>\n"
-     . '  '
-     . _AM_MODULEADMIN_ADMIN_FOOTER
-     . "\n"
-     . "</div>\n";
+if (isset($templateMain)) {
+    $GLOBALS['xoopsTpl']->display("db:{$templateMain}");
+}
 xoops_cp_footer();
