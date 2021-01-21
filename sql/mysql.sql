@@ -62,5 +62,7 @@ INSERT INTO `xsitemap_plugin` (`plugin_id`, `plugin_name`, `plugin_mod_version`,
 (38, 'wgteams', '1.1', 'wgteams_teams', 'team_id', 'team_id', 'team_name', 'team_weight', '`team_online`=1', 'index.php?team_id=', 1, 1611100800, 1),
 (39, 'wggallery', '1.15', 'wggallery_albums', 'alb_id', 'alb_pid', 'alb_name', 'alb_weight', '`alb_state`=1', 'images.php?op=list&alb_id=', 1, 1611100800, 1),
 (40, 'wgtimelines', '1.12', 'wgtimelines_timelines', 'tl_id', 'tl_id', 'tl_name', 'tl_weight', '`tl_online`=1', 'index.php?op=list&tl_id=', 1, 1611100800, 1),
-(42, 'wgsitenotice', '1.31', 'wgsitenotice_versions', 'version_id', 'version_id', 'version_name', 'version_weight', '`version_online`=1', 'index.php?version_id=', 1, 1611100800, 1),
-(43, 'wggithub', '1.03', 'wggithub_directories', 'dir_id', 'dir_id', 'dir_name', 'dir_weight', '`dir_online`=1', 'index.php?op=list&release=all&sortby=update&menu=menu', 1, 1611100800, 1);
+(42, 'wgsitenotice', '1.31', 'wgsitenotice_versions', 'version_id', 'version_id', 'version_name', 'version_weight', '`version_current`=1', 'index.php?version_id=', 1, 1611100800, 1),
+(43, 'wggithub', '1.03', 'wggithub_directories', 'dir_id', 'dir_id', 'dir_name', 'dir_weight', '`dir_online`=1', 'index.php?op=list&release=all&sortby=update&menu=menu', 1, 1611100800, 1),
+(44, 'xmnews', '1.2', 'xmnews_category', 'category_id', 'category_id', 'category_name', 'category_weight', '`category_status`=1', 'index.php?news_cid=', 1, 1611187200, 1),
+(45, 'xmdocs', '1.1', 'xmdoc_category', 'category_id', 'category_id', 'category_name', 'category_weight', '`category_status`=1', 'index.php?doc_cid=', 1, 1611187200, 1);
