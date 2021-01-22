@@ -161,7 +161,7 @@ class Utility extends Common\SysUtility
         }
         if ('' !== $where) {
             if ('' !== $sqlWhere) {
-                $sqlWhere .= " AND ";
+                $sqlWhere .= ' AND ';
             }
             $sqlWhere .= $where;
         }
