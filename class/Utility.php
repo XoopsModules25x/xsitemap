@@ -119,7 +119,7 @@ class Utility extends Common\SysUtility
                 if ((0 == $pObj->getVar('topic_pid')) && \in_array($pObj->getVar('plugin_mod_table'), (array)$modObj->getInfo('tables'))) {
                     $objVars = $pObj->getValues();
                     if (1 == $objVars['plugin_online']) {
-                        $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight']);
+                        $tmpMap                           = self::getSitemap($objVars['plugin_mod_table'], $objVars['plugin_cat_id'], $objVars['plugin_cat_pid'], $objVars['plugin_cat_name'], $objVars['plugin_call'], $objVars['plugin_weight'], $objVars['plugin_where']);
                         $block['modules'][$mid]['parent'] = $tmpMap['parent'] ?? null;
                     }
                 }
@@ -137,9 +137,10 @@ class Utility extends Common\SysUtility
      * @param        $title_name
      * @param        $url
      * @param string $order
+     * @param string $where
      * @return array sitemap links
      */
-    public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '')
+    public static function getSitemap($table, $id_name, $pid_name, $title_name, $url, $order = '', $where = '')
     {
         require_once XOOPS_ROOT_PATH . '/class/tree.php';
         $helper = Helper::getInstance();
@@ -154,8 +155,18 @@ class Utility extends Common\SysUtility
         //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
         // v1.54 added in the event categories are flat (don't support hierarchy)
         $sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
+        $sqlWhere = '';
         if ($pid_name !== $id_name) {
-            $sql .= " WHERE `{$pid_name}`= 0";
+            $sqlWhere = "`{$pid_name}`= 0";
+        }
+        if ('' !== $where) {
+            if ('' !== $sqlWhere) {
+                $sqlWhere .= " AND ";
+            }
+            $sqlWhere .= $where;
+        }
+        if ('' !== $sqlWhere) {
+            $sql .= " WHERE ($sqlWhere)";
         }
         if ('' != $order) {
             $sql .= " ORDER BY `{$order}`";

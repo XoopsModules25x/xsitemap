@@ -44,6 +44,7 @@ require_once __DIR__ . '/admin_header.php';
 // Display Admin header
 xoops_cp_header();
 $adminObject = Admin::getInstance();
+$templateMain = 'xsitemap_admin_index.tpl';
 // Get online plugin info
 //$countPlugins       = $pluginHandler->getCount();
 $criteria = new \Criteria('plugin_online', 1);
@@ -78,6 +79,8 @@ $adminObject->addInfoBoxLine(sprintf(_AM_XSITEMAP_THEREARE_PLUGIN, $countPlugins
 $adminObject->addConfigBoxLine(sprintf(_AM_XSITEMAP_PLUGIN_ONLINE_NAMES, $onlinePluginNames), 'information');
 $adminObject->addConfigBoxLine(sprintf(_AM_XSITEMAP_PLUGIN_OFFLINE_NAMES, $offlinePluginNames), 'information');
 $adminObject->displayNavigation(basename(__FILE__));
-$adminObject->displayIndex();
-echo $utility::getServerStats();
+//$adminObject->displayIndex();
+$GLOBALS['xoopsTpl']->assign('index', $adminObject->renderIndex());
+$GLOBALS['xoopsTpl']->assign('serverstats', $utility::getServerStats());
+//echo $utility::getServerStats();
 require_once __DIR__ . '/admin_footer.php';

@@ -24,7 +24,9 @@ use Xmf\Module\Admin;
 /** @var Admin $adminObject */
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$adminObject->displayNavigation(basename(__FILE__));
+$templateMain = 'xsitemap_admin_about.tpl';
+
+$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
 $adminObject::setPaypal('xoopsfoundation@gmail.com');
-$adminObject->displayAbout(false);
+$GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout(false));
 require_once __DIR__ . '/admin_footer.php';

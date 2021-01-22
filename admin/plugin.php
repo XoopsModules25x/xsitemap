@@ -74,6 +74,7 @@ switch ($op) {
                 'plugin_cat_pid'      => Request::getCmd('plugin_cat_pid', '', 'POST'),                   //Form plugin_cat_pid
                 'plugin_cat_name'     => Request::getText('plugin_cat_name', '', 'POST'),                 //Form plugin_cat_name
                 'plugin_weight'       => Request::getCmd('plugin_weight', '', 'POST'),                    //Form plugin_weight
+                'plugin_where'        => Request::getString('plugin_where', '', 'POST'),                   //Form plugin_call
                 'plugin_call'         => Request::getString('plugin_call', '', 'POST'),                   //Form plugin_call
                 'plugin_submitter'    => Request::getInt('plugin_submitter', 0, 'POST'),                  //Form plugin_submitter
                 'plugin_date_created' => strtotime(Request::getString('plugin_date_created', 0, 'POST')), //Form plugin_date_created
@@ -116,7 +117,7 @@ switch ($op) {
                     'op'        => 'delete_plugin',
                 ],
                 $_SERVER['REQUEST_URI'],
-                sprintf(_AM_XSITEMAP_FORMSUREDEL, $obj->getVar('plugin'))
+                sprintf(_AM_XSITEMAP_FORMSUREDEL, $obj->getVar('plugin_name'))
             );
         }
         break;
@@ -132,143 +133,23 @@ switch ($op) {
         break;
     case 'default':
     default:
+        $templateMain = 'xsitemap_admin_plugins.tpl';
         $adminObject->addItemButton(_AM_XSITEMAP_CREATE_PLUGIN, basename(__FILE__) . '?op=add_plugin', 'add');
         $adminObject->displayButton('left', '');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('plugin_name');
         $criteria->order = 'ASC';
         $numrows         = $pluginHandler->getCount();
+        $GLOBALS['xoopsTpl']->assign('plugins_count', $numrows);
         $plugin_arr      = $pluginHandler->getAll($criteria);
-        //Display the table
+        //Display data
         if ($numrows > 0) {
-            echo "<table cellspacing='1' class='outer width100'>\n"
-                 . "  <thead>\n"
-                 . "  <tr>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_ONLINE
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_NAME
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_MOD_VERSION
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_MOD_TABLE_SHORT
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_CAT_ID_SHORT
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_CAT_PID_SHORT
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_CAT_NAME_SHORT
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_WEIGHT_SHORT
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_CALL_SHORT
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_SUBMITTER
-                 . "</th>\n"
-                 . "    <th class='txtcenter'>"
-                 . _AM_XSITEMAP_PLUGIN_DATE_CREATED
-                 . "</th>\n"
-                 . "    <th class='txtcenter width10'>"
-                 . _AM_XSITEMAP_FORMACTION
-                 . "</th>\n"
-                 . "  </tr>\n"
-                 . "  </thead>\n"
-                 . "  <tbody>\n";
-            $class = 'odd';
-            /** @var \XoopsObject[] $plugin_arr [] */
             foreach (array_keys($plugin_arr) as $i) {
                 if (0 == $plugin_arr[$i]->getVar('topic_pid')) {
-                    echo "  <tr class='{$class}'>\n";
-                    $class  = ('even' === $class) ? 'odd' : 'even';
-                    $online = $plugin_arr[$i]->getVar('plugin_online');
-                    if (1 == $online) {
-                        echo "    <td class='txtcenter width5'><a href='./plugin.php?op=update_online_plugin&plugin_id="
-                             . $plugin_arr[$i]->getVar('plugin_id')
-                             . "&plugin_online=0'><img src='"
-                             . Admin::iconUrl('on.png', '16')
-                             . "' border='0' alt='"
-                             . _AM_XSITEMAP_ON
-                             . "' title='"
-                             . _AM_XSITEMAP_ON
-                             . ', '
-                             . sprintf(_AM_XSITEMAP_CLICK_TO, _AM_XSITEMAP_OFF)
-                             . "'></a></td>\n";
-                    } else {
-                        echo "    <td class='txtcenter width5'><a href='./plugin.php?op=update_online_plugin&plugin_id="
-                             . $plugin_arr[$i]->getVar('plugin_id')
-                             . "&plugin_online=1'><img src='"
-                             . Admin::iconUrl('off.png', '16')
-                             . "' border='0' alt='"
-                             . _AM_XSITEMAP_OFF
-                             . "' title='"
-                             . _AM_XSITEMAP_OFF
-                             . ', '
-                             . sprintf(_AM_XSITEMAP_CLICK_TO, _AM_XSITEMAP_ON)
-                             . "'></a></td>\n";
-                    }
-                    echo "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_name')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_mod_version')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_mod_table')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_cat_id')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_cat_pid')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_cat_name')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_weight')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . $plugin_arr[$i]->getVar('plugin_call')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . \XoopsUser::getUnameFromId($plugin_arr[$i]->getVar('plugin_submitter'), 'S')
-                         . "</td>\n"
-                         . "    <td class='txtcenter'>"
-                         . formatTimestamp($plugin_arr[$i]->getVar('plugin_date_created'), 'S')
-                         . "</td>\n"
-                         . "    <td class='txtcenter width5'>\n"
-                         . "      <a href='plugin.php?op=edit_plugin&plugin_id="
-                         . $plugin_arr[$i]->getVar('plugin_id')
-                         . "'><img src='"
-                         . Admin::iconUrl('edit.png', '16')
-                         . "' alt='"
-                         . _EDIT
-                         . "' title='"
-                         . _EDIT
-                         . "'></a>\n"
-                         . "      <a href='plugin.php?op=delete_plugin&plugin_id="
-                         . $plugin_arr[$i]->getVar('plugin_id')
-                         . "'><img src='"
-                         . Admin::iconUrl('delete.png', '16')
-                         . "' alt='"
-                         . _DELETE
-                         . "' title='"
-                         . _DELETE
-                         . "'></a>\n"
-                         . "    </td>\n"
-                         . "  </tr>\n";
+                    $plugin = $plugin_arr[$i]->getValuesPlugins();
+                    $GLOBALS['xoopsTpl']->append('plugins_list', $plugin);
                 }
             }
-            echo "</tbody>\n" . "</table>\n";
         }
         break;
 }

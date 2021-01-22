@@ -47,6 +47,7 @@ class Plugin extends \XoopsObject
         $this->initVar('plugin_cat_pid', \XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('plugin_cat_name', \XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('plugin_weight', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('plugin_where', \XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('plugin_call', \XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('plugin_submitter', \XOBJ_DTYPE_INT, null, false, 10);
         $this->initVar('plugin_date_created', \XOBJ_DTYPE_INT, null, false, 10);
@@ -92,6 +93,7 @@ class Plugin extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_XSITEMAP_PLUGIN_CAT_PID, 'plugin_cat_pid', 50, 255, $this->getVar('plugin_cat_pid')), true);
         $form->addElement(new \XoopsFormText(\_AM_XSITEMAP_PLUGIN_CAT_NAME, 'plugin_cat_name', 50, 255, $this->getVar('plugin_cat_name')), true);
         $form->addElement(new \XoopsFormText(\_AM_XSITEMAP_PLUGIN_WEIGHT, 'plugin_weight', 50, 255, $this->getVar('plugin_weight')), true);
+        $form->addElement(new \XoopsFormText(\_AM_XSITEMAP_PLUGIN_WHERE, 'plugin_where', 50, 255, $this->getVar('plugin_where')), false);
         $form->addElement(new \XoopsFormText(\_AM_XSITEMAP_PLUGIN_CALL, 'plugin_call', 50, 255, $this->getVar('plugin_call')), true);
         $form->addElement(new \XoopsFormSelectUser(\_AM_XSITEMAP_PLUGIN_SUBMITTER, 'plugin_submitter', false, $this->getVar('plugin_submitter'), 1, false), true);
         //            $plugin_date_created = $this->isNew() ? time() : $this->getVar("plugin_date_created");
@@ -107,4 +109,21 @@ class Plugin extends \XoopsObject
         $form->addElement(new \XoopsFormButtonTray('submit', _SUBMIT));
         return $form->display();
     }
+
+    /**
+     * Get Values
+     * @param null $keys
+     * @param null $format
+     * @param null $maxDepth
+     * @return array
+     */
+    public function getValuesPlugins($keys = null, $format = null, $maxDepth = null)
+    {
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['date_created'] = \formatTimestamp($this->getVar('plugin_date_created'), 'm');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('plugin_submitter'));
+
+        return $ret;
+    }
+
 }

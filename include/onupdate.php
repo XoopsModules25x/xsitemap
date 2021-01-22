@@ -140,5 +140,22 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
             }
         }
     }
+    if ($previousVersion < 156) {
+        // update table (add new field)
+        $table = $GLOBALS['xoopsDB']->prefix('xsitemap_plugin');
+        $field = 'plugin_where';
+        $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+        $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+        if (!$numRows) {
+            $sql = "ALTER TABLE `$table` ADD `$field` VARCHAR(255) NOT NULL AFTER `plugin_weight`;";
+            if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+                xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+                $module->setErrors("Error when adding '$field' to table '$table'.");
+                $ret = false;
+            }
+            $success = $success && $result;
+        }
+    }
+    
     return $success;
 }
