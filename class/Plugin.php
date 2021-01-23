@@ -66,7 +66,7 @@ class Plugin extends \XoopsObject
 
     /**
      * @param bool $action
-     * @return string
+     * @return XoopsThemeForm
      */
     public function getForm($action = false)
     {
