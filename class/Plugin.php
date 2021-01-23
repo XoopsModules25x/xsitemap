@@ -107,7 +107,8 @@ class Plugin extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('plugin_id', $this->getVar('plugin_id')));
         }
         $form->addElement(new \XoopsFormButtonTray('submit', _SUBMIT));
-        return $form->display();
+
+        return $form;
     }
 
     /**

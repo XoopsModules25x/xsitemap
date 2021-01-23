@@ -156,6 +156,6 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
             $success = $success && $result;
         }
     }
-    
+
     return $success;
 }

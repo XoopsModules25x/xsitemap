@@ -1,7 +1,7 @@
 <!-- Header -->
 <{includeq file='db:xsitemap_admin_header.tpl' }>
 
-<{if $update}>
+<{if $update|default:''}>
     <p style='margin-bottom: 2em;'><{$update}></p>
 <{/if}>
 <{if $file_exists}>
@@ -12,10 +12,12 @@
     </div>
 <{/if}>
 
-<{if $form}>
+<{if $form|default:''}>
     <{$form}>
 <{/if}>
-
+<{if $error|default:''}>
+    <div class="errorMsg"><strong><{$error}></strong></div>
+<{/if}>
 
 <!-- Footer -->
 <{includeq file='db:xsitemap_admin_footer.tpl' }>

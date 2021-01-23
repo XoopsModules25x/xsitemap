@@ -94,6 +94,14 @@ $modversion['templates'] = [
 // Preferences
 $modversion['config'] = [
     [
+        'name'        => 'adminpager',
+        'title'       => '\_MI_XSITEMAP_ADMIN_PAGER',
+        'description' => '\_MI_XSITEMAP_ADMIN_PAGER_DESC',
+        'formtype'    => 'textbox',
+        'valuetype'   => 'int',
+        'default'     => 10,
+    ],
+    [
         'name'        => 'show_subcategories',
         'title'       => '_MI_XSITEMAP_SHOW_PARENT',
         'description' => '_MI_XSITEMAP_SHOW_PARENT_DESC',
