@@ -2,6 +2,18 @@
 <{include file='db:xsitemap_admin_header.tpl' }>
 
 <{if $plugins_list|default:''}>
+	<div align="right">
+		<form id="form_plugin_tri" name="form_plugin_tri" method="post" action="plugin.php">
+			<{$smarty.const._AM_XSITEMAP_PLUGIN_NAME}>
+			<input type="text" id="title" name="title" value="<{$title}>" />
+			<input type="submit" value="<{$smarty.const._GO}>" />
+			<input type='button' name='reset'  id='reset' value='<{$smarty.const._RESET}>' onclick="location='plugin.php'" />
+			<{$smarty.const._AM_XSITEMAP_PLUGIN_ONLINE}>
+			<select name="plugin_filter" id="plugin_filter" onchange="location='plugin.php?title=<{$title}>&plugin_status='+this.options[this.selectedIndex].value">
+				<{$plugin_status_options}>
+			<select>
+		</form>
+	</div>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -23,17 +35,15 @@
 		<{if $plugins_count}>
 		<tbody>
 			<{foreach item=plugin from=$plugins_list}>
-			<tr class='<{cycle values='odd, even'}>'>
-				<td class='center'>
-					<{if $plugin.plugin_online}>
-						<a href="./plugin.php?op=update_online_plugin&amp;plugin_id=<{$plugin.plugin_id}>&amp;plugin_online=0">
-							<img src="<{xoModuleIcons16 on.png}>" alt="<{$smarty.const._AM_XSITEMAP_ON}>" title="<{$smarty.const._AM_XSITEMAP_ON}>, <{$smarty.const._AM_XSITEMAP_CLICK_TO|sprintf:$smarty.const._AM_XSITEMAP_OFF}>" border="0"></a>
-					<{else}>
-						<a href="./plugin.php?op=update_online_plugin&amp;plugin_id=<{$plugin.plugin_id}>&amp;plugin_online=1">
-							<img src="<{xoModuleIcons16 off.png}>" alt="<{$smarty.const._AM_XSITEMAP_OFF}>" title="<{$smarty.const._AM_XSITEMAP_ON}>, <{$smarty.const._AM_XSITEMAP_CLICK_TO|sprintf:$smarty.const._AM_XSITEMAP_ON}>" border="0"></a>
-
-					<{/if}>
-				</td>
+			<tr class="<{cycle values='even,odd'}> alignmiddle">
+				<td class="xo-actions txtcenter">
+                    <img id="loading_sml<{$plugin.plugin_id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
+                    alt="<{$smarty.const._AM_SYSTEM_LOADING}>"/><img class="cursorpointer tooltip" id="sml<{$plugin.plugin_id}>"
+                    onclick="system_setStatus( { op: 'update_online_plugin', plugin_id: <{$plugin.plugin_id}> }, 'sml<{$plugin.plugin_id}>', 'plugin.php' )"
+                    src="<{if $plugin.plugin_online == 1}><{xoAdminIcons success.png}><{else}><{xoAdminIcons cancel.png}><{/if}>"
+                    alt="<{if $plugin.plugin_online}><{$smarty.const._AM_XSITEMAP_OFF}><{else}><{$smarty.const._AM_XSITEMAP_ON}><{/if}>"
+                    title="<{if $plugin.plugin_online}><{$smarty.const._AM_XSITEMAP_OFF}><{else}><{$smarty.const._AM_XSITEMAP_ON}><{/if}>"/>
+                </td>
 				<td class='center'><{$plugin.plugin_name}></td>
 				<td class='center'><{$plugin.plugin_mod_version}></td>
 				<td class='center'><{$plugin.plugin_mod_table}></td>
