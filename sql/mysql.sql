@@ -65,4 +65,6 @@ INSERT INTO `xsitemap_plugin` (`plugin_id`, `plugin_name`, `plugin_mod_version`,
 (42, 'wgsitenotice', '1.31', 'wgsitenotice_versions', 'version_id', 'version_id', 'version_name', 'version_weight', '`version_current`=1', 'index.php?version_id=', 1, 1611100800, 1),
 (43, 'wggithub', '1.03', 'wggithub_directories', 'dir_id', 'dir_id', 'dir_name', 'dir_weight', '`dir_online`=1', 'index.php?op=list&release=all&sortby=update&menu=menu', 1, 1611100800, 1),
 (44, 'xmnews', '1.2', 'xmnews_category', 'category_id', 'category_id', 'category_name', 'category_weight', '`category_status`=1', 'index.php?news_cid=', 1, 1611187200, 1),
-(45, 'xmdocs', '1.1', 'xmdoc_category', 'category_id', 'category_id', 'category_name', 'category_weight', '`category_status`=1', 'index.php?doc_cid=', 1, 1611187200, 1);
+(45, 'xmdocs', '1.1', 'xmdoc_category', 'category_id', 'category_id', 'category_name', 'category_weight', '`category_status`=1', 'index.php?doc_cid=', 1, 1611187200, 1),
+(46, 'xmcontact', '2.0', 'xmcontact_category', 'category_id', 'category_id', 'category_title', 'category_weight', '`category_status`=1', 'index.php?op=form&cat_id=', 1, 1611187200, 1),
+(47, 'xmtutorial', '1.03', 'xmtutorial_category', 'category_id', 'category_id', 'category_name', 'category_weight', '`category_status`=1', 'index.php?tutorial_cid=', 1, 1611187200, 1);
