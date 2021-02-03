@@ -66,7 +66,7 @@ class Plugin extends \XoopsObject
 
     /**
      * @param bool $action
-     * @return XoopsThemeForm
+     * @return \XoopsThemeForm
      */
     public function getForm($action = false)
     {
@@ -113,9 +113,9 @@ class Plugin extends \XoopsObject
 
     /**
      * Get Values
-     * @param null $keys
-     * @param null $format
-     * @param null $maxDepth
+     * @param null|array $keys
+     * @param null|string $format
+     * @param null|int $maxDepth
      * @return array
      */
     public function getValuesPlugins($keys = null, $format = null, $maxDepth = null)
