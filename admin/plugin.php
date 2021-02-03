@@ -27,19 +27,20 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Xsitemap\{
-    Helper,
+use XoopsModules\Xsitemap\{Helper,
     Plugin,
     PluginHandler
 };
+
 /** @var Helper $helper */
+/** @var Plugin $pluginsObj */
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 $adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $pluginHandler = $helper->getHandler('Plugin');
-$pluginsObj = null;
+$pluginsObj    = null;
 
 $templateMain = 'xsitemap_admin_plugins.tpl';
 
@@ -48,9 +49,8 @@ $op = Request::getCmd('op', 'show_list_plugin');
 switch ($op) {
     case 'add_plugin':
         // Display the form
-        /** @var Plugin $pluginsObj */
         $pluginsObj = $pluginHandler->create();
-        $form = $pluginsObj->getForm();
+        $form       = $pluginsObj->getForm();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save_plugin':
@@ -103,7 +103,7 @@ switch ($op) {
         break;
     case 'delete_plugin':
         $pluginsObj = $pluginHandler->get(Request::getInt('plugin_id', 0));
-        $ok  = Request::getInt('ok', 0, 'POST');
+        $ok         = Request::getInt('ok', 0, 'POST');
         if (1 == $ok) {
             //        if (\Xmf\Request::hasVar('ok', 'REQUEST[')) && $_REQUEST["ok"] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -127,55 +127,55 @@ switch ($op) {
         }
         break;
     case 'update_online_plugin':
-		$plugin_id = Request::getInt('plugin_id', 0);
+        $plugin_id = Request::getInt('plugin_id', 0);
         if ($plugin_id > 0) {
-            $obj = $pluginHandler->get($plugin_id);
-            $old = $obj->getVar('plugin_online');
-            $obj->setVar('plugin_online', !$old);
-            if ($pluginHandler->insert($obj)) {
+            $pluginsObj = $pluginHandler->get($plugin_id);
+            $old = $pluginsObj->getVar('plugin_online');
+            $pluginsObj->setVar('plugin_online', !$old);
+            if ($pluginHandler->insert($pluginsObj)) {
                 exit;
             }
             $GLOBALS['xoopsTpl']->assign('error', $pluginsObj->getHtmlErrors());
         }
-		break;
+        break;
     case 'default':
-    default:	
-		// Define Stylesheet
+    default:
+        // Define Stylesheet
         $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
         $xoTheme->addScript('modules/system/js/admin.js');
-		
+
         $adminObject->addItemButton(_AM_XSITEMAP_CREATE_PLUGIN, basename(__FILE__) . '?op=add_plugin', 'add');
         $adminObject->displayButton('left', '');
-        $start  = Request::getInt('start', 0);
+        $start = Request::getInt('start', 0);
         $limit = $helper->getConfig('adminpager');
-		
-		//title
-		$title = Request::getString('title', '');
-		$GLOBALS['xoopsTpl']->assign('title', $title);		
-		// Status		
+
+        //title
+        $title = Request::getString('title', '');
+        $GLOBALS['xoopsTpl']->assign('title', $title);
+        // Status
         $plugin_status = Request::getInt('plugin_status', 10);
         $GLOBALS['xoopsTpl']->assign('plugin_status', $plugin_status);
-        $status_options         = [1 => _AM_XSITEMAP_PLUGIN_STATUS_A, 0 => _AM_XSITEMAP_PLUGIN_STATUS_NA];
-		$plugin_status_options = '<option value="10"' . ($plugin_status == 0 ? ' selected="selected"' : '') . '>' . _ALL .'</option>';
+        $status_options        = [1 => _AM_XSITEMAP_PLUGIN_STATUS_A, 0 => _AM_XSITEMAP_PLUGIN_STATUS_NA];
+        $plugin_status_options = '<option value="10"' . ($plugin_status == 0 ? ' selected="selected"' : '') . '>' . _ALL . '</option>';
         foreach (array_keys($status_options) as $i) {
             $plugin_status_options .= '<option value="' . $i . '"' . ($plugin_status == $i ? ' selected="selected"' : '') . '>' . $status_options[$i] . '</option>';
         }
         $GLOBALS['xoopsTpl']->assign('plugin_status_options', $plugin_status_options);
-		// Criteria
+        // Criteria
         $criteria = new \CriteriaCompo();
-		if ($title != ''){
-			$criteria->add(new Criteria('plugin_name', '%' . $title . '%', 'LIKE'));
-		}
-		if ($plugin_status != 10){
-			$criteria->add(new Criteria('plugin_online', $plugin_status));
-		}        
+        if ($title != '') {
+            $criteria->add(new Criteria('plugin_name', '%' . $title . '%', 'LIKE'));
+        }
+        if ($plugin_status != 10) {
+            $criteria->add(new Criteria('plugin_online', $plugin_status));
+        }
         $criteria->setSort('plugin_name');
         $criteria->order = 'ASC';
-        $pluginsCount         = $pluginHandler->getCount($criteria);
+        $pluginsCount    = $pluginHandler->getCount($criteria);
         $GLOBALS['xoopsTpl']->assign('plugins_count', $pluginsCount);
         $criteria->setStart($start);
         $criteria->setLimit($limit);
-        $plugin_arr      = $pluginHandler->getAll($criteria);
+        $plugin_arr = $pluginHandler->getAll($criteria);
         //Display data
         if ($pluginsCount > 0) {
             foreach (array_keys($plugin_arr) as $i) {
@@ -187,7 +187,7 @@ switch ($op) {
             // Display Navigation
             if ($pluginsCount > $limit) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                $pagenav = new \XoopsPageNav($pluginsCount, $limit, $start, 'start', 'plugin_status=' . $plugin_status .'&title=' . $title);
+                $pagenav = new \XoopsPageNav($pluginsCount, $limit, $start, 'start', 'plugin_status=' . $plugin_status . '&title=' . $title);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         }
