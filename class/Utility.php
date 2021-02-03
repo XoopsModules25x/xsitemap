@@ -161,7 +161,7 @@ class Utility extends Common\SysUtility
         }
         if ('' !== $where) {
             if ('' !== $sqlWhere) {
-                $sqlWhere .= " AND ";
+                $sqlWhere .= ' AND ';
             }
             $sqlWhere .= $where;
         }
@@ -177,7 +177,7 @@ class Utility extends Common\SysUtility
         while (list($catid, $name) = $xDB->fetchRow($result)) {
             $xsitemap['parent'][$i] = [
                 'id'    => $catid,
-                'title' => htmlspecialchars($name, ENT_QUOTES | ENT_HTML5),
+                'title' => \htmlspecialchars($name, \ENT_QUOTES | \ENT_HTML5),
                 'url'   => $url . $catid,
             ];
             if (($pid_name !== $id_name) && $helper->getConfig('show_subcategories')) {
@@ -216,15 +216,15 @@ class Utility extends Common\SysUtility
             foreach ($xsitemap_show['modules'] as $mod) {
                 if ($mod['directory']) {
                     $xml_url = $xml->createElement('url');
-                    $xml_url->appendChild($xml->createComment(htmlspecialchars((\ucwords($mod['name'])) . ' ')));
-                    $loc = $xml->createElement('loc', htmlspecialchars(($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php"))));
+                    $xml_url->appendChild($xml->createComment(\htmlspecialchars((\ucwords($mod['name'])) . ' ')));
+                    $loc = $xml->createElement('loc', \htmlspecialchars(($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/index.php"))));
                     $xml_url->appendChild($loc);
                     $xml_set->appendChild($xml_url);
                 }
                 if ($mod['parent'] ?? null) {
                     foreach ($mod['parent'] as $parent) {
                         $xml_parent = $xml->createElement('url');
-                        $loc        = $xml->createElement('loc', htmlspecialchars($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
+                        $loc        = $xml->createElement('loc', \htmlspecialchars($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$parent['url']}")));
                         $xml_parent->appendChild($loc);
                         $xml_set->appendChild($xml_parent);
                     }
@@ -233,7 +233,7 @@ class Utility extends Common\SysUtility
                     if ($mod['parent'][$z]['child'] ?? null) {
                         foreach ($mod['parent'][$z]['child'] as $child) {
                             $xml_child = $xml->createElement('url');
-                            $loc       = $xml->createElement('loc', htmlspecialchars($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
+                            $loc       = $xml->createElement('loc', \htmlspecialchars($GLOBALS['xoops']->url("www/modules/{$mod['directory']}/{$child['url']}")));
                             $xml_child->appendChild($loc);
                             $xml_set->appendChild($xml_child);
                         }
