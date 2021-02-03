@@ -30,6 +30,8 @@ define('_MI_XSITEMAP_MANAGER_PREFERENCES', 'Preferences');
 define('_MI_XSITEMAP_MANAGER_UPDATE', 'Update');
 define('_MI_XSITEMAP_MANAGER_PERMISSIONS', 'Permissions');
 //Config
+define('_MI_XSITEMAP_ADMIN_PAGER', 'Admin pager');
+define('_MI_XSITEMAP_ADMIN_PAGER_DESC', 'Number of lines per list in admin pages');
 define('_MI_XSITEMAP_SHOW_PARENT', 'Subcategories');
 define('_MI_XSITEMAP_SHOW_PARENT_DESC', 'Displays any subcategories of a module');
 define('_MI_XSITEMAP_SHOW_ACTION', 'Link');
