@@ -10,11 +10,9 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
+ * @copyright    XOOPS Project (https://xoops.org)
  * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @author      XOOPS Development Team
  */
 
 use Xmf\Module\Admin;
@@ -29,7 +27,7 @@ use XoopsModules\Xsitemap\{
 /** @var PluginHandler $pluginHandler */
 
 require_once dirname(__DIR__) . '/preloads/autoloader.php';
-$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
 $helper  = Helper::getInstance();

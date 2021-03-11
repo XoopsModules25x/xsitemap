@@ -28,10 +28,10 @@ use XoopsModules\Xsitemap\{
 /** @var Helper $helper */
 /** @var Admin $adminObject */
 
-$moduleDirName = basename(dirname(__DIR__));
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+$moduleDirName = \basename(\dirname(__DIR__));
+require dirname(__DIR__, 3) . '/include/cp_header.php';
 require_once dirname(__DIR__) . '/include/common.php';
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 $helper        = Helper::getInstance();
 $adminObject = Admin::getInstance();
 //$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);

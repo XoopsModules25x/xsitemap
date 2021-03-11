@@ -39,7 +39,7 @@ use XoopsModules\Xsitemap\{
 require_once __DIR__ . '/admin_header.php';
 $templateMain = 'xsitemap_admin_xml.tpl';
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 xoops_cp_header();
 require_once $GLOBALS['xoops']->path('class/tree.php');
 
