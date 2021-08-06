@@ -50,7 +50,7 @@ class XsitemapCorePreload extends \XoopsPreloadItem
         $retVal     = true;
         if (empty($_SESSION[$sessionVar])) {
             if (!file_exists(dirname(__DIR__) . '/xsitemap.xml')) {
-                //                require_once dirname(__DIR__) . '/include/common.php';
+                //                require_once \dirname(__DIR__) . '/include/common.php';
                 //Create the xsitemap.xml file in the site root
                 $utility       = new Utility();
                 $xsitemap_show = $utility::generateSitemap();

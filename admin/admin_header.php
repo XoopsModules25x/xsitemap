@@ -28,18 +28,18 @@ use XoopsModules\Xsitemap\{
 /** @var Helper $helper */
 /** @var Admin $adminObject */
 
-$moduleDirName = basename(dirname(__DIR__));
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
-require_once dirname(__DIR__) . '/include/common.php';
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
+require \dirname(__DIR__, 3) . '/include/cp_header.php';
+require_once \dirname(__DIR__) . '/include/common.php';
+$moduleDirName = \basename(\dirname(__DIR__));
 $helper        = Helper::getInstance();
 $adminObject = Admin::getInstance();
 //$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
 //$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 //if functions.php file exist
-//require_once  dirname(__DIR__) . '/include/functions.php';
-// require_once  dirname(__DIR__) . '/class/plugin.php';
+//require_once  \dirname(__DIR__) . '/include/functions.php';
+// require_once  \dirname(__DIR__) . '/class/plugin.php';
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');

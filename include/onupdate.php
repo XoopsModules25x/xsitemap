@@ -10,11 +10,9 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
+ * @copyright    XOOPS Project (https://xoops.org)
  * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @author      XOOPS Development Team
  */
 
 use XoopsModules\Xsitemap\{
@@ -26,7 +24,7 @@ use XoopsModules\Xsitemap\{
 /** @var Helper $helper */
 /** @var Configurator $configurator */
 
-// require_once  dirname(__DIR__) . '/class/Utility.php';
+// require_once  \dirname(__DIR__) . '/class/Utility.php';
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
@@ -40,7 +38,7 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUs
  */
 function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
@@ -75,7 +73,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         }
         return $success;
     ======================================================================*/
-    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
     $helper       = Helper::getInstance();
     $utility      = new Utility();

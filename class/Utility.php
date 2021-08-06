@@ -144,17 +144,19 @@ class Utility extends Common\SysUtility
     {
         require_once XOOPS_ROOT_PATH . '/class/tree.php';
         $helper = Helper::getInstance();
-        /** @var \XoopsMySQLDatabase $xDB */
-        $xDB       = \XoopsDatabaseFactory::getDatabaseConnection();
-        $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
-        $result    = $xDB->query($sql);
+        /** @var \XoopsMySQLDatabase $xoopsDb */
+        $xoopsDb       = \XoopsDatabaseFactory::getDatabaseConnection();
+        $sql       = "SELECT `{$id_name}`, `{$pid_name}`, `{$title_name}` FROM " . $xoopsDb->prefix . "_{$table}";
+        $result    = $xoopsDb->query($sql);
         $objsArray = [];
-        while (false !== ($row = $xDB->fetchArray($result))) {
-            $objsArray[] = new DummyObject($row, $id_name, $pid_name, $title_name);
+        if ($result) {
+            while (false !== ($row = $xoopsDb->fetchArray($result))) {
+                $objsArray[] = new DummyObject($row, $id_name, $pid_name, $title_name);
+            }
         }
-        //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table} WHERE `{$pid_name}`= 0";
+        //$sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xoopsDb->prefix . "_{$table} WHERE `{$pid_name}`= 0";
         // v1.54 added in the event categories are flat (don't support hierarchy)
-        $sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xDB->prefix . "_{$table}";
+        $sql = "SELECT `{$id_name}`, `{$title_name}` FROM " . $xoopsDb->prefix . "_{$table}";
         $sqlWhere = '';
         if ($pid_name !== $id_name) {
             $sqlWhere = "`{$pid_name}`= 0";
@@ -171,31 +173,34 @@ class Utility extends Common\SysUtility
         if ('' != $order) {
             $sql .= " ORDER BY `{$order}`";
         }
-        $result   = $xDB->query($sql);
+        $result   = $xoopsDb->query($sql);
         $i        = 0;
         $xsitemap = [];
-        while (list($catid, $name) = $xDB->fetchRow($result)) {
-            $xsitemap['parent'][$i] = [
-                'id'    => $catid,
-                'title' => \htmlspecialchars($name, \ENT_QUOTES | \ENT_HTML5),
-                'url'   => $url . $catid,
-            ];
-            if (($pid_name !== $id_name) && $helper->getConfig('show_subcategories')) {
-                $j           = 0;
-                $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
-                $child_array = $mytree->getAllChild($catid);
-                /** @var \XoopsObject $child */
-                foreach ($child_array as $child) {
-                    $xsitemap['parent'][$i]['child'][$j] = [
-                        'id'    => $child->getVar($id_name),
-                        'title' => $child->getVar($title_name),
-                        'url'   => $url . $child->getVar($id_name),
-                    ];
-                    ++$j;
+        if ($result) {
+            while (list($catid, $name) = $xoopsDb->fetchRow($result)) {
+                $xsitemap['parent'][$i] = [
+                    'id'    => $catid,
+                    'title' => \htmlspecialchars($name, \ENT_QUOTES | \ENT_HTML5),
+                    'url'   => $url . $catid,
+                ];
+                if (($pid_name !== $id_name) && $helper->getConfig('show_subcategories')) {
+                    $j           = 0;
+                    $mytree      = new \XoopsObjectTree($objsArray, $id_name, $pid_name);
+                    $child_array = $mytree->getAllChild($catid);
+                    /** @var \XoopsObject $child */
+                    foreach ($child_array as $child) {
+                        $xsitemap['parent'][$i]['child'][$j] = [
+                            'id'    => $child->getVar($id_name),
+                            'title' => $child->getVar($title_name),
+                            'url'   => $url . $child->getVar($id_name),
+                        ];
+                        ++$j;
+                    }
                 }
+                ++$i;
             }
-            ++$i;
         }
+
         return $xsitemap;
     }
 

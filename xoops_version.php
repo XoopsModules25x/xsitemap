@@ -25,8 +25,8 @@ require __DIR__ . '/preloads/autoloader.php';
 $moduleDirName = basename(__DIR__);
 $modversion    = [
     'version'             => 1.56,
-    'module_status'       => 'Beta 1',
-    'release_date'        => '2021/02/03',
+    'module_status'       => 'Final',
+    'release_date'        => '2021/08/06',
     'name'                => _MI_XSITEMAP_NAME,
     'description'         => _MI_XSITEMAP_DESC,
     'author'              => 'Urbanspaceman',
@@ -43,7 +43,7 @@ $modversion    = [
     'dirname'             => $moduleDirName,
     'modicons16'          => 'assets/images/icons/16',
     'modicons32'          => 'assets/images/icons/32',
-    'min_php'             => '7.2',
+    'min_php'             => '7.3',
     'min_xoops'           => '2.5.10',
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.5'],

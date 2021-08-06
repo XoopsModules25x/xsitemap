@@ -44,7 +44,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
  */
 function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
@@ -85,7 +85,7 @@ function xoops_module_install_xsitemap(\XoopsModule $module)
  */
 function xoops_module_pre_update_xsitemap(\XoopsModule $module)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $helper        = Helper::getInstance();
     $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
@@ -121,7 +121,7 @@ function xoops_module_update_xsitemap(\XoopsModule $module, $previousVersion = n
         }
         return $success;
     ======================================================================*/
-    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $helper       = Helper::getInstance();
