@@ -24,7 +24,7 @@ use XoopsModules\Xsitemap\{
 /** @var Helper $helper */
 /** @var Configurator $configurator */
 
-// require_once  dirname(__DIR__) . '/class/Utility.php';
+// require_once  \dirname(__DIR__) . '/class/Utility.php';
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);

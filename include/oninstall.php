@@ -44,7 +44,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
 function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
-    require_once dirname(__DIR__) . '/preloads/autoloader.php';
+    require_once \dirname(__DIR__) . '/preloads/autoloader.php';
     $utility      = new Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
